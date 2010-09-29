@@ -1,0 +1,9 @@
+let g:netrw_dirhistmax  =10
+let g:netrw_dirhist_cnt =7
+let g:netrw_dirhist_1='/home/kremso/.gem'
+let g:netrw_dirhist_2='/usr/lib/ruby'
+let g:netrw_dirhist_3='/home/kremso/fiit/papers/umap2010/epsilon'
+let g:netrw_dirhist_4='/home/kremso/fiit/papers/iitsrc2010'
+let g:netrw_dirhist_5='/home/kremso/projects/metal'
+let g:netrw_dirhist_6='/home/kremso/projects/oh-my-zsh'
+let g:netrw_dirhist_7='/home/kremso/projects/proxy/adaptive-proxy-maintenance/schema/db/migrate'
