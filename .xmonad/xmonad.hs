@@ -43,22 +43,22 @@ main = do
   --din <- spawnPipe "xmobar" --statusBarCmd
   din <- mapM (spawnPipe . xmobarCommand) [0 .. nScreens-1]
   sp <- mkSpawner
-  xmonad $ withUrgencyHook dzenUrgencyHook {args = ["-bg", "darkgreen", "-xs", "1"]} $ defaultConfig
+  xmonad $ defaultConfig
               { workspaces         = ["1:init", "2:web", "3:term", "4:chat", "5:db", "6:dev", "7:mail", "8:media", "9:office"]
               , terminal           = "urxvt"
               , modMask            = mod4Mask
               , manageHook         = myManageHook sp
               , keys               = \c -> myKeys sp `M.union`
                                           keys defaultConfig c
-              , logHook            = mapM_ dynamicLogWithPP $ zipWith pp din [0..nScreens]
+              , logHook            = myLogHook din nScreens
               , layoutHook         = myLayoutHook
               }
 -- }}}
 
 -- Log Hook {{{
---myLogHook h = do
---    dynamicLogWithPP (pp h)
---    fadeInactiveLogHook 0.9
+myLogHook din nScreens = do
+    mapM_ dynamicLogWithPP $ zipWith pp din [0..nScreens]
+    fadeInactiveLogHook 0.9
 -- }}}
 
 -- Layout Hook {{{
@@ -138,7 +138,8 @@ myKeys sp = M.fromList $
     ((mod4Mask, xK_o     ), swapNextScreen),
     ((mod4Mask .|. shiftMask, xK_l     ), nextScreen),
     ((mod4Mask .|. shiftMask, xK_h     ), prevScreen),
-    ((mod4Mask, xK_x     ), spawnHere sp "thunar")
+    ((mod4Mask, xK_x     ), spawnHere sp "thunar"),
+    ((shiftMask .|. controlMask, xK_l     ), spawn "xscreensaver-command -activate")
 
  
   ]
