@@ -1,0 +1,9 @@
+# Write your default config options here!
+
+fontconfig=true
+font = 'Verdana'
+subcp = 'windows-1250'
+
+softvol=1
+softvol-max=2000
+
