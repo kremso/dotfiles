@@ -17,7 +17,7 @@ source $ZSH/oh-my-zsh.sh
 # Customize to your needs...
 
 if [ -n "$DISPLAY" ]; then
-  BROWSER=chromium
+  export BROWSER=chromium
 fi
 
 if [[ -s /home/kremso/.rvm/scripts/rvm ]] ; then source /home/kremso/.rvm/scripts/rvm ; fi
