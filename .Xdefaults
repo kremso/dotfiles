@@ -33,7 +33,7 @@ urxvt*mapAlert:            true
 urxvt*utmpInhibit:        true
 urxvt*perl-lib:            /home/kremso/.urxvt/
 urxvt*perl-ext-common:        default,matcher,vim-scrollback
-urxvt*urlLauncher:        firefox
+urxvt*urlLauncher:        xdg-open
 urxvt*matcher.button:        1
 urxvt*matcher.pattern.1:   \\bwww\\.[\\w-]+\\.[\\w./?&@#-]*[\\w/-]
 urxvt*visualBell:        true
