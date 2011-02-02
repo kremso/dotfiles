@@ -79,7 +79,6 @@ myManageHook sp = manageSpawn sp
                       className =? "Shiretoko" --> doF (W.shift "2:web"),
                       className =? "Firefox" --> doF (W.shift "2:web"),
                       className =? "Navigator" --> doF (W.shift "2:web"),
-                      className =? "URxvt" --> doF (W.shift "3:term"),
                       className =? "Pidgin" --> doF (W.shift "4:chat"),
                       className =? "Eclipse" --> doF (W.shift "6:dev"),
                       className =? "eclipse" --> doF (W.shift "6:dev"),
