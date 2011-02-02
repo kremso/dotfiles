@@ -17,6 +17,7 @@ feh --bg-scale ~/wallpapers/rotate/cloud_storage.png
 xscreensaver &
 mpc
 export BROWSER=chromium
+export DE=gnome
 
 #exec ck-launch-session openbox-session
 exec ck-launch-session xmonad
