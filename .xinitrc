@@ -16,6 +16,7 @@ xcompmgr -c -r 3 -l -5 -t -5 &
 feh --bg-scale ~/wallpapers/rotate/cloud_storage.png
 xscreensaver &
 mpc
+export BROWSER=chromium
 
 #exec ck-launch-session openbox-session
 exec ck-launch-session xmonad

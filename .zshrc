@@ -16,10 +16,6 @@ source $ZSH/oh-my-zsh.sh
 
 # Customize to your needs...
 
-if [ -n "$DISPLAY" ]; then
-  export BROWSER=chromium
-fi
-
 if [[ -s /home/kremso/.rvm/scripts/rvm ]] ; then source /home/kremso/.rvm/scripts/rvm ; fi
 
 source /home/kremso/projects/colfm/colfm.zsh
