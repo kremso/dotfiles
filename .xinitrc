@@ -14,7 +14,7 @@ syndaemon -t -i 2 &
 trayer --edge top --align right --SetDockType true --SetPartialStrut true --expand true --widthtype request --transparent true --tint 0x000000 --height 1 &
 xcompmgr -c -r 3 -l -5 -t -5 &
 feh --bg-scale ~/wallpapers/rotate/cloud_storage.png
-xscreensaver &
+xscreensaver -nosplash &
 mpc
 export BROWSER=chromium
 export DE=gnome
