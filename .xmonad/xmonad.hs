@@ -82,7 +82,8 @@ myManageHook sp = manageSpawn sp
                       className =? "Pidgin" --> doF (W.shift "4:chat"),
                       className =? "Eclipse" --> doF (W.shift "6:dev"),
                       className =? "eclipse" --> doF (W.shift "6:dev"),
-                      className =? "Shredder" --> doF (W.shift "7:mail")
+                      className =? "Shredder" --> doF (W.shift "7:mail"),
+                      title     =? "File Operation Progress" --> doFloat
                 ]
                 <+> manageDocks
 -- }}}
