@@ -384,6 +384,8 @@ call pathogen#runtime_append_all_bundles()
       au FocusLost * :wall
       autocmd BufReadCmd *.jar call zip#Browse(expand("<amatch>"))
       autocmd BufReadPre *.pdf setlocal binary
+      autocmd InsertEnter * setlocal spell
+      autocmd InsertLeave * setlocal nospell
     augroup END
 
     augroup FTCheck
