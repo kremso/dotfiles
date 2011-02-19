@@ -407,12 +407,19 @@ call pathogen#runtime_append_all_bundles()
        nnoremap <silent> <F11> :YRShow<CR>
        inoremap <silent> <F11> <esc>:YRShow<CR>
     " }}}
+
     " Rubycomplete {{{
         let g:rubycomplete_rails=1
         let g:rubycomplete_classes_in_global=1
         let g:rubycomplete_buffer_loading=1
         let g:rubycomplete_include_object=1
         let g:rubycomplete_include_objectspace=1
+    " }}}
+
+    " Taglist {{{
+        let Tlist_Process_File_Always=1
+        let Tlist_Use_Right_Window=1
+        let Tlist_Show_One_File=1
     " }}}
 " }}}
 
