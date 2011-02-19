@@ -15,7 +15,6 @@ trayer --edge top --align right --SetDockType true --SetPartialStrut true --expa
 xcompmgr -c -r 3 -l -5 -t -5 &
 feh --bg-scale ~/wallpapers/rotate/cloud_storage.png
 xscreensaver -nosplash &
-mpc
 export BROWSER=chromium
 export DE=gnome
 
