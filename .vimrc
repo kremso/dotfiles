@@ -245,59 +245,6 @@ call pathogen#runtime_append_all_bundles()
     set complete=.,w,b,t
 " }}}
 
-" Delimiters made less annoying {{{
-    function! IsEmptyPair(str) " {{{
-        for pair in split( &matchpairs, ',' ) + [ "''", '""', '``' ]
-            if a:str == join( split( pair, ':' ),'' )
-                return 1
-            endif
-        endfor
-        return 0
-    endfunc " }}}
-
-    function! WithinEmptyPair() " {{{
-        let cur = strpart( getline('.'), col('.')-2, 2 )
-        return IsEmptyPair( cur )
-    endfunc " }}}
-
-    function! SkipDelim(char) " {{{
-        let cur = strpart( getline('.'), col('.')-2, 3 )
-        if cur[0] == "\\"
-            return a:char
-        elseif cur[1] == a:char
-            return "\<Right>"
-        elseif cur[1] == ' ' && cur[2] == a:char
-            return "\<Right>\<Right>"
-        elseif IsEmptyPair( cur[0] . a:char )
-            return a:char . "\<Left>"
-        else
-            return a:char
-        endif
-    endfunc " }}}
-
-    inoremap <expr> ) SkipDelim(')')
-    inoremap <expr> ] SkipDelim(']')
-    inoremap <expr> } SkipDelim('}')
-    inoremap <expr> ' SkipDelim("'")
-    inoremap <expr> " SkipDelim('"')
-    inoremap <expr> ` SkipDelim('`')
-    "inoremap <expr> | SkipDelim('|')
-    inoremap <expr> <BS>    WithinEmptyPair() ? "\<Right>\<BS>\<BS>"      : "\<BS>"
-    inoremap <expr> <CR>    WithinEmptyPair() ? "\<CR>\<CR>\<Up>"         : "\<CR>"
-    inoremap <expr> <Space> WithinEmptyPair() ? "\<Space>\<Space>\<Left>" : "\<Space>"
-
-    vmap q( s()<C-R>"<Esc>
-    vmap q) s()<C-R>"<Esc>
-    vmap q[ s[]<C-R>"<Esc>
-    vmap q] s[]<C-R>"<Esc>
-    vmap q{ s{}<C-R>"<Esc>
-    vmap q} s{}<C-R>"<Esc>
-    vmap q' s''<C-R>"<Esc>
-    vmap q" s""<C-R>"<Esc>
-    vmap q` s``<C-R>"<Esc>
-    "vmap q| s||<C-R>"<Esc>
-" }}}
-
 " Mappings {{{
     let mapleader = ","
 

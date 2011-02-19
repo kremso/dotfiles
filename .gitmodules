@@ -58,3 +58,6 @@
 [submodule ".lenovo-acpi"]
 	path = .lenovo-acpi
 	url = git@github.com:kremso/lenovo-acpi.git
+[submodule ".vim/bundle/delimitMate"]
+	path = .vim/bundle/delimitMate
+	url = https://github.com/Raimondi/delimitMate.git
