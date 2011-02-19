@@ -215,7 +215,7 @@ call pathogen#runtime_append_all_bundles()
     set wrap "wrap text
     set textwidth=79 " to 79 characters
     "set colorcolumn=85 " and warn me if my line gets over 85 characters
-    set formatoptions=qrnl " Automatically insert comment leader on return, and let gq format comments
+    set formatoptions=aqrnc " see :help fo-table
     set infercase " case inferred by default
     set shiftround " round the indent to shiftwidth (when at 3 spaces, and I hit > go to 4, not 5)
     set shiftwidth=2 " auto-indent amount when using >> <<
@@ -407,6 +407,7 @@ call pathogen#runtime_append_all_bundles()
       autocmd FileType php,aspperl,aspvbs,vb  setlocal ai et sta sw=4 sts=4
       autocmd FileType apache,sql,vbnet       setlocal ai et sta sw=4 sts=4
       autocmd FileType tex,css                setlocal ai et sta sw=2 sts=2
+      autocmd FileType tex                    setlocal fo+=t " autowrap text
       autocmd FileType html,xhtml,wml,cf      setlocal ai et sta sw=2 sts=2
       autocmd FileType xml,xsd,xslt           setlocal ai et sta sw=2 sts=2 ts=2
       autocmd FileType eruby,yaml,ruby        setlocal ai et sta sw=2 sts=2
