@@ -15,7 +15,3 @@ plugins=(git rails ruby vi-mode gem cap)
 source $ZSH/oh-my-zsh.sh
 
 # Customize to your needs...
-
-if [[ -s /home/kremso/.rvm/scripts/rvm ]] ; then source /home/kremso/.rvm/scripts/rvm ; fi
-
-source /home/kremso/projects/colfm/colfm.zsh
