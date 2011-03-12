@@ -1,6 +1,0 @@
-ssh -t -t peweproxy.fiit.stuba.sk -L 2525:dcs.fiit.stuba.sk:25 &
-TUNNEL_PID=$!
-echo "Startujem tunel $TUNNEL_PID"
-thunderbird-launcher
-kill -9 $!
-
