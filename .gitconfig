@@ -1,5 +1,27 @@
 [user]
-	name = Tomas Kramar
-	email = kramar.tomas@gmail.com
+  name = Tomas Kramar
+  email = kramar.tomas@gmail.com
 [color]
-	diff = auto
+  diff = auto
+  ui = auto
+[merge]
+  tool = meld
+  log = true
+[mergetool]
+  prompt = false
+[color "branch"]
+  current = bold cyan reverse
+  local =user cyan
+  remote = yellow
+[color "diff"]
+  meta = yellow
+  frag = cyan
+  old = red bold
+  new = green bold
+  whitespace = red bold reverse
+[color "status"]
+  added = green bold
+  changed = yellow
+  untracked = red
+  nobranch = red bold reverse
+
