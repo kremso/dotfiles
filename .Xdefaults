@@ -7,7 +7,8 @@ Xft.hinting: true
 Xft.hintstyle: hintfull
 Xft.antialias: 1
 
-
+urxvt.termName: rxvt-256color
+urxvt.title: Terminal
 urxvt.font: xft:DejaVu Sans Mono:pixelsize=12:antialias=true
 urxvt.boldFont: xft:DejaVu Sans Mono:pixelsize=12
 urxvt*geometry:    80x25
