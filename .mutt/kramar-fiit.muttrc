@@ -1,0 +1,10 @@
+set from      = "kramar@fiit.stuba.sk"
+set sendmail  = "/usr/bin/msmtp -a fiit"
+set mbox      = "+fiit/Archives"
+set record    = "+fiit/Sent"
+set postponed = "+fiit/Drafts"
+
+#macro index E "<change-folder>+steve-stevelosh.com/archive<enter><limit>~B "
+#"search everything" 
+
+macro index,pager A "<save-message>+fiit/Archives<enter>"
