@@ -11,7 +11,7 @@
   prompt = false
 [color "branch"]
   current = bold cyan reverse
-  local =user cyan
+  local = cyan
   remote = yellow
 [color "diff"]
   meta = yellow
