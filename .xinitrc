@@ -5,7 +5,12 @@
 #
 # Executed by startx (run your window manager from here)
 #
+# set env variables
+export BROWSER=firefox
+export DE=gnome
 
+# start default apps
+urxvtd -q -o -f
 xhost +local:0 > /dev/null &
 xsetroot -cursor_name left_ptr &
 xmodmap ~/.xmodmap &
@@ -15,18 +20,5 @@ trayer --edge top --align right --SetDockType true --SetPartialStrut true --expa
 xcompmgr -c -r 3 -l -5 -t -5 &
 feh --bg-scale ~/wallpapers/rotate/cloud_storage.png
 xscreensaver -nosplash &
-export BROWSER=chromium
-export DE=gnome
 
-#exec ck-launch-session openbox-session
 exec ck-launch-session xmonad
-# exec gnome-session
-# exec startkde
-# exec startxfce4
-# exec icewm
-# exec openbox
-# exec blackbox
-# exec fluxbox
-# exec ratpoison
-# exec dwm
-# ... or any other WM of your choosing ...

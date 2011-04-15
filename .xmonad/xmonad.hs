@@ -45,7 +45,7 @@ main = do
   sp <- mkSpawner
   xmonad $ defaultConfig
               { workspaces         = ["1:init", "2:web", "3:term", "4:chat", "5:db", "6:dev", "7:mail", "8:media", "9:office"]
-              , terminal           = "urxvt"
+              , terminal           = "urxvtc"
               , modMask            = mod4Mask
               , manageHook         = myManageHook sp
               , keys               = \c -> myKeys sp `M.union`
