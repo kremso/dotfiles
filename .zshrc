@@ -1,8 +1,5 @@
 # Author: Kim Silkebækken <kim.silkebaekken+github@gmail.com>
 # Source: https://github.com/Lokaltog/sync
-# Show dopefish {{{
-	#cat ~/sync/etc/dopefish
-# }}}
 # Environment variables {{{
 	# Command history {{{
 		export HISTFILE=~/.zshhist
@@ -15,18 +12,18 @@
 	# }}}
 	# Locale {{{
 		export LANG="en_US.utf8"
-		export LC_CTYPE="nb_NO.utf8"
-		export LC_NUMERIC="nb_NO.utf8"
-		export LC_TIME="nb_NO.utf8"
-		export LC_COLLATE="nb_NO.utf8"
-		export LC_MONETARY="nb_NO.utf8"
+		export LC_CTYPE="sk_SK.utf8"
+		export LC_NUMERIC="sk_SK.utf8"
+		export LC_TIME="sk_SK.utf8"
+		export LC_COLLATE="sk_SK.utf8"
+		export LC_MONETARY="sk_SK.utf8"
 		export LC_MESSAGES="en_US.utf8"
-		export LC_PAPER="nb_NO.utf8"
-		export LC_NAME="nb_NO.utf8"
-		export LC_ADDRESS="nb_NO.utf8"
-		export LC_TELEPHONE="nb_NO.utf8"
-		export LC_MEASUREMENT="nb_NO.utf8"
-		export LC_IDENTIFICATION="nb_NO.utf8"
+		export LC_PAPER="sk_SK.utf8"
+		export LC_NAME="sk_SK.utf8"
+		export LC_ADDRESS="sk_SK.utf8"
+		export LC_TELEPHONE="sk_SK.utf8"
+		export LC_MEASUREMENT="sk_SK.utf8"
+		export LC_IDENTIFICATION="sk_SK.utf8"
 		export LC_ALL=""
 	# }}}
 	# Build settings {{{
@@ -49,19 +46,9 @@
 			-\""
 		export EDITOR="vim"
 		export VISUAL="vim"
-		export BROWSER="chromium"
-		export WINEARCH="win32"
+		export BROWSER="firefox"
+        export DE="gnome"
 	# }}}
-	# Path {{{
-		# Add sync/bin to path
-		export PATH="$HOME/sync/bin:$PATH"
-	# }}}
-	# Proxy {{{
-		export http_proxy="http://127.0.0.1:8000/"
-	# }}}
-# }}}
-# Load plugins {{{
-	#source ~/.zsh/git-flow-completion.zsh
 # }}}
 # Zsh options {{{
 	typeset -g -A key
@@ -106,13 +93,17 @@
 	bindkey '^[[C' forward-char # Right
 	bindkey "^[OH" beginning-of-line
 	bindkey "^[OF" end-of-line
+    bindkey "^r" history-incremental-search-backward
+    bindkey "^A" beginning-of-line
+    bindkey "^E" end-of-line
+    bindkey "^K" vi-change-eol
 # }}}
 # Aliases {{{
 	# General aliases {{{
 		alias sudo="sudo -E"
+        alias _="sudo"
 		alias -- +="sudo"
 		alias sv="+ vim"
-		alias regiontog="ssh -t regiontog 'screen -UODRa -p 0'"
 		alias ls="ls --color=auto"
 		alias lsa="ls -AahXBFov --color=auto --indicator-style=file-type --group-directories-first"
 		alias ss="+ -s"
@@ -120,8 +111,6 @@
 		alias sd="+ shutdown -h now"
 		alias rb="+ reboot"
 		alias p="+ pacman"
-		alias pr="packer --noedit"
-		alias sshfs="sshfs -o reconnect,nosuid,nodev,allow_other,uid=1000,gid=100"
 		alias sy="p -Syu"
 		alias df="df -h"
 		alias du="du -h"
@@ -137,27 +126,18 @@
 			alias $cmd="+ $cmd"
 		done
 	# }}}
-	# Multitail aliases {{{
-		alias tsys="+ multitail \
-			-n 200 -t Daemons /var/log/daemon.log \
-			-n 200 -t Kernel /var/log/kernel.log \
-			-n 200 -t Errors -wh 10 /var/log/errors.log"
-
-		alias tserv="+ multitail \
-			-n 200 -t \"NginX Access\" /var/log/nginx/access.log \
-			-n 200 -t \"NginX Error\" /var/log/nginx/error.log \
-			-n 200 -t \"Postgres\" -wh 10 /var/log/postgresql.log"
-
-		alias tsquid="+ multitail \
-			-n 200 -t \"Squid Access\" /var/log/squid/access.log \
-			-n 200 -t \"Squid Cache\" -wh 20 /var/log/squid/cache.log"
-	# }}}
 	# Suffix aliases {{{
 		alias -s html=$BROWSER
 		alias -s {php,tpl,txt,PKGBUILD}=$EDITOR
 		alias -s {jpg,JPG,jpeg,JPEG,png,PNG,gif,GIF}="feh -FZd"
 		alias -s {mpg,mpeg,avi,ogm,wmv,m4v,mp4,mov}="mplayer -idx"
 	# }}}
+    # Git aliases {{{
+        alias g="git"
+        alias gst="g status"
+        alias gc="g commit"
+        alias gp="g push"
+    # }}}
 # }}}
 # Completion {{{
 	autoload -Uz compinit && compinit
@@ -173,7 +153,7 @@
 		zstyle ':completion:*' ignore-parents parent pwd .. directory
 		zstyle ':completion:*' insert-unambiguous true
 		zstyle ':completion:*' matcher-list ''
-		zstyle ':completion:*' menu select=long
+		zstyle ':completion:*' menu select
 		zstyle ':completion:*' select-prompt '%SScrolling active: current selection at %p%s'
 		zstyle ':completion:*' list-colors ${(s.:.)LS_COLORS}
 		zstyle ':completion:*' squeeze-slashes true
@@ -239,9 +219,9 @@
 				fi
 			# }}}
 			PROMPT=$SSHPROMPT'%{[(48;5;${C_USER[BG]});(38;5;${C_USER[FG]})m%} %n '
-			PROMPT=$PROMPT'%{[(48;5;${C_DIR[BG]});(38;5;${C_USER[BG]})m%}ǡ '
+			PROMPT=$PROMPT'%{[(48;5;${C_DIR[BG]});(38;5;${C_USER[BG]})m%}➜ '
 			PROMPT=$PROMPT'%{[(48;5;${C_DIR[BG]});(38;5;${C_DIR[FG]})m%}%3~ '
-			PROMPT=$PROMPT'${CLEAR}%{[38;5;${C_DIR[BG]}m%}ǡ${CLEAR} '
+			PROMPT=$PROMPT'${CLEAR}%{[38;5;${C_DIR[BG]}m%}${CLEAR} '
 		# }}}
 		# Right prompt {{{
 			# VCS colors {{{
