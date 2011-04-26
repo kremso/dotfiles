@@ -5,3 +5,5 @@
 .xmonad/xmonad.o
 .xmonad/history
 .vim/tmp
+.vim/.netrwhist
+.mutt/temp/
