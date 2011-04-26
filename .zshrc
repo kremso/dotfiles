@@ -56,7 +56,6 @@
 
     setopt auto_cd # Change dir without cd
     setopt extended_glob # Regex globbing
-    setopt print_exit_value # Print exit value of programs with non-zero exit status
     setopt notify # Report the status if background jobs immediately
     setopt complete_in_word # Not just at the end
     setopt always_to_end # When complete from middle, move cursor
@@ -73,7 +72,6 @@
     setopt inc_append_history # Append commands to history immediately
     setopt prompt_subst # Enable variable substitution in prompt
     setopt correct # Command correction
-    setopt dvorak # Correkt dvorak typing mistakes
     setopt short_loops # Allow short loops
 # }}}
 # Keybindings {{{
