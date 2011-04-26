@@ -7,3 +7,4 @@ subcp = 'windows-1250'
 softvol=1
 softvol-max=2000
 
+heartbeat-cmd="xscreensaver-command -deactivate >&- 2>&- &"
