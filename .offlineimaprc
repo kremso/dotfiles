@@ -1,6 +1,8 @@
 [general]
 accounts = fiit
 
+pythonfile = ~/.offlineimap.py
+
 [Account fiit]
 localrepository = Local
 remoterepository = Remote
@@ -17,8 +19,8 @@ localfolders = ~/.mail/fiit
 [Repository Remote]
 type = IMAP
 remotehost = dcs.fiit.stuba.sk
-remoteuser = kramar
-remotepass = ...
+remoteusereval = get_username("dcs.fiit.stuba.sk")
+remotepasseval = get_password("dcs.fiit.stuba.sk")
 
 [mbnames]
 enabled = yes
