@@ -76,6 +76,7 @@ myManageHook sp = manageSpawn sp
                 <+> composeAll [
                       className =? "MPlayer" --> doFloat,
                       className =? "Volwheel" --> doFloat,
+                      className =? "Eclipse" --> doFloat,
                       className =? "Shiretoko" --> doF (W.shift "2:web"),
                       className =? "Firefox" --> doF (W.shift "2:web"),
                       className =? "Navigator" --> doF (W.shift "2:web"),
