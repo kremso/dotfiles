@@ -133,7 +133,7 @@
     # Git aliases {{{
         alias g="git"
         alias gst="g status"
-        alias gc="g commit"
+        alias gc="g commit -v"
         alias gp="g push"
     # }}}
 # }}}
