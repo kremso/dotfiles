@@ -79,7 +79,7 @@ hdr_order from: to: cc: date: subject:                          # and in this or
 source ~/.mutt/mailboxes
 
 # always sourced
-#source $alias_file                                             # required for functionality
+source $alias_file                                             # required for functionality
 source ~/.mutt/colors.muttrc                                    # source colors file
 source ~/.mutt/kramar-fiit.muttrc                       # source fiit as default
 source ~/.mutt/sidebar.muttrc                                   # any muttng options are here
