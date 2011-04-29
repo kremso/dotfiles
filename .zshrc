@@ -229,10 +229,10 @@
                 C_VCS[BG]=53
                 C_VCS[FG_VCS]=162
                 C_VCS[FG_BRANCH]=219
-                
-                VCSPROMPT='%{[38;5;'${C_VCS[BG]}'m%}Ǡ'
+
+                VCSPROMPT='%{[38;5;'${C_VCS[BG]}'m%}'
                 VCSPROMPT=$VCSPROMPT'%{[(48;5;'${C_VCS[BG]}');(38;5;'${C_VCS[FG_VCS]}')m%} %s'
-                VCSPROMPT=$VCSPROMPT'%{[38;5;'${C_VCS[FG_BRANCH]}'m%} Đ %b '${CLEAR}
+                VCSPROMPT=$VCSPROMPT'%{[38;5;'${C_VCS[FG_BRANCH]}'m%} %b '${CLEAR}
             # }}}
             # VCS info {{{
                 autoload -Uz vcs_info
