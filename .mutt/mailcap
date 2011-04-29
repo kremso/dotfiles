@@ -27,7 +27,7 @@ application/pdf; ~/.mutt/view_attachment.sh %s pdf
 application/zip; ~/.mutt/view_attachment.sh %s
 
 # HTML
-text/html; links %s
+text/html; w3m -dump %s; nametemplate=%s.html; copiousoutput
 
 # Unidentified.
 application/octet-stream; ~/.mutt/view_attachment.sh %s "-" 
