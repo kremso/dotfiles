@@ -268,6 +268,10 @@ call pathogen#runtime_append_all_bundles()
         let Tlist_Use_Right_Window=1
         let Tlist_Show_One_File=1
     " }}}
+
+    " YankRing {{{
+      let g:yankring_history_dir = '~/.vim'
+    " }}}
 " }}}
 
 " Language specific {{{

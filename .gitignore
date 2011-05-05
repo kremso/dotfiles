@@ -6,6 +6,7 @@
 .xmonad/history
 .vim/tmp
 .vim/.netrwhist
+.vim/yankring_history_v2.txt
 .mutt/temp/
 .mutt/alias
 .mutt/cache
