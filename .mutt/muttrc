@@ -12,7 +12,7 @@ set editor              = "vim +/^$ +:noh"                      # use vim and sk
 # main options
 set mbox_type           = Maildir                               # mailbox type
 set folder              = ~/.mail                               # mailbox location
-set spoolfile           = "+fiit/INBOX"                         # default inbox
+set spoolfile           = "=INBOX"                         # default inbox
 set timeout             = 3                                     # idle time before scanning
 set mail_check          = 0                                     # minimum time between scans
 set sort_alias          = alias                                 # sort alias file by alias
@@ -75,8 +75,8 @@ unignore from: to: cc: date: subject:                           # show only thes
 hdr_order from: to: cc: date: subject:                          # and in this order
 
 # boxes
-#mailboxes +fiit/INBOX +fiit/Archives +fiit/Sent +fiit/Drafts
-source ~/.mutt/mailboxes
+mailboxes =INBOX =Drafts =Sent =Archives
+#source ~/.mutt/mailboxes
 
 # always sourced
 source $alias_file                                             # required for functionality
