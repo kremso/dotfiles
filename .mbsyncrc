@@ -1,0 +1,23 @@
+# Global configuration section
+#   Values here are used as defaults for any following Channel section that
+#   doesn't specify them.
+Expunge None
+Create Both
+
+MaildirStore local
+Path ~/.mail/
+Inbox ~/.mail/INBOX
+Trash Trash
+
+IMAPStore fiit
+Host dcs.fiit.stuba.sk
+Pass ...
+User kramar
+UseIMAPS yes
+
+Channel fiit
+Master :fiit:
+Slave :local:fiit
+Patterns *
+Expunge Slave
+Sync Pull Push
