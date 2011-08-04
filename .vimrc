@@ -38,7 +38,6 @@ call pathogen#helptags()
     colorscheme molokai
     set incsearch " incremental search aka search as you type
     set hlsearch " highlight search matches
-    nnoremap <leader><space> :noh<cr> " this key combination gets rid of the search highlights
     set ignorecase " ignore case
     set smartcase " but when the query starts with upper character be case sensitive
 
@@ -99,6 +98,8 @@ call pathogen#helptags()
     let mapleader = ","
 
     nnoremap <space> za " open/close folds with space
+
+    nmap <leader><space> :noh<cr> " this key combination gets rid of the search highlights
 
     " I hit F1 too often when reaching for esc
     inoremap <F1> <ESC>
