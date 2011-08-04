@@ -13,6 +13,14 @@ map i gi
 nmap a <Nop>
 nmap w <Nop>
 
+" Fix the common shortcuts
+inoremap <c-v> <c-v><c-v>
+inoremap <c-c> <c-v><c-c>
+noremap <c-c> <c-v><c-c>
+inoremap <c-x> <c-v><c-x>
+noremap <c-a> <c-v><c-a>
+inoremap <c-a> <c-v><c-a>
+
 " Instapaper
 command! rl :open javascript:function%20iprl5(){var%20d=document,z=d.createElement('scr'+'ipt'),b=d.body,l=d.location;try{if(!b)throw(0);d.title='(Saving...)%20'+d.title;z.setAttribute('src',l.protocol+'//www.instapaper.com/j/zK2BUMgnOOTW?u='+encodeURIComponent(l.href)+'&t='+(new%20Date().getTime()));b.appendChild(z);}catch(e){alert('Please%20wait%20until%20the%20page%20has%20loaded.');}}iprl5();void(0)
 
