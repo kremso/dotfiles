@@ -5,10 +5,10 @@
   diff = auto
   ui = auto
 [merge]
-  tool = meld
-  log = true
-[mergetool]
-  prompt = false
+  tool = threesome
+[mergetool "threesome"]
+  cmd = "vim -f $BASE $LOCAL $REMOTE $MERGED -c 'ThreesomeInit'"
+  trustExitCode = true
 [color "branch"]
   current = bold cyan reverse
   local = cyan
@@ -24,4 +24,5 @@
   changed = yellow
   untracked = red
   nobranch = red bold reverse
-
+[core]
+  excludesfile = ~/.cvsignore
