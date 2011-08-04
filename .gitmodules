@@ -67,3 +67,9 @@
 [submodule ".vim/bundle/vim-textobj-rubyblock"]
 	path = .vim/bundle/vim-textobj-rubyblock
 	url = https://github.com/nelstrom/vim-textobj-rubyblock.git
+[submodule ".vim/bundle/html5.vim"]
+	path = .vim/bundle/html5.vim
+	url = https://github.com/othree/html5.vim.git
+[submodule ".vim/bundle/threesome.vim"]
+	path = .vim/bundle/threesome.vim
+	url = https://github.com/sjl/threesome.vim.git
