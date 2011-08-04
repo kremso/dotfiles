@@ -49,7 +49,7 @@ call pathogen#helptags()
     set listchars=tab:▸\ ,trail:¬
     set nostartofline " move the cursor to first non-blank character after some commands (:25 e.g.)
     set novisualbell " don't blink
-    set number " turn on line numbers
+    set relativenumber " turn on line numbers
     set report=0 " tell us when anything is changed
     set ruler " Always show current positions along the bottom
     set shortmess=atToOI " shortens messages to avoid 'press a key' prompt
