@@ -136,6 +136,9 @@
         alias gc="g commit -v"
         alias gp="g push"
     # }}}
+    # Utilities {{{
+        alias goawayswapfilesyouareswapfilesidontevenneedyou='rm ~/.vim/tmp/swap/*'
+    # }}}
 # }}}
 # Completion {{{
     autoload -Uz compinit && compinit
