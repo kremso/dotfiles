@@ -20,7 +20,6 @@ trayer --edge top --align right --SetDockType true --SetPartialStrut true --expa
 xcompmgr -c -r 3 -l -5 -t -5 &
 #feh --bg-scale ~/wallpapers/rotate/cloud_storage.png
 xscreensaver -nosplash &
-offlineimap &
 autossh -M 2526 -t -t peweproxy.fiit.stuba.sk -L 2525:dcs.fiit.stuba.sk:25 &
 
 # D-Bus
@@ -30,4 +29,5 @@ fi
 
 thunar --daemon &
 
-exec ck-launch-session xmonad
+#exec ck-launch-session xmonad
+exec xmonad
