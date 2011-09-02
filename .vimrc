@@ -146,6 +146,9 @@ call pathogen#helptags()
     " sudo save
     cmap w!! w !sudo tee % >/dev/null
 
+    noremap <c-u> <c-u>zz
+    noremap <c-d> <c-d>zz
+
     " Cucumber table aligning {{{
     inoremap <silent> <Bar>   <Bar><Esc>:call <SID>align()<CR>a
 
