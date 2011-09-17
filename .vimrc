@@ -283,6 +283,11 @@ call pathogen#helptags()
       autocmd FileType cucumber               setlocal ai et sta sw=2 sts=2 ts=2
       autocmd FileType cucumber silent! compiler cucumber | imap <buffer><expr> <Tab> pumvisible() ? "\<C-N>" : (CucumberComplete(1,'') >= 0 ? "\<C-X>\<C-O>" : (getline('.') =~ '\S' ? ' ' : "\<C-I>"))
     augroup END
+
+    " Cucumber navigation commands
+    autocmd User Rails Rnavcommand step features/step_definitions -glob=**/* -suffix=_steps.rb
+    " :Cuc my text (no quotes) -> runs cucumber scenarios containing "my text"
+    command! -nargs=+ Cuc :!ack --no-heading --no-break <q-args> | cut -d':' -f1,2 | xargs bundle exec cucumber --no-color
   " }}}
   " Plain text {{{
     augroup FTText
