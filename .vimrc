@@ -70,6 +70,8 @@ call pathogen#helptags()
     set shiftwidth=2 " auto-indent amount when using >> <<
     set softtabstop=2 " when hitting tab or backspace, how many spaces should a tab be (see expandtab)
     set tabstop=4 " real tabs should be 4, and they will show with set list on
+    set autoindent
+    match ErrorMsg '^\(<\|=\|>\)\{7\}\([^=].\+\)\?$' " Highlight VCS conflict markers"
 " }}}
 
 " Folding {{{
@@ -78,25 +80,37 @@ call pathogen#helptags()
     " set foldlevel=100 " Don't autofold anything (but I can still fold manually)
     set foldopen=block,hor,mark,percent,quickfix,tag " what movements open folds
 
-    function! SimpleFoldText() " {{{
-        return getline(v:foldstart).' '
+    function! MyFoldText() " {{{
+      let line = getline(v:foldstart)
+
+      let nucolwidth = &fdc + &number * &numberwidth
+      let windowwidth = winwidth(0) - nucolwidth - 3
+      let foldedlinecount = v:foldend - v:foldstart
+
+      " expand tabs into spaces
+      let onetab = strpart('          ', 0, &tabstop)
+      let line = substitute(line, '\t', onetab, 'g')
+
+      let line = strpart(line, 0, windowwidth - 2 -len(foldedlinecount))
+      let fillcharcount = windowwidth - len(line) - len(foldedlinecount) - 6
+      return line . '  …' . repeat(" ",fillcharcount) . foldedlinecount . '…' . ' '
     endfunction " }}}
 
-    set foldtext=SimpleFoldText() " Custom fold text function (cleaner than default)
+    set foldtext=MyFoldText()
 " }}}
 
 " Completions {{{
-    set completeopt=longest,menu
+    set completeopt=longest,menu,preview
+    "                   |      |    |
+    "                   |      |    +-- show extra information
     "                   |      |
-    "                   |      +-- Do not display 1 line menu
+    "                   |      +-- do not display 1 line menu
     "                   +-- display completion popup menu
 
     set complete=.,w,b,t
 " }}}
 
 " Mappings {{{
-    let mapleader = ","
-
     nnoremap <space> za " open/close folds with space
 
     nmap <leader><space> :noh<cr> " this key combination gets rid of the search highlights
@@ -163,23 +177,122 @@ call pathogen#helptags()
       endif
     endfunction
     " }}}
+
+    map <tab> % " move between pair characters by using tab
+
+    " Keep search matches in the middle of the window.
+    nnoremap n nzzz
+    nnoremap N Nzzz
+
+    " Same when jumping around
+    nnoremap g; g;zz
+    nnoremap g, g,zz
+
+    " Don't move on *
+    nnoremap * *<c-o>
+
+    " Easier to type, and I never use the default behavior.
+    noremap H ^
+    noremap L $
+
+    " Goodbye manual key
+    nnoremap K <nop>
+
 " }}}
 
 " Leader Mappings {{{
+  let mapleader = ","
+
   " strip all trailing whitespace in the current file
   nnoremap <leader>W :%s/\s\+$//<cr>:let @/=''<CR>
 
   " start ack search
-  nnoremap <leader>a :Ack
+  nnoremap <leader>a :Ack 
 
   " edit .vimrc
   nnoremap <leader>ev <C-w><C-v><C-l>:e $MYVIMRC<cr>
 
   " open vertical split and switch to it
   nnoremap <leader>w <C-w>v<C-w>l
+
+  " reformat whole file
+  nnoremap <leader>f ggVG=
 " }}}
 
-" Autocommands {{{
+" Language specific / filetype autocommands {{{
+  " CSS, SCSS {{{
+    augroup FTCss
+      au!
+      autocmd FileType css,scss  silent! setlocal omnifunc=csscomplete#CompleteCSS
+      autocmd FileType css,scss  setlocal iskeyword+=-
+      autocmd FileType css,scss   setlocal ai et sta sw=2 sts=2
+      " Use <leader>S to sort properties.
+      au BufNewFile,BufRead *.scss,*.css nnoremap <buffer> <leader>S ?{<CR>jV/\v^\s*\}?$<CR>k:sort<CR>:noh<CR>
+      " Make {<cr> insert a pair of brackets in such a way that the cursor is
+      " correctly positioned inside of them AND the following code doesn't get unfolded.
+      au BufNewFile,BufRead *.scss,*.css inoremap <buffer> {<cr> {}<left><cr>.<cr><esc>k==A<bs>
+
+    augroup END
+  " }}}
+  " HTML, XML {{{
+    augroup FTHtml
+      au!
+      autocmd FileType html,xhtml,wml,cf      setlocal ai et sta sw=2 sts=2
+      autocmd FileType xml,xsd,xslt           setlocal ai et sta sw=2 sts=2 ts=2
+      autocmd FileType html setlocal iskeyword+=~
+      autocmd FileType xml exe ":silent 1,$!xmllint --format --recover - 2>/dev/null"
+    augroup END
+  " }}}
+  " JavaScript {{{
+    augroup FTJavascript
+      au!
+      autocmd FileType javascript setlocal ai et sta sw=2 sts=2 ts=2 cin isk+=$
+
+      " https://gist.github.com/725689
+      au BufNewFile,BufRead *.js set makeprg=gjslint\ %
+      au BufNewFile,BufRead *.js set errorformat=%-P-----\ FILE\ \ :\ \ %f\ -----,Line\ %l\\,\ E:%n:\ %m,%-Q,%-GFound\ %s,%-GSome\ %s,%-Gfixjsstyle%s,%-Gscript\ can\ %s,%-G
+    augroup END
+  " }}}
+  " TEX {{{
+    augroup FTTex
+      au!
+      autocmd FileType tex                    setlocal fo+=t " autowrap text
+      autocmd FileType tex  silent! compiler tex | setlocal makeprg=latex\ -interaction=nonstopmode\ % formatoptions+=l
+      autocmd FileType context set spell spelllang=en_US
+    augroup END
+  " }}}
+  " Ruby {{{
+    augroup FTRuby
+      au!
+      autocmd FileType ruby silent! compiler ruby | setlocal tw=79 isfname+=: makeprg=rake comments=:#\  | let &includeexpr = 'tolower(substitute(substitute('.&includeexpr.',"\\(\\u\\+\\)\\(\\u\\l\\)","\\1_\\2","g"),"\\(\\l\\|\\d\\)\\(\\u\\)","\\1_\\2","g"))'
+      autocmd FileType eruby,yaml,ruby        setlocal ai et sta sw=2 sts=2
+      autocmd FileType ruby,eruby set omnifunc=rubycomplete#Complete
+    augroup END
+  " }}}
+  " Cucumber {{{
+    augroup FTCucumber
+      au!
+      autocmd FileType cucumber               setlocal ai et sta sw=2 sts=2 ts=2
+      autocmd FileType cucumber silent! compiler cucumber | imap <buffer><expr> <Tab> pumvisible() ? "\<C-N>" : (CucumberComplete(1,'') >= 0 ? "\<C-X>\<C-O>" : (getline('.') =~ '\S' ? ' ' : "\<C-I>"))
+    augroup END
+  " }}}
+  " Plain text {{{
+    augroup FTText
+      au!
+      autocmd FileType text,txt,mail          setlocal ai com=fb:*,fb:-,n:>
+      autocmd FileType text,txt setlocal tw=78 linebreak nolist
+    augroup END
+  " }}}
+  " Git {{{
+    augroup FTGit
+      au!
+      autocmd FileType git,gitcommit setlocal foldmethod=syntax foldlevel=1
+      autocmd FileType gitcommit setlocal spell
+    augroup END
+  " }}}
+" }}}
+
+" Miscelancous autocommands {{{
     augroup FTMics
       autocmd!
       au FocusLost * :wall
@@ -199,37 +312,13 @@ call pathogen#helptags()
 
     augroup FTOptions
       autocmd!
-      autocmd FileType c,cpp,cs,java          setlocal ai et sta sw=4 sts=4 cin
-      autocmd FileType sh,csh,tcsh,zsh        setlocal ai et sta sw=4 sts=4
-      autocmd FileType tcl,perl,python        setlocal ai et sta sw=4 sts=4
-      autocmd FileType javascript             setlocal ai et sta sw=2 sts=2 ts=2 cin isk+=$
-      autocmd FileType php,aspperl,aspvbs,vb  setlocal ai et sta sw=4 sts=4
-      autocmd FileType apache,sql,vbnet       setlocal ai et sta sw=4 sts=4
-      autocmd FileType tex,css                setlocal ai et sta sw=2 sts=2
-      autocmd FileType tex                    setlocal fo+=t " autowrap text
-      autocmd FileType html,xhtml,wml,cf      setlocal ai et sta sw=2 sts=2
-      autocmd FileType xml,xsd,xslt           setlocal ai et sta sw=2 sts=2 ts=2
-      autocmd FileType eruby,yaml,ruby        setlocal ai et sta sw=2 sts=2
-      autocmd FileType cucumber               setlocal ai et sta sw=2 sts=2 ts=2
-      autocmd FileType text,txt,mail          setlocal ai com=fb:*,fb:-,n:>
-      autocmd FileType sh,zsh,csh,tcsh        inoremap <silent> <buffer> <C-X>! #!/bin/<C-R>=&ft<CR>
-      autocmd FileType perl,python,ruby       inoremap <silent> <buffer> <C-X>! #!/usr/bin/<C-R>=&ft<CR>
-      autocmd FileType ruby,eruby set omnifunc=rubycomplete#Complete
-      autocmd FileType sh,zsh,csh,tcsh,perl,python,ruby imap <buffer> <C-X>& <C-X>!<Esc>o <C-U># $I<C-V>d$<Esc>o <C-U><C-X>^<Esc>o <C-U><C-G>u
-      autocmd FileType c,cpp,cs,java,perl,javscript,php,aspperl,tex,css let b:surround_101 = "\r\n}"
-      autocmd FileType xml exe ":silent 1,$!xmllint --format --recover - 2>/dev/null"
-      autocmd FileType context set spell spelllang=en_US
-      autocmd FileType css,scss  silent! setlocal omnifunc=csscomplete#CompleteCSS
-      autocmd FileType css,scss setlocal iskeyword+=-
-      autocmd FileType cucumber silent! compiler cucumber | imap <buffer><expr> <Tab> pumvisible() ? "\<C-N>" : (CucumberComplete(1,'') >= 0 ? "\<C-X>\<C-O>" : (getline('.') =~ '\S' ? ' ' : "\<C-I>"))
-      autocmd FileType git,gitcommit setlocal foldmethod=syntax foldlevel=1
-      autocmd FileType gitcommit setlocal spell
-      autocmd FileType html setlocal iskeyword+=~
-      autocmd FileType ruby silent! compiler ruby | setlocal tw=79 isfname+=: makeprg=rake comments=:#\  | let &includeexpr = 'tolower(substitute(substitute('.&includeexpr.',"\\(\\u\\+\\)\\(\\u\\l\\)","\\1_\\2","g"),"\\(\\l\\|\\d\\)\\(\\u\\)","\\1_\\2","g"))'
-      autocmd FileType text,txt setlocal tw=78 linebreak nolist
-      autocmd FileType tex  silent! compiler tex | setlocal makeprg=latex\ -interaction=nonstopmode\ % formatoptions+=l
       autocmd FileType * if exists("+omnifunc") && &omnifunc == "" | setlocal omnifunc=syntaxcomplete#Complete | endif
       autocmd FileType * if exists("+completefunc") && &completefunc == "" | setlocal completefunc=syntaxcomplete#Complete | endif
+    augroup END
+
+    augroup FTQuickfix
+      au!
+      au Filetype qf setlocal colorcolumn=0 nolist nocursorline nowrap
     augroup END
 " }}}
 
@@ -279,15 +368,6 @@ call pathogen#helptags()
     " YankRing {{{
       let g:yankring_history_dir = '~/.vim'
     " }}}
-" }}}
-
-" Language specific {{{
-  " JavaScript {{{
-    " https://gist.github.com/725689
-    au BufNewFile,BufRead *.js set makeprg=gjslint\ %
-
-    au BufNewFile,BufRead *.js set errorformat=%-P-----\ FILE\ \ :\ \ %f\ -----,Line\ %l\\,\ E:%n:\ %m,%-Q,%-GFound\ %s,%-GSome\ %s,%-Gfixjsstyle%s,%-Gscript\ can\ %s,%-G
-  " }}}
 " }}}
 
 " GUI settings {{{
@@ -367,4 +447,29 @@ command! -bar Run :execute Run()
     au InsertEnter * hi StatusLine ctermfg=196 guifg=#FF3145
     au InsertLeave * hi StatusLine ctermfg=130 guifg=#CD5907
   augroup END
+
+  set statusline=%f    " Path.
+  set statusline+=%m   " Modified flag.
+  set statusline+=%r   " Readonly flag.
+  set statusline+=%w   " Preview window flag.
+
+  set statusline+=\    " Space.
+
+  set statusline+=%#redbar#                " Highlight the following as a warning.
+  set statusline+=%{SyntasticStatuslineFlag()} " Syntastic errors.
+  set statusline+=%*                           " Reset highlighting.
+
+  set statusline+=%=   " Right align.
+
+  " File format, encoding and type.  Ex: "(unix/utf-8/python)"
+  set statusline+=(
+  set statusline+=%{&ff}                        " Format (unix/DOS).
+  set statusline+=/
+  set statusline+=%{strlen(&fenc)?&fenc:&enc}   " Encoding (utf-8).
+  set statusline+=/
+  set statusline+=%{&ft}                        " Type (python).
+  set statusline+=)
+
+  " Line and column position and counts.
+  set statusline+=\ (line\ %l\/%L,\ col\ %03c)
 " }}}
