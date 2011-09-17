@@ -243,6 +243,7 @@ call pathogen#helptags()
     " supertab {{{
       let g:SuperTabDefaultCompletionType = 'context'
       let g:SuperTabContextDefaultCompletionType = '<c-n>'
+      let g:SuperTabLongestHighlight = 1
     " }}}
 
     " syntastic {{{
