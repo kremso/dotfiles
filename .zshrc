@@ -276,7 +276,7 @@
             fi
         }
         zle -N insert-sudo insert_sudo
-        bindkey "^[r" insert-sudo
+        bindkey "^B" insert-sudo
     # }}}
     # Integrate ranger {{{
         integrate_ranger(){
