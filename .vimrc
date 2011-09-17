@@ -218,7 +218,7 @@ call pathogen#helptags()
       autocmd FileType sh,zsh,csh,tcsh,perl,python,ruby imap <buffer> <C-X>& <C-X>!<Esc>o <C-U># $I<C-V>d$<Esc>o <C-U><C-X>^<Esc>o <C-U><C-G>u
       autocmd FileType c,cpp,cs,java,perl,javscript,php,aspperl,tex,css let b:surround_101 = "\r\n}"
       autocmd FileType xml exe ":silent 1,$!xmllint --format --recover - 2>/dev/null"
-      autocmd FileType context set spell spelllang=sk_SK
+      autocmd FileType context set spell spelllang=en_US
       autocmd FileType css  silent! setlocal omnifunc=csscomplete#CompleteCSS
       autocmd FileType cucumber silent! compiler cucumber | imap <buffer><expr> <Tab> pumvisible() ? "\<C-N>" : (CucumberComplete(1,'') >= 0 ? "\<C-X>\<C-O>" : (getline('.') =~ '\S' ? ' ' : "\<C-I>"))
       autocmd FileType git,gitcommit setlocal foldmethod=syntax foldlevel=1
