@@ -113,8 +113,6 @@ call pathogen#helptags()
 " Mappings {{{
     nnoremap <space> za " open/close folds with space
 
-    nmap <leader><space> :noh<cr> " this key combination gets rid of the search highlights
-
     " I hit F1 too often when reaching for esc
     inoremap <F1> <ESC>
     nnoremap <F1> <ESC>
@@ -181,8 +179,8 @@ call pathogen#helptags()
     map <tab> % " move between pair characters by using tab
 
     " Keep search matches in the middle of the window.
-    nnoremap n nzzz
-    nnoremap N Nzzz
+    nnoremap n nzz
+    nnoremap N Nzz
 
     " Same when jumping around
     nnoremap g; g;zz
@@ -202,6 +200,8 @@ call pathogen#helptags()
 
 " Leader Mappings {{{
   let mapleader = ","
+
+  nmap <leader><space> :noh<cr> " this key combination gets rid of the search highlights
 
   " strip all trailing whitespace in the current file
   nnoremap <leader>W :%s/\s\+$//<cr>:let @/=''<CR>
