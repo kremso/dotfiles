@@ -26,3 +26,5 @@
   nobranch = red bold reverse
 [core]
   excludesfile = ~/.cvsignore
+[init]
+  templatedir = ~/.git_template
