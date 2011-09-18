@@ -33,14 +33,9 @@ import Data.Ratio
 import qualified Data.Map as M
 -- }}} 
 
--- Variables {{{
-statusBarCmd= "dzen2 -bg '#2c2c32' -fg 'grey70' -w 1050 -sa c -fn '-*-profont-*-*-*-*-12-*-*-*-*-*-iso8859-*' -e '' -xs 1 -ta l"
--- }}}
-
 -- Main {{{ 
 main = do 
   nScreens <- countScreens
-  --din <- spawnPipe "xmobar" --statusBarCmd
   din <- mapM (spawnPipe . xmobarCommand) [0 .. nScreens-1]
   sp <- mkSpawner
   xmonad $ defaultConfig
@@ -109,22 +104,6 @@ xmobarCommand (S s) = unwords ["xmobar", "-x", show s, "-t", template s, "-c", "
     template _ = "'%StdinReader%}{%multicpu% * %cpufreq% * %coretemp% | %memory% | %eth0% | %battery%'"
 
 
--- }}}
-
--- Dynamiclog pretty printer for dzen {{{
---pp h = defaultPP
---                 { ppCurrent = wrap "^fg(#000000)^bg(#a6c292)^p(2)^i(/home/kremso/dzen_bitmaps/has_win.xbm)" "^p(2)^fg()^bg()"
---                  , ppVisible = wrap "^bg(grey30)^fg(grey75)^p(2)" "^p(2)^fg()^bg()"
---                  , ppSep     = " ^fg(grey60)^r(3x3)^fg() "
-----                  , ppLayout  = dzenColor "#80AA83" "" .
-----                                (\x -> case x of
-----                                         "Tall" -> "^i(/home/kremso/dzen_bitmaps/tall.xbm)"
-----                                         "Mirror Tall" -> "^i(/home/kremso/dzen_bitmaps/mtall.xbm)"
-----                                         "Full" -> "^i(/home/kremso/dzen_bitmaps/full.xbm)"
-----                                )
---                  , ppTitle   = dzenColor "white" "" . wrap "< " " >"
---                  , ppOutput   = hPutStrLn h
---                  }
 -- }}}
 
 -- Keys {{{
