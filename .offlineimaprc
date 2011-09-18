@@ -1,0 +1,31 @@
+[general]
+accounts = fiit
+
+pythonfile = ~/.offlineimap.py
+
+[Account fiit]
+localrepository = Local
+remoterepository = Remote
+# Minutes between syncs
+autorefresh = 5
+# Number of quick-syncs between autorefreshes. Quick-syncs do not update if the
+# only changes were to IMAP flags
+quick = 10
+
+[Repository Local]
+type = Maildir
+localfolders = ~/.mail/fiit
+
+[Repository Remote]
+type = IMAP
+remotehost = dcs.fiit.stuba.sk
+remoteusereval = get_username("dcs.fiit.stuba.sk")
+remotepasseval = get_password("dcs.fiit.stuba.sk")
+
+[mbnames]
+enabled = yes
+filename = ~/.mutt/mailboxes
+header = "mailboxes "
+peritem = "+%(accountname)s/%(foldername)s"
+sep = " "
+footer = "\n"

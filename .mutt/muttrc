@@ -75,8 +75,7 @@ unignore from: to: cc: date: subject:                           # show only thes
 hdr_order from: to: cc: date: subject:                          # and in this order
 
 # boxes
-mailboxes =INBOX =Drafts =Sent =Archives
-#source ~/.mutt/mailboxes
+source ~/.mutt/mailboxes
 
 # always sourced
 source $alias_file                                             # required for functionality
