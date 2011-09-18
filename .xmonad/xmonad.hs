@@ -11,6 +11,7 @@ import XMonad.Layout.PerWorkspace
 import XMonad.Layout.IM
 import XMonad.Layout.Grid
 import XMonad.Layout.IndependentScreens
+import XMonad.Layout.Master
 
 import XMonad.Util.Run
 import XMonad.Hooks.ManageDocks
@@ -57,7 +58,9 @@ myLogHook din nScreens = do
 -- }}}
 
 -- Layout Hook {{{
-myLayoutHook = onWorkspace "4:chat" (avoidStruts $ withIM (1%5) (Role "buddy_list") (smartBorders $ avoidStruts $ Grid)) $ smartBorders (avoidStruts $ tiled ||| Mirror tiled ||| noBorders Full)
+myLayoutHook = onWorkspace "4:chat" (avoidStruts $ withIM (1%5) (Role "buddy_list") (smartBorders $ avoidStruts $ Grid)) $
+               onWorkspace "5:db" (avoidStruts $ mastered (1/100) (5/6) $ Grid ||| Full) $
+               smartBorders (avoidStruts $ tiled ||| Mirror tiled ||| noBorders Full)
       where
         tiled = maximize (Tall 1 (3%100) (1%2))
 -- }}}
