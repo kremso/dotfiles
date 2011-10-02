@@ -4,7 +4,7 @@ set mbox      = "=Archives"
 set record    = "=Sent"
 set postponed = "=Drafts"
 
-macro index E "<change-folder>=Archives<enter><limit>~B "
+macro index E "<change-folder>+fiit/Archives<enter><limit>~B "
 #"search everything" 
 
-macro index,pager A "<save-message>=Archives<enter>"
+macro index,pager A "<save-message>+fiit/Archives<enter>"
