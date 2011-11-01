@@ -28,9 +28,6 @@ call pathogen#helptags()
     set undofile " make undo possible after the file is closed and reopened
     set gdefault " global substitutions are default s/a/b/g
     set ttimeoutlen=50  " Make Esc work faster
-    if has("balloon_eval") && has("unix")
-      set ballooneval
-    endif
 " }}}
 
 " Vim UI {{{
@@ -176,7 +173,7 @@ call pathogen#helptags()
     endfunction
     " }}}
 
-    map <tab> % " move between pair characters by using tab
+    nmap <tab> % " move between pair characters by using tab
 
     " Keep search matches in the middle of the window.
     nnoremap n nzz
@@ -198,10 +195,15 @@ call pathogen#helptags()
 
 " }}}
 
+" Operator Mappings {{{
+  onoremap imp :<c-u>execute "normal! ?def\r:nohlsearch\rf(lvt)"<cr>
+" }}}
+
 " Leader Mappings {{{
   let mapleader = ","
 
-  nmap <leader><space> :noh<cr> " this key combination gets rid of the search highlights
+  " this key combination gets rid of the search highlights 
+  nmap <leader><space> :noh<cr>
 
   " strip all trailing whitespace in the current file
   nnoremap <leader>W :%s/\s\+$//<cr>:let @/=''<CR>
@@ -211,6 +213,9 @@ call pathogen#helptags()
 
   " edit .vimrc
   nnoremap <leader>ev <C-w><C-v><C-l>:e $MYVIMRC<cr>
+
+  " source .vimrc
+  nnoremap <leader>sv :source $MYVIMRC<cr>
 
   " open vertical split and switch to it
   nnoremap <leader>w <C-w>v<C-w>l
@@ -225,6 +230,10 @@ call pathogen#helptags()
     endfunction
     nnoremap <leader>sll :call ShowLongLines()<cr>
   " }}}
+" }}}
+
+" Abbreviations {{{
+  iabbr ssig Maj sa,<cr>Tomas
 " }}}
 
 " Language specific / filetype autocommands {{{
