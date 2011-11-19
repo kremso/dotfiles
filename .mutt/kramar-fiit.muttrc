@@ -1,8 +1,8 @@
 set from      = "kramar@fiit.stuba.sk"
 set sendmail  = "/usr/bin/msmtp -a fiit"
-set mbox      = "=Archives"
-set record    = "=Sent"
-set postponed = "=Drafts"
+set mbox      = "+fiit/Archives"
+set record    = "+fiit/Sent"
+set postponed = "+fiit/Drafts"
 
 macro index E "<change-folder>+fiit/Archives<enter><limit>~B "
 #"search everything" 
