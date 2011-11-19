@@ -23,7 +23,7 @@ call pathogen#helptags()
     " ignore these list file extensions
     set wildignore=*.dll,*.o,*.obj,*.bak,*.exe,*.pyc,
                     \*.jpg,*.gif,*.png
-    set wildmode=list:longest " turn on wild mode huge list
+    set wildmode=full
     set ttyfast " I have a fast terminal
     set undofile " make undo possible after the file is closed and reopened
     set gdefault " global substitutions are default s/a/b/g
