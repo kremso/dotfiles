@@ -333,7 +333,6 @@ call pathogen#helptags()
     augroup FTOptions
       autocmd!
       autocmd FileType * if exists("+omnifunc") && &omnifunc == "" | setlocal omnifunc=syntaxcomplete#Complete | endif
-      autocmd FileType * if exists("+completefunc") && &completefunc == "" | setlocal completefunc=syntaxcomplete#Complete | endif
     augroup END
 
     augroup FTQuickfix
