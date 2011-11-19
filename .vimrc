@@ -42,18 +42,20 @@ call pathogen#helptags()
     set lazyredraw " do not redraw while running macros
     set linespace=0 " don't insert any extra pixel lines between rows
     set list " show traling listchars
-    set listchars=tab:▸\ ,trail:¬
-    set nostartofline " move the cursor to first non-blank character after some commands (:25 e.g.)
+    set listchars=tab:▸\ ,trail:¬,extends:❯,precedes:❮,nbsp:~
+    set nostartofline " don't move the cursor to first non-blank character after some commands (:25 e.g.)
     set novisualbell " don't blink
     set relativenumber " turn on line numbers
     set report=0 " tell us when anything is changed
     set ruler " Always show current positions along the bottom
     set shortmess=atToOI " shortens messages to avoid 'press a key' prompt
     set showcmd " show the command being typed
+    set showmode " show current mode
     set showmatch " show matching brackets
     set scrolloff=5 " Keep 10 lines (top/bottom) for scope
     set sidescrolloff=10 " Keep 5 lines at the size
     set cursorline " visually mark current line
+    set showbreak=↪ " indicate wrapped line
 "}}}
 
 " Text Formatting/Layout {{{
@@ -103,8 +105,6 @@ call pathogen#helptags()
     "                   |      |
     "                   |      +-- do not display 1 line menu
     "                   +-- display completion popup menu
-
-    set complete=.,w,b,t
 " }}}
 
 " Mappings {{{
@@ -118,26 +118,21 @@ call pathogen#helptags()
     map <F5> :Run<CR>
     imap <F5> <Esc><F5>
 
-    nnoremap <silent> <F12> :NERDTreeToggle <CR> " F12 toggles file explorer
+    " Make ' remember line/column
+    nnoremap ' `
+    nnoremap ` '
 
-    " Make ' remember line/column {{{
-        nnoremap ' `
-        nnoremap ` '
-    " }}}
+    " convenient window switching
+    map <C-h> <C-w>h
+    map <C-j> <C-w>j
+    map <C-k> <C-w>k
+    map <C-l> <C-w>l
 
-    " convenient window switching {{{
-        map <C-h> <C-w>h
-        map <C-j> <C-w>j
-        map <C-k> <C-w>k
-        map <C-l> <C-w>l
-    " }}}
-
-    " Emacs-like keybindings {{{
+    " Emacs-like keybindings
     cnoremap <C-a> <Home>
     cnoremap <C-e> <End>
     inoremap <C-a> <Esc>^i
     inoremap <C-e> <Esc>A
-    " }}}
 
     " Treat long softwrapped lines as multiple lines
     nmap j gj
@@ -173,7 +168,7 @@ call pathogen#helptags()
     endfunction
     " }}}
 
-    nmap <tab> % " move between pair characters by using tab
+    map <tab> % " move between pair characters by using tab
 
     " Keep search matches in the middle of the window.
     nnoremap n nzzzv:call PulseCursorLine()<cr>
@@ -195,7 +190,6 @@ call pathogen#helptags()
 
     " Save like a pro
     nnoremap <c-s> :w<cr>
-
 " }}}
 
 " Operator Mappings {{{
@@ -205,7 +199,7 @@ call pathogen#helptags()
 " Leader Mappings {{{
   let mapleader = ","
 
-  " this key combination gets rid of the search highlights 
+  " this key combination gets rid of the search highlights
   nmap <leader><space> :noh<cr>
 
   " strip all trailing whitespace in the current file
@@ -251,7 +245,6 @@ call pathogen#helptags()
       " Make {<cr> insert a pair of brackets in such a way that the cursor is
       " correctly positioned inside of them AND the following code doesn't get unfolded.
       au BufNewFile,BufRead *.scss,*.css inoremap <buffer> {<cr> {}<left><cr>.<cr><esc>k==A<bs>
-
     augroup END
   " }}}
   " HTML, XML {{{
@@ -321,6 +314,8 @@ call pathogen#helptags()
     augroup FTMics
       autocmd!
       au FocusLost * :wall
+      " Resize splits when the window is resized
+      au VimResized * exe "normal! \<c-w>="
       autocmd BufReadCmd *.jar call zip#Browse(expand("<amatch>"))
       autocmd BufReadPre *.pdf setlocal binary
     augroup END
@@ -357,7 +352,6 @@ call pathogen#helptags()
     " supertab {{{
       let g:SuperTabDefaultCompletionType = 'context'
       let g:SuperTabContextDefaultCompletionType = '<c-n>'
-      let g:SuperTabLongestHighlight = 1
     " }}}
 
     " syntastic {{{
@@ -393,6 +387,23 @@ call pathogen#helptags()
     " YankRing {{{
       let g:yankring_history_dir = '~/.vim'
     " }}}
+
+    " Gundo {{{
+      nnoremap <leader>g :GundoToggle<cr>
+    " }}}
+
+    " Fugitive {{{
+      nnoremap <leader>gs :Gstatus<cr>
+      nnoremap <leader>gc :Gcommit<cr>
+      nnoremap <leader>gd :Gdiff<cr>
+    " }}}
+
+    " NERDTree {{{
+      nnoremap <silent> <F12> :NERDTreeToggle <CR> " F12 toggles file explorer
+      let g:NERDTreeMinimalUI=1
+      let g:NERDTreeDirArrows=1
+      let g:NERTreeHighlightCursorLine=1
+    "}}}
 " }}}
 
 " GUI settings {{{
@@ -555,4 +566,38 @@ function! PulseCursorLine()
     windo set cursorline
     execute current_window . 'wincmd w'
 endfunction
+" }}}
+
+" Ack motions {{{
+
+" Motions to Ack for things.  Works with pretty much everything, including:
+"
+"   w, W, e, E, b, B, t*, f*, i*, a*, and custom text objects
+"
+" Awesome.
+"
+" Note: If the text covered by a motion contains a newline it won't work.  Ack
+" searches line-by-line.
+
+nnoremap <silent> \a :set opfunc=<SID>AckMotion<CR>g@
+xnoremap <silent> \a :<C-U>call <SID>AckMotion(visualmode())<CR>
+
+function! s:CopyMotionForType(type)
+    if a:type ==# 'v'
+        silent execute "normal! `<" . a:type . "`>y"
+    elseif a:type ==# 'char'
+        silent execute "normal! `[v`]y"
+    endif
+endfunction
+
+function! s:AckMotion(type) abort
+    let reg_save = @@
+
+    call s:CopyMotionForType(a:type)
+
+    execute "normal! :Ack! --literal " . shellescape(@@) . "\<cr>"
+
+    let @@ = reg_save
+endfunction
+
 " }}}
