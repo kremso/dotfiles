@@ -193,6 +193,9 @@ call pathogen#helptags()
     " Goodbye manual key
     nnoremap K <nop>
 
+    " Save like a pro
+    nnoremap <c-s> :w<cr>
+
 " }}}
 
 " Operator Mappings {{{
