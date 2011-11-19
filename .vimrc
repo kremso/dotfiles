@@ -237,19 +237,22 @@ call pathogen#helptags()
   " CSS, SCSS {{{
     augroup FTCss
       au!
+      au BufRead,BufNewFile *.scss.erb set ft=scss
       autocmd FileType css,scss  silent! setlocal omnifunc=csscomplete#CompleteCSS
       autocmd FileType css,scss  setlocal iskeyword+=-
       autocmd FileType css,scss   setlocal ai et sta sw=2 sts=2
+      autocmd FileType scss,sass  syntax cluster sassCssAttributes add=@cssColors
       " Use <leader>S to sort properties.
-      au BufNewFile,BufRead *.scss,*.css nnoremap <buffer> <leader>S ?{<CR>jV/\v^\s*\}?$<CR>k:sort<CR>:noh<CR>
+      au FileType css,scss nnoremap <buffer> <leader>S ?{<CR>jV/\v^\s*\}?$<CR>k:sort<CR>:noh<CR>
       " Make {<cr> insert a pair of brackets in such a way that the cursor is
       " correctly positioned inside of them AND the following code doesn't get unfolded.
-      au BufNewFile,BufRead *.scss,*.css inoremap <buffer> {<cr> {}<left><cr>.<cr><esc>k==A<bs>
+      au FileType css,scss inoremap <buffer> {<cr> {}<left><cr>.<cr><esc>k==A<bs>
     augroup END
   " }}}
   " HTML, XML {{{
     augroup FTHtml
       au!
+      au BufRead,BufNewFile *.html.erb set ft=html.erb
       autocmd FileType html,xhtml,wml,cf      setlocal ai et sta sw=2 sts=2
       autocmd FileType xml,xsd,xslt           setlocal ai et sta sw=2 sts=2 ts=2
       autocmd FileType html setlocal iskeyword+=~
@@ -343,10 +346,6 @@ call pathogen#helptags()
 
 " Plugins settings {{{
     runtime macros/matchit.vim
-
-    " showmarks {{{
-        let g:showmarks_include="abcdefghijklmnopqrstuvwxyz"
-    " }}}
 
     " supertab {{{
       let g:SuperTabDefaultCompletionType = 'context'
