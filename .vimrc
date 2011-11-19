@@ -366,6 +366,7 @@ call pathogen#helptags()
     " YankRing {{{
        nnoremap <silent> <F11> :YRShow<CR>
        inoremap <silent> <F11> <esc>:YRShow<CR>
+       let g:yankring_history_dir = '~/.vim'
     " }}}
 
     " Rubycomplete {{{
@@ -374,16 +375,6 @@ call pathogen#helptags()
         let g:rubycomplete_buffer_loading=1
         let g:rubycomplete_include_object=1
         let g:rubycomplete_include_objectspace=1
-    " }}}
-
-    " Taglist {{{
-        let Tlist_Process_File_Always=1
-        let Tlist_Use_Right_Window=1
-        let Tlist_Show_One_File=1
-    " }}}
-
-    " YankRing {{{
-      let g:yankring_history_dir = '~/.vim'
     " }}}
 
     " Gundo {{{
