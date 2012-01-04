@@ -39,7 +39,8 @@ main = do
   nScreens <- countScreens
   din <- mapM (spawnPipe . xmobarCommand) [0 .. nScreens-1]
   sp <- mkSpawner
-  xmonad $ defaultConfig
+  xmonad $ withUrgencyHook NoUrgencyHook
+         $ defaultConfig
               { workspaces         = ["1:init", "2:web", "3:term", "4:chat", "5:db", "6:dev", "7:mail", "8:media", "9:office"]
               , terminal           = "urxvtc"
               , modMask            = mod4Mask
