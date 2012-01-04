@@ -220,6 +220,28 @@ call pathogen#helptags()
   " reformat whole file
   nnoremap <leader>f ggVG=
 
+  " convert {} to do/end
+  nnoremap <leader>b ^f{cwdo<cr><esc>$xxoend<esc>
+
+  " initialize object from parameters
+  function! InitializeFromParameters()
+    let saved_unnamed_register = @@
+
+    normal! ?deff(yi(
+    let params = split(@@, ",")
+    for param in params
+      let cleaned_param = substitute(param, '^\s*\(.\{-}\)\s*$', '\1', '')
+      let @@ = "@" . cleaned_param . " = " . cleaned_param
+      normal! op==
+    endfor
+    normal! jdd
+    nohlsearch
+
+    let @@ = saved_unnamed_register
+  endfunction
+  nnoremap <leader>i :call InitializeFromParameters()<cr>
+  inoremap <leader>i <esc>:call InitializeFromParameters()<cr>
+
   " show long lines {{{
     function! ShowLongLines()
       highlight OverLength ctermbg=red ctermfg=white guibg=#592929
@@ -252,7 +274,7 @@ call pathogen#helptags()
   " HTML, XML {{{
     augroup FTHtml
       au!
-      au BufRead,BufNewFile *.html.erb set ft=html.erb
+      "au BufRead,BufNewFile *.html.erb set ft=html.erb
       autocmd FileType html,xhtml,wml,cf      setlocal ai et sta sw=2 sts=2
       autocmd FileType xml,xsd,xslt           setlocal ai et sta sw=2 sts=2 ts=2
       autocmd FileType html setlocal iskeyword+=~
@@ -290,6 +312,7 @@ call pathogen#helptags()
       au!
       autocmd FileType cucumber               setlocal ai et sta sw=2 sts=2 ts=2
       autocmd FileType cucumber silent! compiler cucumber | imap <buffer><expr> <Tab> pumvisible() ? "\<C-N>" : (CucumberComplete(1,'') >= 0 ? "\<C-X>\<C-O>" : (getline('.') =~ '\S' ? ' ' : "\<C-I>"))
+      autocmd FileType ruby iabbr $p "([^"]*)"
     augroup END
 
     " Cucumber navigation commands
@@ -399,7 +422,9 @@ call pathogen#helptags()
   autocmd GUIEnter * colorscheme molokai
   autocmd GUIEnter * set guioptions-=m
   autocmd GUIEnter * set guioptions-=T
-  autocmd GUIEnter * set gfn=Bitstream\ Vera\ Sans\ Mono\ 9
+  "autocmd GUIEnter * set gfn=Bitstream\ Vera\ Sans\ Mono\ 9
+  autocmd GUIEnter * set gfn=Monaco\ for\ Powerline\ 9
+  let g:Powerline_symbols = 'fancy'
   autocmd GUIEnter * set vb t_vb= " disable visual bell
 " }}}
 
