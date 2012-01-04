@@ -136,6 +136,9 @@
         alias gc="g commit -v"
         alias gp="g push"
     # }}}
+    # Ruby aliases {{{
+      alias be="bundle exec"
+    # }}}
     # Utilities {{{
         alias goawayswapfilesyouareswapfilesidontevenneedyou='rm ~/.vim/tmp/swap/*'
     # }}}
