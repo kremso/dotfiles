@@ -28,6 +28,16 @@ call pathogen#helptags()
     set undofile " make undo possible after the file is closed and reopened
     set gdefault " global substitutions are default s/a/b/g
     set ttimeoutlen=50  " Make Esc work faster
+
+    " {{{ Make the current window big, but leave others context
+    set winwidth=84
+    " We have to have a winheight bigger than we want to set winminheight. But if
+    " we set winheight to be huge before winminheight, the winminheight set will
+    " fail.
+    set winheight=5
+    set winminheight=5
+    set winheight=999
+    " }}}
 " }}}
 
 " Vim UI {{{
@@ -190,6 +200,9 @@ call pathogen#helptags()
 
     " Save like a pro
     nnoremap <c-s> :w<cr>
+
+    " expands to current directory
+    cnoremap %% <C-R>=expand('%:h').'/'<cr>
 " }}}
 
 " Operator Mappings {{{
@@ -218,7 +231,7 @@ call pathogen#helptags()
   nnoremap <leader>w <C-w>v<C-w>l
 
   " reformat whole file
-  nnoremap <leader>f ggVG=
+  nnoremap <leader>= ggVG=
 
   " convert {} to do/end
   nnoremap <leader>b ^f{cwdo<cr><esc>$xxoend<esc>
@@ -241,6 +254,9 @@ call pathogen#helptags()
   endfunction
   nnoremap <leader>i :call InitializeFromParameters()<cr>
   inoremap <leader>i <esc>:call InitializeFromParameters()<cr>
+
+  " Switch between the last two files
+  nnoremap <leader><leader> <c-^>
 
   " show long lines {{{
     function! ShowLongLines()
@@ -334,6 +350,69 @@ call pathogen#helptags()
       autocmd FileType gitcommit setlocal spell
     augroup END
   " }}}
+  " Rails {{{
+  map <leader>gr :topleft :split config/routes.rb<cr>
+  map <leader>gg :topleft 100 :split Gemfile<cr>
+
+  function! ShowRoutes()
+    " Requires 'scratch' plugin
+    :topleft 100 :split __Routes__
+    " Make sure Vim doesn't write __Routes__ as a file
+    :set buftype=nofile
+    " Delete everything
+    :normal 1GdG
+    " Put routes output in buffer
+    :0r! rake -s routes
+    " Size window to number of lines (1 plus rake output length)
+    :exec ":normal " . line("$") . "_ "
+    " Move cursor to bottom
+    :normal 1GG
+    " Delete empty trailing line
+    :normal dd
+  endfunction
+  map <leader>gR :call ShowRoutes()<cr>
+
+  function! RunTests(filename)
+    " Write the file and run tests for the given filename
+    :w
+    :silent !echo;echo;echo;echo;echo
+    exec ":!bundle exec rspec " . a:filename
+  endfunction
+
+  function! SetTestFile()
+    " Set the spec file that tests will be run for.
+    let t:grb_test_file=@%
+  endfunction
+
+  function! RunTestFile(...)
+    if a:0
+      let command_suffix = a:1
+    else
+      let command_suffix = ""
+    endif
+
+    " Run the tests for the previously-marked file.
+    let in_spec_file = match(expand("%"), '_spec.rb$') != -1
+    if in_spec_file
+      call SetTestFile()
+    elseif !exists("t:grb_test_file")
+      return
+    end
+    call RunTests(t:grb_test_file . command_suffix)
+  endfunction
+
+  function! RunNearestTest()
+    let spec_line_number = line('.')
+    call RunTestFile(":" . spec_line_number)
+  endfunction
+
+  " Run this file
+  map <leader>t :call RunTestFile()<cr>
+  " Run only the example under the cursor
+  map <leader>T :call RunNearestTest()<cr>
+  " Run all test files
+  map <leader>a :call RunTests('spec')<cr>
+  " }}}
 " }}}
 
 " Miscelancous autocommands {{{
@@ -381,11 +460,6 @@ call pathogen#helptags()
     let g:synastic_quiet_warnings=1
     " }}}
 
-    " Fuzzyfilefinder {{{
-        map <silent> <C-f> :FufFile **/<cr>
-        map <silent> <C-b> :FufBuffer<cr>
-    " }}}
-
     " YankRing {{{
        nnoremap <silent> <F11> :YRShow<CR>
        inoremap <silent> <F11> <esc>:YRShow<CR>
@@ -416,6 +490,19 @@ call pathogen#helptags()
       let g:NERDTreeDirArrows=1
       let g:NERTreeHighlightCursorLine=1
     "}}}
+
+    " Command-T {{{
+    map <leader>f :CommandTFlush<cr>\|:CommandT<cr>
+    map <leader>b :CommandTBuffer<cr>
+    map <leader>gf :CommandTFlush<cr>\|:CommandT %%<cr>
+    map <leader>gv :CommandTFlush<cr>\|:CommandT app/views<cr>
+    map <leader>gc :CommandTFlush<cr>\|:CommandT app/controllers<cr>
+    map <leader>gm :CommandTFlush<cr>\|:CommandT app/models<cr>
+    map <leader>gh :CommandTFlush<cr>\|:CommandT app/helpers<cr>
+    map <leader>gl :CommandTFlush<cr>\|:CommandT lib<cr>
+    map <leader>gp :CommandTFlush<cr>\|:CommandT public<cr>
+    map <leader>gs :CommandTFlush<cr>\|:CommandT public/stylesheets<cr>
+    " }}}
 " }}}
 
 " GUI settings {{{
