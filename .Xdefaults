@@ -8,31 +8,14 @@ Xft.hintstyle: hintfull
 Xft.antialias: 1
 
 urxvt.termName: rxvt-256color
-urxvt.title: Terminal
 urxvt.font: xft:DejaVu Sans Mono:pixelsize=12:antialias=true
 urxvt.boldFont: xft:DejaVu Sans Mono:pixelsize=12
-urxvt*geometry:    80x25
-urxvt*saveLines:   2048
 urxvt*scrollBar:        false
-urxvt*scrollstyle:        plain   ! options: rxvt, plain, next or xterm. plain
-urxvt*scrollBar_right:        true
-urxvt*borderColor:      rgba:0000/0000/0000/cccc
-urxvt*loginShell:        true
 urxvt.urgentOnBell:      true
-!urxvt*internalBorder:        5
-!urxvt*depth: 32
+urxvt*depth: 32
 urxvt*background:    rgba:0000/0000/0000/aaaa
 urxvt.foreground: rgba:ffff/ffff/ffff/aaaa
-#urxvt.borderLess:         true
-urxvt.tintColor:          #111111
-urxvt*termName:            rxvt
-urxvt*inheritPixmap:        false
-urxvt*cutchars:            "()*,<>[]{}|'
-urxvt*print-pipe:        cat > $(echo urxvt.dump.`date +'%Y%M%d%H%m%S'`)
-urxvt*secondaryScroll:        true
-urxvt*mapAlert:            true
 urxvt*utmpInhibit:        true
-urxvt*perl-lib:            /home/kremso/.urxvt/
 urxvt*perl-ext-common:        default,matcher
 urxvt*urlLauncher:        xdg-open
 urxvt*matcher.button:        1
@@ -42,36 +25,7 @@ urxvt*visualBell:        true
 urxvt*cursorColor:    #ffcc00
 urxvt*cursorBlink: true
 
-urxvt*foreground:     rgba:1000/1000/1000/aaaa
-urxvt*background:     rgb:12/12/12
-
-! Black
-*color0:  #2E3436
-*color8:  #555753
-! Red
-*color1:  #CC0000
-*color9:  #EF2929
-! Green
-*color2:  #4E9A06
-*color10: #8AE234
-! Yellow
-*color3:  #C4A000
-*color11: #FCE94F
-! Blue
-*color4:  #3465A4
-*color12: #729FCF
-! Purple
-*color5:  #75507B
-*color13: #AD7FA8
-! Cyan
-*color6:  #06989A
-*color14: #34E2E2
-! White
-*color7:  #D3D7CF
-*color15: #EEEEEC
-
 ! xscreensaver ---------------------------------------------------------------
-
 !font settings
 xscreensaver.Dialog.headingFont:        -*-sans-bold-r-*-*-12-*-*-*-*-*-*-*
 xscreensaver.Dialog.bodyFont:           -*-sans-medium-r-*-*-12-*-*-*-*-*-*-*
