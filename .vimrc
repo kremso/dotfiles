@@ -41,8 +41,9 @@ call pathogen#helptags()
 " }}}
 
 " Vim UI {{{
+    colorscheme tir_black
     set background=dark
-    colorscheme molokai
+    set t_Co=256
     set incsearch " incremental search aka search as you type
     set hlsearch " highlight search matches
     set ignorecase " ignore case
