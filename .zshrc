@@ -118,6 +118,7 @@
         alias mkdir="nocorrect mkdir -vp"
         alias chmod="chmod -v"
         alias chown="chown -v"
+        alias open="xdg-open"
     # }}}
     # Default sudo commands {{{
         for cmd in mount ifconfig pacman chmod chown; do
