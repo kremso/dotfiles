@@ -121,7 +121,7 @@
         alias open="xdg-open"
     # }}}
     # Default sudo commands {{{
-        for cmd in mount ifconfig pacman chmod chown; do
+        for cmd in pacman rc.d; do
             alias $cmd="+ $cmd"
         done
     # }}}
