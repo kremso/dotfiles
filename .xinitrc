@@ -26,6 +26,11 @@ offlineimap &
 # D-Bus
 if which dbus-launch >/dev/null && test -z "$DBUS_SESSION_BUS_ADDRESS"; then
     eval "$(dbus-launch --sh-syntax --exit-with-session)"
+    # save DBUS information to a script that can be used in cron
+    touch $HOME/.Xdbus
+    chmod 600 $HOME/.Xdbus
+    env | grep DBUS_SESSION_BUS_ADDRESS > $HOME/.Xdbus
+    echo 'export DBUS_SESSION_BUS_ADDRESS' >> $HOME/.Xdbus
 fi
 
 pulseaudio --start
