@@ -9,6 +9,8 @@
 export BROWSER=firefox
 export DE=gnome
 
+xrdb -merge ~/.Xdefaults
+
 # start default apps
 urxvtd -q -o -f
 xhost +local:0 > /dev/null &
