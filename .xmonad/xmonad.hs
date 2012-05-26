@@ -12,6 +12,7 @@ import XMonad.Layout.IM
 import XMonad.Layout.Grid
 import XMonad.Layout.IndependentScreens
 import XMonad.Layout.Master
+import XMonad.Layout.SimpleFloat
 
 import XMonad.Util.Run
 import XMonad.Hooks.ManageDocks
@@ -38,14 +39,13 @@ import qualified Data.Map as M
 main = do 
   nScreens <- countScreens
   din <- mapM (spawnPipe . xmobarCommand) [0 .. nScreens-1]
-  sp <- mkSpawner
   xmonad $ withUrgencyHook NoUrgencyHook
          $ defaultConfig
               { workspaces         = ["1:init", "2:web", "3:term", "4:chat", "5:db", "6:dev", "7:mail", "8:media", "9:office"]
               , terminal           = "urxvtc"
               , modMask            = mod4Mask
-              , manageHook         = myManageHook sp
-              , keys               = \c -> myKeys sp `M.union`
+              , manageHook         = myManageHook
+              , keys               = \c -> myKeys `M.union`
                                           keys defaultConfig c
               , logHook            = myLogHook din nScreens
               , layoutHook         = myLayoutHook
@@ -61,13 +61,13 @@ myLogHook din nScreens = do
 -- Layout Hook {{{
 myLayoutHook = onWorkspace "4:chat" (avoidStruts $ withIM (1%5) (Role "buddy_list") (smartBorders $ avoidStruts $ Grid)) $
                onWorkspace "5:db" (avoidStruts $ mastered (1/100) (5/6) $ Grid ||| Full) $
-               smartBorders (avoidStruts $ tiled ||| Mirror tiled ||| noBorders Full)
+               smartBorders (avoidStruts $ tiled ||| Mirror tiled ||| noBorders Full ||| simpleFloat)
       where
         tiled = maximize (Tall 1 (3%100) (1%2))
 -- }}}
  
 -- Manage Hook {{{
-myManageHook sp = manageSpawn sp
+myManageHook = manageSpawn
                 <+>
                 composeOne [
                   isFullscreen -?> doFullFloat
@@ -111,18 +111,18 @@ xmobarCommand (S s) = unwords ["xmobar", "-x", show s, "-t", template s, "-c", "
 -- }}}
 
 -- Keys {{{
-myKeys sp = M.fromList $
+myKeys = M.fromList $
   [
     ((mod4Mask, xK_m), withFocused (sendMessage . maximizeRestore)),
     ((mod4Mask, xK_b), withFocused toggleBorder),
-    ((mod4Mask, xK_p), shellPromptHere sp myXPConfig),
+    ((mod4Mask, xK_p), shellPromptHere myXPConfig),
     ((mod4Mask, xK_s), sshPrompt myXPConfig),
     ((mod4Mask, xK_i), appendFilePrompt myXPConfig "/home/kremso/gtd-inbox"),
     ((mod4Mask, xK_Escape), toggleWS),
     ((mod4Mask, xK_o     ), swapNextScreen),
     ((mod4Mask .|. shiftMask, xK_l     ), nextScreen),
     ((mod4Mask .|. shiftMask, xK_h     ), prevScreen),
-    ((mod4Mask, xK_x     ), spawnHere sp "thunar"),
+    ((mod4Mask, xK_x     ), spawnHere "thunar"),
     ((shiftMask .|. controlMask, xK_l     ), spawn "xscreensaver-command -activate")
 
  
