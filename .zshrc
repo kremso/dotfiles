@@ -159,7 +159,7 @@
         zstyle ':completion:*' group-name ''
         zstyle ':completion:*' ignore-parents parent pwd .. directory
         zstyle ':completion:*' insert-unambiguous true
-        zstyle ':completion:*' matcher-list ''
+        zstyle ':completion:*' matcher-list 'm:{a-zA-Z}={A-Za-z}' 'r:|[._-]=* r:|=*' 'l:|=* r:|=*'
         zstyle ':completion:*' menu select
         zstyle ':completion:*' select-prompt '%SScrolling active: current selection at %p%s'
         zstyle ':completion:*' list-colors ${(s.:.)LS_COLORS}
