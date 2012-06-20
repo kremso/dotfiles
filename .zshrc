@@ -74,6 +74,7 @@
     setopt prompt_subst # Enable variable substitution in prompt
     setopt correct # Command correction
     setopt short_loops # Allow short loops
+    setopt auto_pushd # Automatically push directories onto dirstack
 # }}}
 # Keybindings {{{
     bindkey -v
