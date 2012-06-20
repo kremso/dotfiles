@@ -43,6 +43,7 @@
         export MANPAGER="sh -c \"unset PAGER; col -b -x | $LESS_VIM \
             -c 'set ft=man' \
             -c 'map K :Man <C-R>=expand(\\\"<cword>\\\")<CR><CR>' \
+            -c 'normal M' \
             -\""
         export EDITOR="vim"
         export VISUAL="vim"
