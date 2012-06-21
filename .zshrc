@@ -121,6 +121,7 @@
         alias chmod="chmod -v"
         alias chown="chown -v"
         alias open="xdg-open"
+        alias dv="dirs -v"
     # }}}
     # Default sudo commands {{{
         for cmd in pacman rc.d; do
@@ -288,7 +289,7 @@
         integrate_ranger(){
             local before="$(pwd)"
             ranger $before <$TTY
-            local after="$(grep \^\' ~/.ranger/bookmarks)"
+            local after="$(grep \^\' ~/.config/ranger/bookmarks)"
             after[1,2]=
             if [[ $before != $after ]]; then
                 cd $after
@@ -296,6 +297,7 @@
             fi
             zle redisplay
             precmd
+            zle reset-prompt
         }
         zle -N integrated-ranger integrate_ranger
         bindkey "^F" integrated-ranger
