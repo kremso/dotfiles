@@ -411,6 +411,15 @@
         stop()   { service stop $*    }
         restart(){ service restart $* }
     # }}}
+    # View matching file {{{
+        vmf() {
+          if [[ $# -lt 2 ]]; then
+            ls **/*$1* -l | awk '{ print $9 }' 
+          else
+            less `ls **/*$1* -l | awk '{ print $9 }' | head -$2 | tail -1`
+          fi
+        }
+    # }}}
 # }}}
 
 PATH=$PATH:$HOME/.rvm/bin # Add RVM to PATH for scripting
