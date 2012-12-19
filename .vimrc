@@ -492,17 +492,12 @@ call pathogen#helptags()
       let g:NERTreeHighlightCursorLine=1
     "}}}
 
-    " Command-T {{{
-    map <leader>f :CommandTFlush<cr>\|:CommandT<cr>
-    map <leader>b :CommandTBuffer<cr>
-    map <leader>gf :CommandTFlush<cr>\|:CommandT %%<cr>
-    map <leader>gv :CommandTFlush<cr>\|:CommandT app/views<cr>
-    map <leader>gc :CommandTFlush<cr>\|:CommandT app/controllers<cr>
-    map <leader>gm :CommandTFlush<cr>\|:CommandT app/models<cr>
-    map <leader>gh :CommandTFlush<cr>\|:CommandT app/helpers<cr>
-    map <leader>gl :CommandTFlush<cr>\|:CommandT lib<cr>
-    map <leader>gp :CommandTFlush<cr>\|:CommandT public<cr>
-    map <leader>gs :CommandTFlush<cr>\|:CommandT public/stylesheets<cr>
+    " Ctrl-P {{{
+    map <leader>f :CtrlP<cr>
+    map <leader>b :CtrlPMRU<cr>
+    map <leader>gv :CtrlP app/views<cr>
+    map <leader>gc :CtrlP app/controllers<cr>
+    map <leader>gm :CtrlP app/models<cr>
     " }}}
 " }}}
 
