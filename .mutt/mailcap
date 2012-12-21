@@ -14,14 +14,15 @@ application/vnd.ms-exc; ~/.mutt/view_attachment.sh %s
 application/vnd.ms-excel; ~/.mutt/view_attachment.sh %s
 
 # MS Word
-# use textedit to open .doc files as it's more light-weight
 application/msword; ~/.mutt/view_attachment.sh %s
+application/rtf; ~/.mutt/view_attachment.sh %s
 
 # Images
 image/jpeg; ~/.mutt/view_attachment.sh %s jpg
 image/pjpeg; ~/.mutt/view_attachment.sh %s jpg
 image/png; ~/.mutt/view_attachment.sh %s png
 image/gif; ~/.mutt/view_attachment.sh %s gif
+image/tiff; ~/.mutt/view_attachment.sh %s tiff
 
 application/pdf; ~/.mutt/view_attachment.sh %s pdf
 application/zip; ~/.mutt/view_attachment.sh %s

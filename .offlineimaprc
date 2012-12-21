@@ -1,28 +1,27 @@
 [general]
 accounts = fiit
-pythonfile = ~/.offlineimap.py
-ui = Noninteractive.Quiet
+pythonfile = ~/dotfiles/gnome-keyring.py
+ui = quiet
+fsync = False
 
 [Account fiit]
 localrepository = Local
 remoterepository = Remote
-# Minutes between syncs
-#autorefresh = 5
-# Number of quick-syncs between autorefreshes. Quick-syncs do not update if the
-# only changes were to IMAP flags
-#quick = 10
 status_backend = sqlite
 
 [Repository Local]
 type = Maildir
 localfolders = ~/.mail/fiit
+folderfilter = lambda folder: folder not in ['.mailboxlist', 'mailboxlist', 'Trash']
 
 [Repository Remote]
 type = IMAP
 remotehost = dcs.fiit.stuba.sk
-remoteusereval = get_username("dcs.fiit.stuba.sk")
-remotepasseval = get_password("dcs.fiit.stuba.sk")
-maxconnection = 3
+# Set the username & password by running ~/dotfiles/gnome-keyring.py
+remoteusereval = get_username('dcs.fiit.stuba.sk')
+remotepasseval = get_password('dcs.fiit.stuba.sk')
+maxconnections = 1
+folderfilter = lambda folder: folder not in ['.mailboxlist', 'mailboxlist', 'Trash', 'Archive', 'fiit', 'mbox']
 
 [mbnames]
 enabled = no

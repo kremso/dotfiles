@@ -1,8 +1,8 @@
-#!/usr/bin/python2
+#!/usr/bin/python
 
-import sys
 import gtk
 import gnomekeyring as gkey
+import getpass
 
 class Keyring(object):
     def __init__(self, name, server, protocol):
@@ -34,11 +34,21 @@ class Keyring(object):
                 gkey.ITEM_NETWORK_PASSWORD, self._name, attrs, pw, True)
 
 def get_username(server):
-    keyring = Keyring("offlineimap", server, "imap")
-    (username, password) = keyring.get_credentials()
-    return username
+  keyring = Keyring("offlineimap", server, "imap")
+  (username, password) = keyring.get_credentials()
+  return username
 
 def get_password(server):
-    keyring = Keyring("offlineimap", server, "imap")
-    (username, password) = keyring.get_credentials()
-    return password
+  keyring = Keyring("offlineimap", server, "imap")
+  (username, password) = keyring.get_credentials()
+  return password
+
+if __name__ == '__main__':
+  server = raw_input("Server: ")
+  username = raw_input("Username: ")
+  password = getpass.getpass(prompt="Password: ")
+  print
+
+  keyring = Keyring("offlineimap", server, "imap")
+
+  keyring.set_credentials((username, password))
