@@ -1,0 +1,5 @@
+nnoremap j 5j
+nnoremap k 5k
+
+nnoremap J gt
+nnoremap K gT
