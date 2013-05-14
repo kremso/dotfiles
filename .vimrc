@@ -139,12 +139,6 @@ call pathogen#helptags()
     map <C-k> <C-w>k
     map <C-l> <C-w>l
 
-    " Emacs-like keybindings
-    cnoremap <C-a> <Home>
-    cnoremap <C-e> <End>
-    inoremap <C-a> <Esc>^i
-    inoremap <C-e> <Esc>A
-
     " Treat long softwrapped lines as multiple lines
     nmap j gj
     nmap k gk

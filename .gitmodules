@@ -88,3 +88,6 @@
 [submodule ".vim/bundle/ctrlp.vim"]
 	path = .vim/bundle/ctrlp.vim
 	url = https://github.com/kien/ctrlp.vim.git
+[submodule ".vim/bundle/vim-rsi"]
+	path = .vim/bundle/vim-rsi
+	url = https://github.com/tpope/vim-rsi.git
