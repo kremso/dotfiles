@@ -49,6 +49,7 @@
         export VISUAL="vim"
         export BROWSER="firefox"
         export DE="gnome"
+        export TERM="xterm-256color"
     # }}}
 # }}}
 # Zsh options {{{
