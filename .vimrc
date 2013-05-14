@@ -371,7 +371,8 @@ call pathogen#helptags()
     " Write the file and run tests for the given filename
     :w
     :silent !echo;echo;echo;echo;echo
-    exec ":!rspec " . a:filename
+    let t:command = ":Dispatch bin/rspec " . a:filename
+    :exec t:command
   endfunction
 
   function! SetTestFile()
@@ -532,10 +533,10 @@ function! Run()
       make %
     elseif expand("%:t") =~ '_spec\.rb$'
       compiler ruby
-      let &makeprg = "rspec "
+      let &makeprg = "bin/rspec "
       make %
     else
-      !irb -r"%:p"
+      !ruby "%:p"
     endif
   elseif &ft == "html" || &ft == "xhtml" || &ft == "php" || &ft == "aspvbs" || &ft == "aspperl"
     wa
