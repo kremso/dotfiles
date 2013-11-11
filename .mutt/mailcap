@@ -16,6 +16,8 @@ application/vnd.ms-excel; ~/.mutt/view_attachment.sh %s
 # MS Word
 application/msword; ~/.mutt/view_attachment.sh %s
 application/rtf; ~/.mutt/view_attachment.sh %s
+application/3dr; ~/.mutt/view_attachment.sh %s
+application/vnd.openxmlformats-officedocument.wordprocessingml.document; ~/.mutt/view_attachment.sh %s
 
 # Images
 image/jpeg; ~/.mutt/view_attachment.sh %s jpg
@@ -29,6 +31,9 @@ application/zip; ~/.mutt/view_attachment.sh %s
 
 # HTML
 text/html; w3m -dump %s; nametemplate=%s.html; copiousoutput
+
+# PDF
+application/x-download; ~/.mutt/view_attachment.sh %s
 
 # Unidentified.
 application/octet-stream; ~/.mutt/view_attachment.sh %s "-" 
