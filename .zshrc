@@ -51,6 +51,10 @@
         export DE="gnome"
         export TERM="xterm-256color"
     # }}}
+    # Ruby GC Settings {{{
+      export RUBY_GC_MALLOC_LIMIT=90000000
+      export RUBY_FREE_MIN=200000
+    # }}}
 # }}}
 # Zsh options {{{
     typeset -g -A key
@@ -134,6 +138,7 @@
         alias -s {php,tpl,txt,PKGBUILD}=$EDITOR
         alias -s {jpg,JPG,jpeg,JPEG,png,PNG,gif,GIF}="feh -FZd"
         alias -s {mpg,mpeg,avi,ogm,wmv,m4v,mp4,mov}="mplayer -idx"
+        alias -s {pdf}="open"
     # }}}
     # Git aliases {{{
         alias g="git"
@@ -425,3 +430,11 @@
 
 PATH=$PATH:$HOME/.rvm/bin # Add RVM to PATH for scripting
 if [[ -s $HOME/.rvm/scripts/rvm ]] ; then source $HOME/.rvm/scripts/rvm ; fi
+
+[[ -s $HOME/.tmuxinator/scripts/tmuxinator ]] && source $HOME/.tmuxinator/scripts/tmuxinator
+
+### Added by the Heroku Toolbelt
+export PATH="/usr/local/heroku/bin:$PATH"
+
+# Setup direnv https://github.com/zimbatm/direnv
+eval "$(direnv hook $0)"
