@@ -1,13 +1,3 @@
-.xmonad/xmonad-x86_64-linux
-.xmonad/xmonad.errors
-.xmonad/xmonad.hi
-.xmonad/xmonad.hs
-.xmonad/xmonad.o
-.xmonad/history
 .vim/tmp
 .vim/.netrwhist
 .vim/yankring_history_v2.txt
-.mutt/temp/
-.mutt/alias
-.mutt/cache
-.mutt/mailboxes
