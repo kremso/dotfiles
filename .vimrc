@@ -446,7 +446,7 @@ call pathogen#helptags()
 
     augroup FTQuickfix
       au!
-      au Filetype qf setlocal colorcolumn=0 nolist nocursorline nowrap
+      au Filetype qf setlocal colorcolumn=0 nolist nocursorline wrap linebreak
     augroup END
 " }}}
 
