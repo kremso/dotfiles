@@ -5,6 +5,8 @@ call pathogen#helptags()
     set nocompatible
     syntax on
     set encoding=utf-8
+    set exrc " read local .vimrc files
+    set secure " do not allow autocmds and shell commands from local .vimrcs
 " }}}
 
 " General {{{
