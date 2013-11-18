@@ -17,7 +17,7 @@ call pathogen#helptags()
     set backupdir=~/.vim/tmp/backup " where to put backup files
     set directory=~/.vim/tmp/swap " directory to place swap files in
     set undodir=~/.vim/tmp/undo " directory to place undo files in
-    set clipboard+=unnamed,unnamedplus,autoselect " share clipboard
+    set clipboard=unnamedplus " share clipboard with X
     set hidden " you can change buffers without saving
     set mouse=a " use mouse everywhere
     set noerrorbells " don't make noise
