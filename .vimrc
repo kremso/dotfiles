@@ -1,12 +1,22 @@
-call pathogen#infect()
-call pathogen#helptags()
-
 " Basics {{{
     set nocompatible
     syntax on
     set encoding=utf-8
     set exrc " read local .vimrc files
     set secure " do not allow autocmds and shell commands from local .vimrcs
+" }}}
+
+" Vundle {{{
+  filetype off
+  set rtp+=~/.vim/bundle/vundle/
+  call vundle#rc()
+  Bundle 'gmarik/vundle'
+
+  Bundle 'tpope/vim-rails'
+  Bundle 'ervandew/supertab'
+  Bundle 'kien/ctrlp.vim'
+  Bundle 'scrooloose/syntastic'
+  Bundle 'scrooloose/nerdtree'
 " }}}
 
 " General {{{
