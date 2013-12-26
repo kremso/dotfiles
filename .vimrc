@@ -146,8 +146,6 @@
 " }}}
 
 " Mappings {{{
-    nnoremap <space> za " open/close folds with space
-
     " I hit F1 too often when reaching for esc
     inoremap <F1> <ESC>
     nnoremap <F1> <ESC>
