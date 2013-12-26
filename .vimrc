@@ -21,6 +21,7 @@
   Bundle 'tpope/vim-surround'
   Bundle 'tpope/vim-endwise'
   Bundle 'tpope/vim-commentary'
+  Bundle 'gavinbeatty/dragvisuals.vim'
 
   " Trial
   Bundle 'rking/ag.vim'
@@ -527,6 +528,14 @@
     map <leader>gv :CtrlP app/views<cr>
     map <leader>gc :CtrlP app/controllers<cr>
     map <leader>gm :CtrlP app/models<cr>
+    " }}}
+
+    " drag visuals {{{
+      vmap  <expr>  <LEFT>   DVB_Drag('left')
+      vmap  <expr>  <RIGHT>  DVB_Drag('right')
+      vmap  <expr>  <DOWN>   DVB_Drag('down')
+      vmap  <expr>  <UP>     DVB_Drag('up')
+      vmap  <expr>  D        DVB_Duplicate()
     " }}}
 " }}}
 
