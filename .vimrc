@@ -12,11 +12,20 @@
   call vundle#rc()
   Bundle 'gmarik/vundle'
 
-  Bundle 'tpope/vim-rails'
   Bundle 'ervandew/supertab'
   Bundle 'kien/ctrlp.vim'
   Bundle 'scrooloose/syntastic'
   Bundle 'scrooloose/nerdtree'
+  Bundle 'tpope/vim-rails'
+  Bundle 'tpope/vim-dispatch'
+  Bundle 'tpope/vim-surround'
+  Bundle 'tpope/vim-endwise'
+  Bundle 'tpope/vim-commentary'
+
+  " Trial
+  Bundle 'rking/ag.vim'
+  Bundle 'bling/vim-airline'
+  Bundle 'edkolev/tmuxline.vim'
 " }}}
 
 " General {{{
@@ -231,8 +240,8 @@
   " strip all trailing whitespace in the current file
   nnoremap <leader>W :%s/\s\+$//<cr>:let @/=''<CR>
 
-  " start ack search
-  nnoremap <leader>a :Ack 
+  " start ag search
+  nnoremap <leader>a :Ag
 
   " edit .vimrc
   nnoremap <leader>ev <C-w><C-v><C-l>:e $MYVIMRC<cr>
@@ -618,40 +627,6 @@ command! -bar Run :execute Run()
 
   " Line and column position and counts.
   set statusline+=\ (line\ %l\/%L,\ col\ %03c)
-" }}}
-
-" Ack motions {{{
-
-" Motions to Ack for things.  Works with pretty much everything, including:
-"
-"   w, W, e, E, b, B, t*, f*, i*, a*, and custom text objects
-"
-" Awesome.
-"
-" Note: If the text covered by a motion contains a newline it won't work.  Ack
-" searches line-by-line.
-
-nnoremap <silent> \a :set opfunc=<SID>AckMotion<CR>g@
-xnoremap <silent> \a :<C-U>call <SID>AckMotion(visualmode())<CR>
-
-function! s:CopyMotionForType(type)
-    if a:type ==# 'v'
-        silent execute "normal! `<" . a:type . "`>y"
-    elseif a:type ==# 'char'
-        silent execute "normal! `[v`]y"
-    endif
-endfunction
-
-function! s:AckMotion(type) abort
-    let reg_save = @@
-
-    call s:CopyMotionForType(a:type)
-
-    execute "normal! :Ack! --literal " . shellescape(@@) . "\<cr>"
-
-    let @@ = reg_save
-endfunction
-
 " }}}
 
 " Refactorings {{{
