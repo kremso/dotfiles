@@ -235,7 +235,7 @@
   let mapleader = ","
 
   " this key combination gets rid of the search highlights
-  nmap <leader><space> :noh<cr>
+  nmap <c-l> :noh<cr>
 
   " strip all trailing whitespace in the current file
   nnoremap <leader>W :%s/\s\+$//<cr>:let @/=''<CR>
