@@ -537,6 +537,10 @@
       vmap  <expr>  <UP>     DVB_Drag('up')
       vmap  <expr>  D        DVB_Duplicate()
     " }}}
+
+    " airline {{{
+    let g:airline_powerline_fonts = 1
+    " }}}
 " }}}
 
 " GUI settings {{{
@@ -545,7 +549,6 @@
   autocmd GUIEnter * set guioptions-=T
   "autocmd GUIEnter * set gfn=Bitstream\ Vera\ Sans\ Mono\ 9
   autocmd GUIEnter * set gfn=Monaco\ for\ Powerline\ 9
-  let g:Powerline_symbols = 'fancy'
   autocmd GUIEnter * set vb t_vb= " disable visual bell
 " }}}
 
