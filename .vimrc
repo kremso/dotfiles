@@ -395,7 +395,7 @@
     " Delete empty trailing line
     :normal dd
   endfunction
-  map <leader>gR :call ShowRoutes()<cr>
+  map <leader>gR :silent call ShowRoutes()<cr>
 
   function! RunTests(filename)
     " Write the file and run tests for the given filename
