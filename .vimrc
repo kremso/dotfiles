@@ -27,6 +27,8 @@
   Bundle 'rking/ag.vim'
   Bundle 'bling/vim-airline'
   Bundle 'edkolev/tmuxline.vim'
+
+  runtime plugin/rspec
 " }}}
 
 " General {{{
@@ -396,48 +398,6 @@
     :normal dd
   endfunction
   map <leader>gR :silent call ShowRoutes()<cr>
-
-  function! RunTests(filename)
-    " Write the file and run tests for the given filename
-    :w
-    :silent !echo;echo;echo;echo;echo
-    let t:command = ":Dispatch bin/rspec " . a:filename
-    :exec t:command
-  endfunction
-
-  function! SetTestFile()
-    " Set the spec file that tests will be run for.
-    let t:grb_test_file=@%
-  endfunction
-
-  function! RunTestFile(...)
-    if a:0
-      let command_suffix = a:1
-    else
-      let command_suffix = ""
-    endif
-
-    " Run the tests for the previously-marked file.
-    let in_spec_file = match(expand("%"), '_spec.rb$') != -1
-    if in_spec_file
-      call SetTestFile()
-    elseif !exists("t:grb_test_file")
-      return
-    end
-    call RunTests(t:grb_test_file . command_suffix)
-  endfunction
-
-  function! RunNearestTest()
-    let spec_line_number = line('.')
-    call RunTestFile(":" . spec_line_number)
-  endfunction
-
-  " Run this file
-  map <leader>t :call RunTestFile()<cr>
-  " Run only the example under the cursor
-  map <leader>T :call RunNearestTest()<cr>
-  " Run all test files
-  map <leader>a :call RunTests('spec')<cr>
   " }}}
 " }}}
 
@@ -540,6 +500,11 @@
 
     " airline {{{
     let g:airline_powerline_fonts = 1
+    " }}}
+
+    " rspec {{{
+      map <leader>t :RspecRunFile<cr>
+      map <leader>T :RspecRunFocused<cr>
     " }}}
 " }}}
 
