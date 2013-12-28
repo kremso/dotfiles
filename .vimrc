@@ -1,4 +1,4 @@
-" Vundle {{{
+" Plugins {{{
   filetype off
   set rtp+=~/.vim/bundle/vundle/
   call vundle#rc()
@@ -22,6 +22,7 @@
   Bundle 'edkolev/tmuxline.vim'
 
   runtime plugin/rspec
+  runtime macros/matchit.vim
 " }}}
 " Basics {{{
     set nocompatible
@@ -242,14 +243,13 @@
   " Switch between the last two files
   nnoremap <leader><leader> <c-^>
 " }}}
-" Language specific / filetype autocommands {{{
+" Language specific {{{
   " CSS, SCSS {{{
     augroup FTCss
       au!
       au BufRead,BufNewFile *.scss.erb set ft=scss
       autocmd FileType css,scss  silent! setlocal omnifunc=csscomplete#CompleteCSS
       autocmd FileType css,scss  setlocal iskeyword+=-
-      autocmd FileType css,scss   setlocal ai et sta sw=2 sts=2
       autocmd FileType scss,sass  syntax cluster sassCssAttributes add=@cssColors
       " Use <leader>S to sort properties.
       au FileType css,scss nnoremap <buffer> <leader>S ?{<CR>jV/\v^\s*\}?$<CR>k:sort<CR>:noh<CR>
@@ -258,66 +258,9 @@
       au FileType css,scss inoremap <buffer> {<cr> {}<left><cr>.<cr><esc>k==A<bs>
     augroup END
   " }}}
-  " HTML, XML {{{
-    augroup FTHtml
-      au!
-      "au BufRead,BufNewFile *.html.erb set ft=html.erb
-      autocmd FileType html,xhtml,wml,cf      setlocal ai et sta sw=2 sts=2
-      autocmd FileType xml,xsd,xslt           setlocal ai et sta sw=2 sts=2 ts=2
-      autocmd FileType html setlocal iskeyword+=~
-      autocmd FileType xml exe ":silent 1,$!xmllint --format --recover - 2>/dev/null"
-    augroup END
-  " }}}
-  " JavaScript {{{
-    augroup FTJavascript
-      au!
-      autocmd FileType javascript setlocal ai et sta sw=2 sts=2 ts=2 cin isk+=$
-
-      " https://gist.github.com/725689
-      au BufNewFile,BufRead *.js set makeprg=gjslint\ %
-      au BufNewFile,BufRead *.js set errorformat=%-P-----\ FILE\ \ :\ \ %f\ -----,Line\ %l\\,\ E:%n:\ %m,%-Q,%-GFound\ %s,%-GSome\ %s,%-Gfixjsstyle%s,%-Gscript\ can\ %s,%-G
-    augroup END
-  " }}}
-  " TEX {{{
-    augroup FTTex
-      au!
-      autocmd FileType tex                    setlocal fo+=t " autowrap text
-      autocmd FileType tex  silent! compiler tex | setlocal makeprg=latex\ -interaction=nonstopmode\ % formatoptions+=l
-      autocmd FileType context set spell spelllang=en_US
-    augroup END
-  " }}}
-  " Ruby {{{
-    augroup FTRuby
-      au!
-      autocmd FileType ruby silent! compiler ruby | setlocal tw=79 isfname+=: makeprg=rake comments=:#\  | let &includeexpr = 'tolower(substitute(substitute('.&includeexpr.',"\\(\\u\\+\\)\\(\\u\\l\\)","\\1_\\2","g"),"\\(\\l\\|\\d\\)\\(\\u\\)","\\1_\\2","g"))'
-      autocmd FileType eruby,yaml,ruby        setlocal ai et sta sw=2 sts=2
-      autocmd FileType ruby,eruby set omnifunc=rubycomplete#Complete
-    augroup END
-  " }}}
-  " Cucumber {{{
-    augroup FTCucumber
-      au!
-      autocmd FileType cucumber               setlocal ai et sta sw=2 sts=2 ts=2
-      autocmd FileType cucumber silent! compiler cucumber | imap <buffer><expr> <Tab> pumvisible() ? "\<C-N>" : (CucumberComplete(1,'') >= 0 ? "\<C-X>\<C-O>" : (getline('.') =~ '\S' ? ' ' : "\<C-I>"))
-      autocmd FileType ruby iabbr $p "([^"]*)"
-    augroup END
-
-    " Cucumber navigation commands
-    autocmd User Rails Rnavcommand step features/step_definitions -glob=**/* -suffix=_steps.rb
-    " :Cuc my text (no quotes) -> runs cucumber scenarios containing "my text"
-    command! -nargs=+ Cuc :!ack --no-heading --no-break <q-args> | cut -d':' -f1,2 | xargs bundle exec cucumber --no-color
-  " }}}
-  " Plain text {{{
-    augroup FTText
-      au!
-      autocmd FileType text,txt,mail          setlocal ai com=fb:*,fb:-,n:>
-      autocmd FileType text,txt setlocal tw=78 linebreak nolist
-    augroup END
-  " }}}
   " Git {{{
     augroup FTGit
       au!
-      autocmd FileType git,gitcommit setlocal foldmethod=syntax foldlevel=1
       autocmd FileType gitcommit setlocal spell
     augroup END
   " }}}
@@ -326,131 +269,117 @@
   map <leader>gg :topleft 100 :split Gemfile<cr>
 
   function! ShowRoutes()
-    " Requires 'scratch' plugin
     :topleft 100 :split __Routes__
     " Make sure Vim doesn't write __Routes__ as a file
     :set buftype=nofile
     " Delete everything
-    :normal 1GdG
+    :normal! 1GdG
     " Put routes output in buffer
     :0r! rake -s routes
     " Size window to number of lines (1 plus rake output length)
-    :exec ":normal " . line("$") . "_ "
+    :exec ":normal " . line("$") . "_"
     " Move cursor to bottom
-    :normal 1GG
+    :normal! 1GG
     " Delete empty trailing line
-    :normal dd
+    :normal! dd
   endfunction
   map <leader>gR :silent call ShowRoutes()<cr>
   " }}}
 " }}}
-" Miscelancous autocommands {{{
-    augroup FTMics
+" Environment specific {{{
+    " Resize splits when the window is resized {{{
+    augroup FTResizeSplits
       autocmd!
-      au FocusLost * :wall
-      " Resize splits when the window is resized
       au VimResized * exe "normal! \<c-w>="
-      autocmd BufReadCmd *.jar call zip#Browse(expand("<amatch>"))
-      autocmd BufReadPre *.pdf setlocal binary
     augroup END
-
-    augroup FTCheck
-      autocmd!
-      autocmd BufNewFile,BufRead *.pig set filetype=pig syntax=pig
-      autocmd BufNewFile,BufRead */apache2/[ms]*-*/* set ft=apache
-      autocmd BufNewFile,BufRead */httpd/[ms]*-*/* set ft=apache
-      autocmd BufNewFile,BufRead *named.conf*       set ft=named
-      autocmd BufNewFile,BufRead *.feature,*.story  set ft=cucumber
-      autocmd BufNewFile,BufRead /etc/udev/*.rules set ft=udev
-    augroup END
-
-    augroup FTOptions
-      autocmd!
-      autocmd FileType * if exists("+omnifunc") && &omnifunc == "" | setlocal omnifunc=syntaxcomplete#Complete | endif
-    augroup END
-
+    " }}}
+    " Special settings for quickfix {{{
     augroup FTQuickfix
-      au!
-      au Filetype qf setlocal colorcolumn=0 nolist nocursorline wrap linebreak
+      autocmd!
+      autocmd Filetype qf setlocal colorcolumn=0 nolist nocursorline wrap linebreak
     augroup END
-
-    augroup NoSimultaneousEdits
+    " }}}
+    " Handle swap files {{{
+    augroup FTSimultaneousEdits
       autocmd!
       autocmd SwapExists * call HandleSwapFile(expand('<afile>:p'))
     augroup END
+
+    " Print a message after the autocommand completes
+    " (so you can see it, but don't have to hit <ENTER> to continue)...
+    function! DelayedMsg(msg)
+        " A sneaky way of injecting a message when swapping into the new buffer...
+        augroup DelayedMsg
+          autocmd!
+          " Print the message on finally entering the buffer...
+          autocmd BufWinEnter *  echohl WarningMsg
+          exec 'autocmd BufWinEnter *  echon "\r'.printf("%-60s", a:msg).'"'
+          autocmd BufWinEnter *  echohl NONE
+
+          " And then remove these autocmds, so it's a "one-shot" deal...
+          autocmd BufWinEnter *  augroup AutoSwap_Mac_Msg
+          autocmd BufWinEnter *  autocmd!
+          autocmd BufWinEnter *  augroup END
+        augroup END
+    endfunction
+
+    function! HandleSwapFile(filename)
+      " if swapfile is older than file itself, just get rid of it
+      if getftime(v:swapname) < getftime(a:filename)
+        call DelayedMsg("Old swapfile detected...and deleted")
+        call delete(v:swapname)
+        let v:swapchoice = 'e'
+      " otherwise, open file read-only
+      else
+        call DelayedMsg("Swapfile detected...opening read-only")
+        let v:swapchoice = 'o'
+      endif
+    endfunction
+    " }}}
+    " Create interim directories if necessary {{{
+    augroup FTAutoMkdir
+      autocmd!
+      autocmd  BufNewFile  *  :call EnsureDirExists()
+    augroup END
+
+    function! AskQuit (msg, options, quit_option)
+      if confirm(a:msg, a:options) == a:quit_option
+        exit
+      endif
+    endfunction
+
+    function! EnsureDirExists ()
+      let required_dir = expand("%:h")
+      if !isdirectory(required_dir)
+        call AskQuit("Parent directory '" . required_dir . "' doesn't exist.",
+              \       "&Create it\nor &Quit?", 2)
+
+        try
+          call mkdir( required_dir, 'p' )
+        catch
+          call AskQuit("Can't create '" . required_dir . "'",
+                \            "&Quit\nor &Continue anyway?", 1)
+        endtry
+      endif
+    endfunction
+    " }}}
 " }}}
-" Create interim directories if necessary {{{
-  function! AskQuit (msg, options, quit_option)
-    if confirm(a:msg, a:options) == a:quit_option
-      exit
-    endif
-  endfunction
-
-  function! EnsureDirExists ()
-    let required_dir = expand("%:h")
-    if !isdirectory(required_dir)
-      call AskQuit("Parent directory '" . required_dir . "' doesn't exist.",
-            \       "&Create it\nor &Quit?", 2)
-
-      try
-        call mkdir( required_dir, 'p' )
-      catch
-        call AskQuit("Can't create '" . required_dir . "'",
-              \            "&Quit\nor &Continue anyway?", 1)
-      endtry
-    endif
-  endfunction
-
-  augroup AutoMkdir
-    autocmd!
-    autocmd  BufNewFile  *  :call EnsureDirExists()
-  augroup END
-" }}}
-" Plugins settings {{{
-    runtime macros/matchit.vim
-
+" Plugin specific {{{
     " supertab {{{
       let g:SuperTabDefaultCompletionType = 'context'
       let g:SuperTabContextDefaultCompletionType = '<c-n>'
     " }}}
-
     " syntastic {{{
     let g:syntastic_auto_loc_list=1
     let g:syntastic_enable_signs=1
     let g:synastic_quiet_warnings=1
     " }}}
-
-    " YankRing {{{
-       nnoremap <silent> <F11> :YRShow<CR>
-       inoremap <silent> <F11> <esc>:YRShow<CR>
-       let g:yankring_history_dir = '~/.vim'
-    " }}}
-
-    " Rubycomplete {{{
-        let g:rubycomplete_rails=1
-        let g:rubycomplete_classes_in_global=1
-        let g:rubycomplete_buffer_loading=1
-        let g:rubycomplete_include_object=1
-        let g:rubycomplete_include_objectspace=1
-    " }}}
-
-    " Gundo {{{
-      nnoremap <leader>g :GundoToggle<cr>
-    " }}}
-
-    " Fugitive {{{
-      nnoremap <leader>gs :Gstatus<cr>
-      nnoremap <leader>gc :Gcommit<cr>
-      nnoremap <leader>gd :Gdiff<cr>
-    " }}}
-
     " NERDTree {{{
       nnoremap <silent> <F12> :NERDTreeToggle <CR> " F12 toggles file explorer
       let g:NERDTreeMinimalUI=1
       let g:NERDTreeDirArrows=1
       let g:NERTreeHighlightCursorLine=1
     "}}}
-
     " Ctrl-P {{{
     map <leader>f :CtrlP<cr>
     map <leader>b :CtrlPMRU<cr>
@@ -458,7 +387,6 @@
     map <leader>gc :CtrlP app/controllers<cr>
     map <leader>gm :CtrlP app/models<cr>
     " }}}
-
     " drag visuals {{{
       vmap  <expr>  <LEFT>   DVB_Drag('left')
       vmap  <expr>  <RIGHT>  DVB_Drag('right')
@@ -466,45 +394,11 @@
       vmap  <expr>  <UP>     DVB_Drag('up')
       vmap  <expr>  D        DVB_Duplicate()
     " }}}
-
     " airline {{{
     let g:airline_powerline_fonts = 1
     " }}}
-
     " rspec {{{
       map <leader>t :RspecRunFile<cr>
       map <leader>T :RspecRunFocused<cr>
     " }}}
-" }}}
-" Commands {{{
-" Print a message after the autocommand completes
-" (so you can see it, but don't have to hit <ENTER> to continue)...
-function! DelayedMsg(msg)
-    " A sneaky way of injecting a message when swapping into the new buffer...
-    augroup DelayedMsg
-      autocmd!
-      " Print the message on finally entering the buffer...
-      autocmd BufWinEnter *  echohl WarningMsg
-      exec 'autocmd BufWinEnter *  echon "\r'.printf("%-60s", a:msg).'"'
-      autocmd BufWinEnter *  echohl NONE
-
-      " And then remove these autocmds, so it's a "one-shot" deal...
-      autocmd BufWinEnter *  augroup AutoSwap_Mac_Msg
-      autocmd BufWinEnter *  autocmd!
-      autocmd BufWinEnter *  augroup END
-    augroup END
-endfunction
-
-function! HandleSwapFile(filename)
-  " if swapfile is older than file itself, just get rid of it
-  if getftime(v:swapname) < getftime(a:filename)
-    call DelayedMsg("Old swapfile detected...and deleted")
-    call delete(v:swapname)
-    let v:swapchoice = 'e'
-  " otherwise, open file read-only
-  else
-    call DelayedMsg("Swapfile detected...opening read-only")
-    let v:swapchoice = 'o'
-  endif
-endfunction
 " }}}
