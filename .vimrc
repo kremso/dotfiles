@@ -25,14 +25,11 @@
 " }}}
 " Basics {{{
     set nocompatible
+    filetype plugin indent on " load filetype plugins/indent settings
     syntax on
     set encoding=utf-8
     set exrc " read local .vimrc files
     set secure " do not allow autocmds and shell commands from local .vimrcs
-" }}}
-" General {{{
-    filetype plugin indent on " load filetype plugins/indent settings
-    " set autochdir " always switch to the current file directory
     set backspace=indent,eol,start " make backspace a more flexible
     set backup " make backup files
     set backupdir=~/.vim/tmp/backup " where to put backup files
@@ -52,7 +49,7 @@
     set gdefault " global substitutions are default s/a/b/g
     set ttimeoutlen=50  " Make Esc work faster
 
-    " {{{ Make the current window big, but leave others context
+    " Make the current window big, but leave others context
     set winwidth=84
     " We have to have a winheight bigger than we want to set winminheight. But if
     " we set winheight to be huge before winminheight, the winminheight set will
@@ -60,9 +57,7 @@
     set winheight=5
     set winminheight=5
     set winheight=999
-    " }}}
-" }}}
-" Vim UI {{{
+
     colorscheme tir_black
     set background=dark
     set t_Co=256
@@ -76,7 +71,6 @@
     set hlsearch " highlight search matches
     set ignorecase " ignore case
     set smartcase " but when the query starts with upper character be case sensitive
-
     set laststatus=2 " always show the status line
     set lazyredraw " do not redraw while running macros
     set linespace=0 " don't insert any extra pixel lines between rows
@@ -95,8 +89,6 @@
     set sidescrolloff=10 " Keep 5 lines at the size
     set cursorline " visually mark current line
     set showbreak=↪ " indicate wrapped line
-"}}}
-" Text Formatting/Layout {{{
     set expandtab " no real tabs please!
     set wrap "wrap text
     set textwidth=79 " to 79 characters
