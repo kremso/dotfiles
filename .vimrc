@@ -242,9 +242,6 @@
   " Switch between the last two files
   nnoremap <leader><leader> <c-^>
 " }}}
-" Abbreviations {{{
-  iabbr ssig Maj sa,<cr>Tomas
-" }}}
 " Language specific / filetype autocommands {{{
   " CSS, SCSS {{{
     augroup FTCss
