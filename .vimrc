@@ -240,14 +240,6 @@
 
   " Switch between the last two files
   nnoremap <leader><leader> <c-^>
-
-  " show long lines {{{
-    function! ShowLongLines()
-      highlight OverLength ctermbg=red ctermfg=white guibg=#592929
-      match OverLength /\%81v.\+/
-    endfunction
-    nnoremap <leader>sll :call ShowLongLines()<cr>
-  " }}}
 " }}}
 " Abbreviations {{{
   iabbr ssig Maj sa,<cr>Tomas
