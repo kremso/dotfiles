@@ -191,12 +191,6 @@
     " Record macros with Q and ditch the Ex mode that is bound to Q by default
     nnoremap q <nop>
     nnoremap Q q
-
-    " Save like a pro
-    nnoremap <c-s> :w<cr>
-
-    " expands to current directory
-    cnoremap %% <C-R>=expand('%:h').'/'<cr>
 " }}}
 " Operator Mappings {{{
   onoremap imp :<c-u>execute "normal! ?def\r:nohlsearch\rf(lvt)"<cr>
