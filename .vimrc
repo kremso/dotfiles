@@ -5,7 +5,6 @@
     set exrc " read local .vimrc files
     set secure " do not allow autocmds and shell commands from local .vimrcs
 " }}}
-
 " Vundle {{{
   filetype off
   set rtp+=~/.vim/bundle/vundle/
@@ -31,7 +30,6 @@
 
   runtime plugin/rspec
 " }}}
-
 " General {{{
     filetype plugin indent on " load filetype plugins/indent settings
     " set autochdir " always switch to the current file directory
@@ -64,7 +62,6 @@
     set winheight=999
     " }}}
 " }}}
-
 " Vim UI {{{
     colorscheme tir_black
     set background=dark
@@ -99,7 +96,6 @@
     set cursorline " visually mark current line
     set showbreak=↪ " indicate wrapped line
 "}}}
-
 " Text Formatting/Layout {{{
     set expandtab " no real tabs please!
     set wrap "wrap text
@@ -114,7 +110,6 @@
     set autoindent
     match ErrorMsg '^\(<\|=\|>\)\{7\}\([^=].\+\)\?$' " Highlight VCS conflict markers"
 " }}}
-
 " Folding {{{
     set foldenable " Turn on folding
     set foldmethod=marker " Fold on the marker
@@ -139,7 +134,6 @@
 
     set foldtext=MyFoldText()
 " }}}
-
 " Completions {{{
     set completeopt=longest,menu,preview
     "                   |      |    |
@@ -148,7 +142,6 @@
     "                   |      +-- do not display 1 line menu
     "                   +-- display completion popup menu
 " }}}
-
 " Mappings {{{
     " I hit F1 too often when reaching for esc
     inoremap <F1> <ESC>
@@ -232,11 +225,9 @@
     " expands to current directory
     cnoremap %% <C-R>=expand('%:h').'/'<cr>
 " }}}
-
 " Operator Mappings {{{
   onoremap imp :<c-u>execute "normal! ?def\r:nohlsearch\rf(lvt)"<cr>
 " }}}
-
 " Leader Mappings {{{
   let mapleader = ","
 
@@ -294,11 +285,9 @@
     nnoremap <leader>sll :call ShowLongLines()<cr>
   " }}}
 " }}}
-
 " Abbreviations {{{
   iabbr ssig Maj sa,<cr>Tomas
 " }}}
-
 " Language specific / filetype autocommands {{{
   " CSS, SCSS {{{
     augroup FTCss
@@ -401,7 +390,6 @@
   map <leader>gR :silent call ShowRoutes()<cr>
   " }}}
 " }}}
-
 " Miscelancous autocommands {{{
     augroup FTMics
       autocmd!
@@ -437,7 +425,6 @@
       autocmd SwapExists * call HandleSwapFile(expand('<afile>:p'))
     augroup END
 " }}}
-
 " Create interim directories if necessary {{{
   function! AskQuit (msg, options, quit_option)
     if confirm(a:msg, a:options) == a:quit_option
@@ -465,7 +452,6 @@
     autocmd  BufNewFile  *  :call EnsureDirExists()
   augroup END
 " }}}
-
 " Plugins settings {{{
     runtime macros/matchit.vim
 
@@ -536,7 +522,6 @@
       map <leader>T :RspecRunFocused<cr>
     " }}}
 " }}}
-
 " GUI settings {{{
   autocmd GUIEnter * colorscheme molokai
   autocmd GUIEnter * set guioptions-=m
@@ -545,7 +530,6 @@
   autocmd GUIEnter * set gfn=Monaco\ for\ Powerline\ 9
   autocmd GUIEnter * set vb t_vb= " disable visual bell
 " }}}
-
 " Commands {{{
 function! Run()
   let old_makeprg = &makeprg
@@ -639,7 +623,6 @@ function! HandleSwapFile(filename)
   endif
 endfunction
 " }}}
-
 " Statusline {{{
   augroup ft_statuslinecolor
     au!
@@ -673,7 +656,6 @@ endfunction
   " Line and column position and counts.
   set statusline+=\ (line\ %l\/%L,\ col\ %03c)
 " }}}
-
 " Refactorings {{{
 function! ExtractVariable()
   let name = input("Variable name: ")
