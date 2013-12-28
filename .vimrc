@@ -219,9 +219,6 @@
   " reformat whole file
   nnoremap <leader>= ggVG=
 
-  " convert {} to do/end
-  nnoremap <leader>b ^f{cwdo<cr><esc>$xxoend<esc>
-
   " initialize object from parameters
   function! InitializeFromParameters()
     let saved_unnamed_register = @@
