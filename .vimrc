@@ -94,7 +94,6 @@
     set textwidth=79 " to 79 characters
     "set colorcolumn=85 " and warn me if my line gets over 85 characters
     set formatoptions=cqt " see :help fo-table
-    set infercase " case inferred by default
     set shiftround " round the indent to shiftwidth (when at 3 spaces, and I hit > go to 4, not 5)
     set shiftwidth=2 " auto-indent amount when using >> <<
     set softtabstop=2 " when hitting tab or backspace, how many spaces should a tab be (see expandtab)
