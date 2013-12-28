@@ -225,16 +225,17 @@
 
     normal! ?deff(yi(
     let params = split(@@, ",")
+    let lines = []
     for param in params
       let cleaned_param = substitute(param, '^\s*\(.\{-}\)\s*$', '\1', '')
-      let @@ = "@" . cleaned_param . " = " . cleaned_param
-      normal! op==
+      call add(lines, "@" . cleaned_param . " = " . cleaned_param)
     endfor
-    normal! jdd
+    call append(line('.'), lines)
     nohlsearch
 
     let @@ = saved_unnamed_register
   endfunction
+
   nnoremap <leader>i :call InitializeFromParameters()<cr>
   inoremap <leader>i <esc>:call InitializeFromParameters()<cr>
 
