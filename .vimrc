@@ -22,6 +22,7 @@
   Bundle 'tpope/vim-endwise'
   Bundle 'tpope/vim-commentary'
   Bundle 'gavinbeatty/dragvisuals.vim'
+  Bundle 'kremso/vim-spectator'
 
   " Trial
   Bundle 'rking/ag.vim'
