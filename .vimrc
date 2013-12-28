@@ -139,9 +139,6 @@
     nnoremap <F1> <ESC>
     vnoremap <F1> <ESC>
 
-    map <F5> :Run<CR>
-    imap <F5> <Esc><F5>
-
     " Make ' remember line/column
     nnoremap ' `
     nnoremap ` '
@@ -522,67 +519,6 @@
   autocmd GUIEnter * set vb t_vb= " disable visual bell
 " }}}
 " Commands {{{
-function! Run()
-  let old_makeprg = &makeprg
-  let cmd = matchstr(getline(1),'^#!\zs[^ ]*')
-  if exists("b:run_command")
-    exe b:run_command
-  elseif cmd != '' && executable(cmd)
-    wa
-    let &makeprg = matchstr(getline(1),'^#!\zs.*').' %'
-    make
-  elseif &ft == "mail" || &ft == "text" || &ft == "help" || &ft == "gitcommit"
-    setlocal spell!
-  elseif exists("b:rails_root") && exists(":Rake")
-    wa
-    Rake
-  elseif &ft == "ruby"
-    wa
-    if executable(expand("%:p")) || getline(1) =~ '^#!'
-      compiler ruby
-      let &makeprg = "ruby"
-      make %
-    elseif expand("%:t") =~ '_test\.rb$'
-      compiler rubyunit
-      let &makeprg = "ruby"
-      make %
-    elseif expand("%:t") =~ '_spec\.rb$'
-      compiler ruby
-      let &makeprg = "bin/rspec "
-      make %
-    else
-      !ruby "%:p"
-    endif
-  elseif &ft == "html" || &ft == "xhtml" || &ft == "php" || &ft == "aspvbs" || &ft == "aspperl"
-    wa
-    if !exists("b:url")
-      call OpenURL(expand("%:p"))
-    else
-      call OpenURL(b:url)
-    endif
-  elseif &ft == "vim"
-    wa
-    unlet! g:loaded_{expand("%:t:r")}
-    return 'source %'
-  elseif &ft == "sql"
-    1,$DBExecRangeSQL
-  elseif expand("%:e") == "tex"
-    wa
-    exe "normal :!rubber -f %:r && xdvi %:r >/dev/null 2>/dev/null &\<CR>"
-  else
-    wa
-    if &makeprg =~ "%"
-      make
-    else
-      make %
-    endif
-  endif
-  let &makeprg = old_makeprg
-  return ""
-endfunction
-command! -bar Run :execute Run()
-
-
 " Print a message after the autocommand completes
 " (so you can see it, but don't have to hit <ENTER> to continue)...
 function! DelayedMsg(msg)
