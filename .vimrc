@@ -476,14 +476,6 @@
       map <leader>T :RspecRunFocused<cr>
     " }}}
 " }}}
-" GUI settings {{{
-  autocmd GUIEnter * colorscheme molokai
-  autocmd GUIEnter * set guioptions-=m
-  autocmd GUIEnter * set guioptions-=T
-  "autocmd GUIEnter * set gfn=Bitstream\ Vera\ Sans\ Mono\ 9
-  autocmd GUIEnter * set gfn=Monaco\ for\ Powerline\ 9
-  autocmd GUIEnter * set vb t_vb= " disable visual bell
-" }}}
 " Commands {{{
 " Print a message after the autocommand completes
 " (so you can see it, but don't have to hit <ENTER> to continue)...
