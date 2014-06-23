@@ -255,7 +255,7 @@
       au FileType css,scss nnoremap <buffer> <leader>S ?{<CR>jV/\v^\s*\}?$<CR>k:sort<CR>:noh<CR>
       " Make {<cr> insert a pair of brackets in such a way that the cursor is
       " correctly positioned inside of them AND the following code doesn't get unfolded.
-      au FileType css,scss inoremap <buffer> {<cr> {}<left><cr>.<cr><esc>k==A<bs>
+      au FileType css,scss inoremap <buffer> {<cr> {<cr>}<esc>O
     augroup END
   " }}}
   " Git {{{
