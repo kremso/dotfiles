@@ -4,9 +4,10 @@
   call vundle#rc()
   Bundle 'gmarik/vundle'
 
-  Bundle 'ervandew/supertab'
-  Bundle 'kien/ctrlp.vim'
-  Bundle 'scrooloose/syntastic'
+  Bundle 'Valloric/YouCompleteMe'
+  " Bundle 'ervandew/supertab'
+  Bundle 'SirVer/ultisnips'
+  Bundle 'ctrlpvim/ctrlp.vim'
   Bundle 'scrooloose/nerdtree'
   Bundle 'tpope/vim-rails'
   Bundle 'tpope/vim-dispatch'
@@ -15,17 +16,38 @@
   Bundle 'tpope/vim-commentary'
   Bundle 'gavinbeatty/dragvisuals.vim'
   Bundle 'kremso/vim-spectator'
+  Bundle 'tpope/vim-fugitive'
+  Bundle 'tpope/vim-ragtag'
+  Bundle 'kchmck/vim-coffee-script'
+  Bundle 'vim-ruby/vim-ruby'
+  Bundle 'groenewege/vim-less'
+  Bundle 'stephpy/vim-yaml'
+  Bundle 'saltstack/salt-vim'
+  Bundle 'editorconfig/editorconfig-vim'
+  Bundle 'Shougo/vimproc.vim'
+  Bundle 'Shougo/neomru.vim'
+  Bundle 'Shougo/unite.vim'
+  Bundle 'Shougo/unite-outline'
+  Bundle 'Shougo/vimfiler.vim'
+  Bundle 'morhetz/gruvbox'
 
   " Trial
   Bundle 'rking/ag.vim'
-  Bundle 'bling/vim-airline'
-  Bundle 'edkolev/tmuxline.vim'
+
+  " Try it
+  " Bundle 'itchyny/lightline.vim'
+  " Bundle 'itchyny/lightline-powerful'
+  " Bundle 'itchyny/thumbnail.vim'
+  " Bundle 'gregsexton/gitv'
+  " Bundle 'justinmk/vim-sneak'
+  " Bundle 'jayflo/vim-skip'
 
   runtime plugin/rspec
   runtime macros/matchit.vim
 " }}}
 " Basics {{{
     set nocompatible
+    set shell=/bin/bash\ --login
     filetype plugin indent on " load filetype plugins/indent settings
     syntax on
     set encoding=utf-8
@@ -401,4 +423,60 @@
       map <leader>t :RspecRunFile<cr>
       map <leader>T :RspecRunFocused<cr>
     " }}}
+    " UltiSnips {{{
+    let g:UltiSnipsExpandTrigger="<c-j>"
+    let g:UltiSnipsJumpForwardTrigger  = "<c-j>"
+    let g:UltiSnipsJumpBackwardTrigger = "<c-k>"
+    " }}}
+    " Unite {{{
+    function! s:unite_settings()
+      nmap <buffer> <esc> <plug>(unite_exit)
+      imap <buffer> <esc> <plug>(unite_exit)
+      imap <buffer>  <Tab>     <Plug>(unite_complete)
+    endfunction
+    autocmd FileType unite call s:unite_settings()
+    call unite#filters#matcher_default#use(['matcher_fuzzy'])
+    call unite#filters#sorter_default#use(['sorter_rank'])
+
+    let default_context = {
+      \ 'vertical' : 0,
+      \ 'short_source_names' : 1,
+      \ }
+    let default_context.prompt = '» '
+    call unite#custom#profile('default', 'context', default_context)
+
+    map <leader>uf :Unite -no-split -auto-preview -start-insert file_rec/async<cr>
+    map <leader>ub :Unite -no-split -auto-preview -start-insert file_mru<cr>
+    map <leader>g :Unite -no-split -auto-preview -start-insert grep:.<cr>
+    map <leader>o :Unite -no-split -auto-preview outline<cr>
+    " }}}
+    " Vimfiler {{{
+      nnoremap <silent> <leader>x :VimFilerExplorer<CR>
+    " }}}
+" }}}
+" Tmux {{{
+" for tmux to automatically set paste and nopaste mode at the time pasting (as
+" happens in VIM UI)
+
+function! WrapForTmux(s)
+  if !exists('$TMUX')
+    return a:s
+  endif
+
+  let tmux_start = "\<Esc>Ptmux;"
+  let tmux_end = "\<Esc>\\"
+
+  return tmux_start . substitute(a:s, "\<Esc>", "\<Esc>\<Esc>", 'g') . tmux_end
+endfunction
+
+let &t_SI .= WrapForTmux("\<Esc>[?2004h")
+let &t_EI .= WrapForTmux("\<Esc>[?2004l")
+
+function! XTermPasteBegin()
+  set pastetoggle=<Esc>[201~
+  set paste
+  return ""
+endfunction
+
+inoremap <special> <expr> <Esc>[200~ XTermPasteBegin()
 " }}}

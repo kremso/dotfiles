@@ -1,0 +1,20 @@
+snippet datehist
+date_histogram: {
+field: "$1",
+	 interval: $2,
+	 min_doc_count: 0,
+	 extended_bounds: {
+		min: @current_range.from.iso8601,
+		max: @current_range.to.iso8601,
+	 }
+},
+endsnippet
+
+snippet agg
+$1: {
+	$2,
+	aggs: {
+	  ${0:${VISUAL: #aggs}}
+	}
+}
+endsnippet

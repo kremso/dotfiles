@@ -53,7 +53,6 @@
     # }}}
     # Ruby GC Settings {{{
       export RUBY_GC_MALLOC_LIMIT=90000000
-      export RUBY_FREE_MIN=200000
     # }}}
 # }}}
 # Zsh options {{{
@@ -65,7 +64,7 @@
     setopt notify # Report the status if background jobs immediately
     setopt complete_in_word # Not just at the end
     setopt always_to_end # When complete from middle, move cursor
-    setopt no_match # Show error if pattern has no matches
+    unsetopt no_match # Show error if pattern has no matches
     setopt no_beep # Disable beeps
     setopt list_packed # Compact completion lists
     setopt list_types # Show types in completion
@@ -113,10 +112,6 @@
         alias lsa="ls -AahXBFov --color=auto --indicator-style=file-type --group-directories-first"
         alias ss="+ -s"
         alias grep="grep --color=auto"
-        alias sd="+ shutdown -h now"
-        alias rb="+ reboot"
-        alias p="+ pacman"
-        alias sy="p -Syu"
         alias df="df -h"
         alias du="du -h"
         alias rmr="rm -rf"
@@ -129,7 +124,7 @@
         alias dv="dirs -v"
     # }}}
     # Default sudo commands {{{
-        for cmd in pacman rc.d; do
+        for cmd in apt-get; do
             alias $cmd="+ $cmd"
         done
     # }}}
@@ -428,13 +423,12 @@
     # }}}
 # }}}
 
-PATH=$PATH:$HOME/.rvm/bin # Add RVM to PATH for scripting
-if [[ -s $HOME/.rvm/scripts/rvm ]] ; then source $HOME/.rvm/scripts/rvm ; fi
+export PATH="$HOME/.rbenv/bin:$PATH"
+eval "$(rbenv init -)"
 
 [[ -s $HOME/.tmuxinator/scripts/tmuxinator ]] && source $HOME/.tmuxinator/scripts/tmuxinator
 
-### Added by the Heroku Toolbelt
-export PATH="/usr/local/heroku/bin:$PATH"
-
 # Setup direnv https://github.com/zimbatm/direnv
 eval "$(direnv hook $0)"
+
+alias recipe="/usr/bin/env ruby ~/projects/se2evernote/seve.rb"
