@@ -18,10 +18,6 @@ end
 
 ## Function to show current status
 function show_status -d "Function to show the current status"
-  if [ $RETVAL -ne 0 ]
-    prompt_segment red white "↻ "
-    set pad ""
-    end
   if [ -n "$SSH_CLIENT" ]
       prompt_segment blue white " SSH: "
       set pad ""
@@ -47,20 +43,23 @@ end
 # Show directory
 function show_pwd -d "Show the current directory"
   set -l pwd (prompt_pwd)
-  prompt_segment normal 189 "$pad$pwd "
+  prompt_segment normal CFF09E "$pad$pwd "
 end
 
 # Show prompt w/ privilege cue
 function show_prompt -d "Shows prompt with cue for current priv"
   set -l uid (id -u $USER)
-    if [ $uid -eq 0 ]
+  if [ $uid -eq 0 ]
     prompt_segment red white " ! "
     set_color normal
     echo -n -s " "
   else
-    prompt_segment normal white " \$ "
+    if [ $RETVAL -ne 0 ]
+      prompt_segment normal CC333F " \$ "
+    else
+      prompt_segment normal white " \$ "
     end
-  
+  end
   set_color normal
 end
 

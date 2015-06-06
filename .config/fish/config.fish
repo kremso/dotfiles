@@ -1,3 +1,7 @@
+set -gx PATH "$HOME/.builds/bin" $PATH
+
+set -g -x fish_term24bit 1
+
 set BROWSER open
 
 set -g -x fish_greeting ''
