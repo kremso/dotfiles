@@ -1,49 +1,8 @@
-" Plugins {{{
+" Plugin management {{{
   filetype off
   set rtp+=~/.vim/bundle/vundle/
   call vundle#rc()
   Bundle 'gmarik/vundle'
-
-  Bundle 'Valloric/YouCompleteMe'
-  " Bundle 'ervandew/supertab'
-  Bundle 'SirVer/ultisnips'
-  Bundle 'ctrlpvim/ctrlp.vim'
-  Bundle 'scrooloose/nerdtree'
-  Bundle 'tpope/vim-rails'
-  Bundle 'tpope/vim-dispatch'
-  Bundle 'tpope/vim-surround'
-  Bundle 'tpope/vim-endwise'
-  Bundle 'tpope/vim-commentary'
-  Bundle 'gavinbeatty/dragvisuals.vim'
-  Bundle 'kremso/vim-spectator'
-  Bundle 'tpope/vim-fugitive'
-  Bundle 'tpope/vim-ragtag'
-  Bundle 'kchmck/vim-coffee-script'
-  Bundle 'vim-ruby/vim-ruby'
-  Bundle 'groenewege/vim-less'
-  Bundle 'stephpy/vim-yaml'
-  Bundle 'saltstack/salt-vim'
-  Bundle 'editorconfig/editorconfig-vim'
-  Bundle 'Shougo/vimproc.vim'
-  Bundle 'Shougo/neomru.vim'
-  Bundle 'Shougo/unite.vim'
-  Bundle 'Shougo/unite-outline'
-  Bundle 'Shougo/vimfiler.vim'
-  Bundle 'morhetz/gruvbox'
-
-  " Trial
-  Bundle 'rking/ag.vim'
-
-  " Try it
-  " Bundle 'itchyny/lightline.vim'
-  " Bundle 'itchyny/lightline-powerful'
-  " Bundle 'itchyny/thumbnail.vim'
-  " Bundle 'gregsexton/gitv'
-  " Bundle 'justinmk/vim-sneak'
-  " Bundle 'jayflo/vim-skip'
-
-  runtime plugin/rspec
-  runtime macros/matchit.vim
 " }}}
 " Basics {{{
     set nocompatible
@@ -81,20 +40,6 @@
     set winminheight=5
     set winheight=999
 
-    colorscheme tir_black
-    set background=dark
-    set t_Co=256
-    if &term =~ '256color'
-      " Disable Background Color Erase (BCE) so that color schemes
-      " work properly when Vim is used inside tmux and GNU screen.
-      " See also http://snk.tuxfamily.org/log/vim-256color-bce.html
-      set t_ut=
-    endif
-    set incsearch " incremental search aka search as you type
-    set hlsearch " highlight search matches
-    set ignorecase " ignore case
-    set smartcase " but when the query starts with upper character be case sensitive
-    set laststatus=2 " always show the status line
     set lazyredraw " do not redraw while running macros
     set linespace=0 " don't insert any extra pixel lines between rows
     set list " show traling listchars
@@ -105,8 +50,6 @@
     set report=0 " tell us when anything is changed
     set ruler " Always show current positions along the bottom
     set shortmess=atToOI " shortens messages to avoid 'press a key' prompt
-    set showcmd " show the command being typed
-    set showmode " show current mode
     set showmatch " show matching brackets
     set scrolloff=5 " Keep 10 lines (top/bottom) for scope
     set sidescrolloff=10 " Keep 5 lines at the size
@@ -123,6 +66,17 @@
     set tabstop=4 " real tabs should be 4, and they will show with set list on
     set autoindent
     match ErrorMsg '^\(<\|=\|>\)\{7\}\([^=].\+\)\?$' " Highlight VCS conflict markers"
+" }}}
+" Searching {{{
+    set incsearch " incremental search aka search as you type
+    set hlsearch " highlight search matches
+    set ignorecase " ignore case
+    set smartcase " but when the query starts with upper character be case sensitive
+" }}}
+" Statusline {{{
+    set laststatus=2 " always show the status line
+    set showmode " show current mode
+    set showcmd " show the command being typed
 " }}}
 " Folding {{{
     set foldenable " Turn on folding
@@ -149,12 +103,13 @@
     set foldtext=MyFoldText()
 " }}}
 " Completions {{{
-    set completeopt=longest,menu,preview
-    "                   |      |    |
-    "                   |      |    +-- show extra information
-    "                   |      |
-    "                   |      +-- do not display 1 line menu
-    "                   +-- display completion popup menu
+Bundle 'Valloric/YouCompleteMe'
+set completeopt=longest,menu,preview
+"                   |      |    |
+"                   |      |    +-- show extra information
+"                   |      |
+"                   |      +-- do not display 1 line menu
+"                   +-- display completion popup menu
 " }}}
 " Mappings {{{
     " I hit F1 too often when reaching for esc
@@ -265,28 +220,38 @@
   " Switch between the last two files
   nnoremap <leader><leader> <c-^>
 " }}}
-" Language specific {{{
-  " CSS, SCSS {{{
-    augroup FTCss
-      au!
-      au BufRead,BufNewFile *.scss.erb set ft=scss
-      autocmd FileType css,scss  silent! setlocal omnifunc=csscomplete#CompleteCSS
-      autocmd FileType css,scss  setlocal iskeyword+=-
-      autocmd FileType scss,sass  syntax cluster sassCssAttributes add=@cssColors
-      " Use <leader>S to sort properties.
-      au FileType css,scss nnoremap <buffer> <leader>S ?{<CR>jV/\v^\s*\}?$<CR>k:sort<CR>:noh<CR>
-      " Make {<cr> insert a pair of brackets in such a way that the cursor is
-      " correctly positioned inside of them AND the following code doesn't get unfolded.
-      au FileType css,scss inoremap <buffer> {<cr> {<cr>}<esc>O
-    augroup END
-  " }}}
-  " Git {{{
-    augroup FTGit
-      au!
-      autocmd FileType gitcommit setlocal spell
-    augroup END
-  " }}}
-  " Rails {{{
+" Editorconfig support {{{
+  Bundle 'editorconfig/editorconfig-vim'
+" }}}
+" CSS, SCSS {{{
+  augroup FTCss
+    au!
+    au BufRead,BufNewFile *.scss.erb set ft=scss
+    autocmd FileType css,scss  silent! setlocal omnifunc=csscomplete#CompleteCSS
+    autocmd FileType css,scss  setlocal iskeyword+=-
+    autocmd FileType scss,sass  syntax cluster sassCssAttributes add=@cssColors
+    " Use <leader>S to sort properties.
+    au FileType css,scss nnoremap <buffer> <leader>S ?{<CR>jV/\v^\s*\}?$<CR>k:sort<CR>:noh<CR>
+    " Make {<cr> insert a pair of brackets in such a way that the cursor is
+    " correctly positioned inside of them AND the following code doesn't get unfolded.
+    au FileType css,scss inoremap <buffer> {<cr> {<cr>}<esc>O
+  augroup END
+" }}}
+" Git {{{
+  Bundle 'tpope/vim-fugitive'
+  augroup FTGit
+    au!
+    autocmd FileType gitcommit setlocal spell
+  augroup END
+" }}}
+" Ruby {{{
+  Bundle 'vim-ruby/vim-ruby'
+  Bundle 'tpope/vim-endwise'
+" }}}
+" Rails {{{
+  Bundle 'tpope/vim-rails'
+  Bundle 'kchmck/vim-coffee-script'
+  Bundle 'groenewege/vim-less'
   map <leader>gr :topleft :split config/routes.rb<cr>
   map <leader>gg :topleft 100 :split Gemfile<cr>
 
@@ -306,153 +271,175 @@
     :normal! dd
   endfunction
   map <leader>gR :silent call ShowRoutes()<cr>
-  " }}}
 " }}}
-" Environment specific {{{
-    " Resize splits when the window is resized {{{
-    augroup FTResizeSplits
-      autocmd!
-      au VimResized * exe "normal! \<c-w>="
-    augroup END
-    " }}}
-    " Special settings for quickfix {{{
-    augroup FTQuickfix
-      autocmd!
-      autocmd Filetype qf setlocal colorcolumn=0 nolist nocursorline wrap linebreak
-    augroup END
-    " }}}
-    " Handle swap files {{{
-    augroup FTSimultaneousEdits
-      autocmd!
-      autocmd SwapExists * call HandleSwapFile(expand('<afile>:p'))
-    augroup END
-
-    " Print a message after the autocommand completes
-    " (so you can see it, but don't have to hit <ENTER> to continue)...
-    function! DelayedMsg(msg)
-        " A sneaky way of injecting a message when swapping into the new buffer...
-        augroup DelayedMsg
-          autocmd!
-          " Print the message on finally entering the buffer...
-          autocmd BufWinEnter *  echohl WarningMsg
-          exec 'autocmd BufWinEnter *  echon "\r'.printf("%-60s", a:msg).'"'
-          autocmd BufWinEnter *  echohl NONE
-
-          " And then remove these autocmds, so it's a "one-shot" deal...
-          autocmd BufWinEnter *  augroup AutoSwap_Mac_Msg
-          autocmd BufWinEnter *  autocmd!
-          autocmd BufWinEnter *  augroup END
-        augroup END
-    endfunction
-
-    function! HandleSwapFile(filename)
-      " if swapfile is older than file itself, just get rid of it
-      if getftime(v:swapname) < getftime(a:filename)
-        call DelayedMsg("Old swapfile detected...and deleted")
-        call delete(v:swapname)
-        let v:swapchoice = 'e'
-      " otherwise, open file read-only
-      else
-        call DelayedMsg("Swapfile detected...opening read-only")
-        let v:swapchoice = 'o'
-      endif
-    endfunction
-    " }}}
-    " Create interim directories if necessary {{{
-    augroup FTAutoMkdir
-      autocmd!
-      autocmd  BufNewFile  *  :call EnsureDirExists()
-    augroup END
-
-    function! AskQuit (msg, options, quit_option)
-      if confirm(a:msg, a:options) == a:quit_option
-        exit
-      endif
-    endfunction
-
-    function! EnsureDirExists ()
-      let required_dir = expand("%:h")
-      if !isdirectory(required_dir)
-        call AskQuit("Parent directory '" . required_dir . "' doesn't exist.",
-              \       "&Create it\nor &Quit?", 2)
-
-        try
-          call mkdir( required_dir, 'p' )
-        catch
-          call AskQuit("Can't create '" . required_dir . "'",
-                \            "&Quit\nor &Continue anyway?", 1)
-        endtry
-      endif
-    endfunction
-    " }}}
+" Salt {{{
+  Bundle 'stephpy/vim-yaml'
+  Bundle 'saltstack/salt-vim'
 " }}}
-" Plugin specific {{{
-    " supertab {{{
-      let g:SuperTabDefaultCompletionType = 'context'
-      let g:SuperTabContextDefaultCompletionType = '<c-n>'
-    " }}}
-    " syntastic {{{
-    let g:syntastic_auto_loc_list=1
-    let g:syntastic_enable_signs=1
-    let g:synastic_quiet_warnings=1
-    " }}}
-    " NERDTree {{{
-      nnoremap <silent> <F12> :NERDTreeToggle <CR> " F12 toggles file explorer
-      let g:NERDTreeMinimalUI=1
-      let g:NERDTreeDirArrows=1
-      let g:NERTreeHighlightCursorLine=1
-    "}}}
-    " Ctrl-P {{{
-    map <leader>f :CtrlP<cr>
-    map <leader>b :CtrlPMRU<cr>
-    map <leader>gv :CtrlP app/views<cr>
-    map <leader>gc :CtrlP app/controllers<cr>
-    map <leader>gm :CtrlP app/models<cr>
-    " }}}
-    " drag visuals {{{
-      vmap  <expr>  <LEFT>   DVB_Drag('left')
-      vmap  <expr>  <RIGHT>  DVB_Drag('right')
-      vmap  <expr>  <DOWN>   DVB_Drag('down')
-      vmap  <expr>  <UP>     DVB_Drag('up')
-      vmap  <expr>  D        DVB_Duplicate()
-    " }}}
-    " airline {{{
-    let g:airline_powerline_fonts = 1
-    " }}}
-    " rspec {{{
-      map <leader>t :RspecRunFile<cr>
-      map <leader>T :RspecRunFocused<cr>
-    " }}}
-    " UltiSnips {{{
-    let g:UltiSnipsExpandTrigger="<c-j>"
-    let g:UltiSnipsJumpForwardTrigger  = "<c-j>"
-    let g:UltiSnipsJumpBackwardTrigger = "<c-k>"
-    " }}}
-    " Unite {{{
-    function! s:unite_settings()
-      nmap <buffer> <esc> <plug>(unite_exit)
-      imap <buffer> <esc> <plug>(unite_exit)
-      imap <buffer>  <Tab>     <Plug>(unite_complete)
-    endfunction
-    autocmd FileType unite call s:unite_settings()
-    call unite#filters#matcher_default#use(['matcher_fuzzy'])
-    call unite#filters#sorter_default#use(['sorter_rank'])
+" More precise motion {{{
+Bundle 'justinmk/vim-sneak'
+" 
+" }}}
+" Find matching pair characters {{{
+  runtime macros/matchit.vim
+" }}}
+" Resize splits when the window is resized {{{
+  augroup FTResizeSplits
+    autocmd!
+    au VimResized * exe "normal! \<c-w>="
+  augroup END
+" }}}
+" Special settings for quickfix {{{
+augroup FTQuickfix
+  autocmd!
+  autocmd Filetype qf setlocal colorcolumn=0 nolist nocursorline wrap linebreak
+augroup END
+" }}}
+" Handle swap files {{{
+  augroup FTSimultaneousEdits
+    autocmd!
+    autocmd SwapExists * call HandleSwapFile(expand('<afile>:p'))
+  augroup END
 
-    let default_context = {
-      \ 'vertical' : 0,
-      \ 'short_source_names' : 1,
-      \ }
-    let default_context.prompt = '» '
-    call unite#custom#profile('default', 'context', default_context)
+  " Print a message after the autocommand completes
+  " (so you can see it, but don't have to hit <ENTER> to continue)...
+  function! DelayedMsg(msg)
+      " A sneaky way of injecting a message when swapping into the new buffer...
+      augroup DelayedMsg
+        autocmd!
+        " Print the message on finally entering the buffer...
+        autocmd BufWinEnter *  echohl WarningMsg
+        exec 'autocmd BufWinEnter *  echon "\r'.printf("%-60s", a:msg).'"'
+        autocmd BufWinEnter *  echohl NONE
 
-    map <leader>uf :Unite -no-split -auto-preview -start-insert file_rec/async<cr>
-    map <leader>ub :Unite -no-split -auto-preview -start-insert file_mru<cr>
-    map <leader>g :Unite -no-split -auto-preview -start-insert grep:.<cr>
-    map <leader>o :Unite -no-split -auto-preview outline<cr>
-    " }}}
-    " Vimfiler {{{
-      nnoremap <silent> <leader>x :VimFilerExplorer<CR>
-    " }}}
+        " And then remove these autocmds, so it's a "one-shot" deal...
+        autocmd BufWinEnter *  augroup AutoSwap_Mac_Msg
+        autocmd BufWinEnter *  autocmd!
+        autocmd BufWinEnter *  augroup END
+      augroup END
+  endfunction
+
+  function! HandleSwapFile(filename)
+    " if swapfile is older than file itself, just get rid of it
+    if getftime(v:swapname) < getftime(a:filename)
+      call DelayedMsg("Old swapfile detected...and deleted")
+      call delete(v:swapname)
+      let v:swapchoice = 'e'
+    " otherwise, open file read-only
+    else
+      call DelayedMsg("Swapfile detected...opening read-only")
+      let v:swapchoice = 'o'
+    endif
+  endfunction
+" }}}
+" Create interim directories if necessary {{{
+  augroup FTAutoMkdir
+    autocmd!
+    autocmd  BufNewFile  *  :call EnsureDirExists()
+  augroup END
+
+  function! AskQuit (msg, options, quit_option)
+    if confirm(a:msg, a:options) == a:quit_option
+      exit
+    endif
+  endfunction
+
+  function! EnsureDirExists ()
+    let required_dir = expand("%:h")
+    if !isdirectory(required_dir)
+      call AskQuit("Parent directory '" . required_dir . "' doesn't exist.",
+            \       "&Create it\nor &Quit?", 2)
+
+      try
+        call mkdir( required_dir, 'p' )
+      catch
+        call AskQuit("Can't create '" . required_dir . "'",
+              \            "&Quit\nor &Continue anyway?", 1)
+      endtry
+    endif
+  endfunction
+" }}}
+" File explorer {{{
+    Bundle 'scrooloose/nerdtree'
+
+    nnoremap <silent> <F12> :NERDTreeToggle <CR> " F12 toggles file explorer
+    let g:NERDTreeMinimalUI=1
+    let g:NERDTreeDirArrows=1
+    let g:NERTreeHighlightCursorLine=1
+"}}}
+" Fuzzy finder {{{
+  Bundle 'ctrlpvim/ctrlp.vim'
+
+  map <leader>f :CtrlP<cr>
+  map <leader>b :CtrlPMRU<cr>
+  map <leader>gv :CtrlP app/views<cr>
+  map <leader>gc :CtrlP app/controllers<cr>
+  map <leader>gm :CtrlP app/models<cr>
+  let g:ctrlp_user_command = {
+    \ 'types': {
+      \ 1: ['.git', 'cd %s && git ls-files --cached --exclude-standard --others'],
+      \ 2: ['.hg', 'hg --cwd %s locate -I .'],
+      \ },
+    \ 'fallback': 'find %s -type f'
+    \ }
+" }}}
+" drag visuals {{{
+  Bundle 'gavinbeatty/dragvisuals.vim'
+  vmap  <expr>  <LEFT>   DVB_Drag('left')
+  vmap  <expr>  <RIGHT>  DVB_Drag('right')
+  vmap  <expr>  <DOWN>   DVB_Drag('down')
+  vmap  <expr>  <UP>     DVB_Drag('up')
+  vmap  <expr>  D        DVB_Duplicate()
+" }}}
+" rspec {{{
+  runtime plugin/rspec
+  Bundle 'kremso/vim-spectator'
+
+  map <leader>t :RspecRunFile<cr>
+  map <leader>T :RspecRunFocused<cr>
+" }}}
+" Snippets {{{
+  Bundle 'SirVer/ultisnips'
+
+  let g:UltiSnipsExpandTrigger="<c-j>"
+  let g:UltiSnipsJumpForwardTrigger  = "<c-j>"
+  let g:UltiSnipsJumpBackwardTrigger = "<c-k>"
+" }}}
+" Unite {{{
+  Bundle 'Shougo/unite.vim'
+  Bundle 'Shougo/unite-outline'
+  Bundle 'Shougo/neomru.vim'
+  Bundle 'Shougo/vimproc.vim'
+
+  function! s:unite_settings()
+    nmap <buffer> <esc> <plug>(unite_exit)
+    imap <buffer> <esc> <plug>(unite_exit)
+    imap <buffer>  <Tab>     <Plug>(unite_complete)
+  endfunction
+  autocmd FileType unite call s:unite_settings()
+  call unite#filters#matcher_default#use(['matcher_fuzzy'])
+  call unite#filters#sorter_default#use(['sorter_rank'])
+
+  let default_context = {
+    \ 'vertical' : 0,
+    \ 'short_source_names' : 1,
+    \ }
+  let default_context.prompt = '» '
+  call unite#custom#profile('default', 'context', default_context)
+
+  map <leader>uf :Unite -no-split -auto-preview -start-insert file_rec/async<cr>
+  map <leader>ub :Unite -no-split -auto-preview -start-insert file_mru<cr>
+  map <leader>g :Unite -no-split -auto-preview -start-insert grep:.<cr>
+  map <leader>o :Unite -no-split -auto-preview outline<cr>
+" }}}
+" Manipulate pair characters {{{
+  Bundle 'tpope/vim-surround'
+" }}}
+" Autoclose HTML elements {{{
+  Bundle 'tpope/vim-ragtag'
+" }}}
+" Comment/uncomment {{{
+  Bundle 'tpope/vim-commentary'
 " }}}
 " Tmux {{{
 " for tmux to automatically set paste and nopaste mode at the time pasting (as
@@ -479,4 +466,34 @@ function! XTermPasteBegin()
 endfunction
 
 inoremap <special> <expr> <Esc>[200~ XTermPasteBegin()
+" }}}
+" Colors {{{
+Bundle 'morhetz/gruvbox'
+Bundle 'wesQ3/wombat.vim'
+Bundle 'altercation/vim-colors-solarized'
+
+" enable truecolor (requires patched vim)
+let &t_8f="\e[38;2;%ld;%ld;%ldm"
+let &t_8b="\e[48;2;%ld;%ld;%ldm"
+set guicolors
+
+augroup Colors
+  au!
+  " Always match terminal background
+  au ColorScheme * hi Normal guibg=#002b36
+  au ColorScheme * hi NonText guibg=#002b36
+  " Never underline cursorline
+  au ColorScheme * hi CursorLine cterm=NONE ctermbg=darkred ctermfg=white
+augroup END
+
+set background=dark
+set t_Co=256
+if &term =~ '256color'
+  " Disable Background Color Erase (BCE) so that color schemes
+  " work properly when Vim is used inside tmux and GNU screen.
+  " See also http://snk.tuxfamily.org/log/vim-256color-bce.html
+  set t_ut=
+endif
+
+colorscheme tir_black
 " }}}
