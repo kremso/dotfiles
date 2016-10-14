@@ -1,4 +1,5 @@
-set -gx PATH "$HOME/.builds/bin" $PATH
+set -gx PATH $PATH "$HOME/.builds/bin"
+set -gx PATH $PATH "$HOME/.local/bin"
 
 set -g -x fish_term24bit 1
 
