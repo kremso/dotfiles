@@ -104,6 +104,7 @@ hi link rubyInstanceVariable Identifier
 hi link rubyGlobalVariable Identifier
 hi link rubyClassVariable Identifier
 hi link rubyConstant Type 
+hi rubyTodo guifg=#f6f3e8 guibg=#002b36 gui=bold cterm=bold
 
 " Special for Java
 hi link javaScopeDecl Identifier 
@@ -124,6 +125,8 @@ hi link xmlEndTag Identifier
 hi link htmlTag Keyword 
 hi link htmlTagName Conditional 
 hi link htmlEndTag Identifier 
+hi htmlBold guifg=#f6f3e8 guibg=#002b36 gui=bold cterm=bold
+hi htmlItalic guifg=#f6f3e8 guibg=#002b36 gui=bold cterm=italic
 
 " Special for Javascript
 hi link javaScriptNumber Number 
