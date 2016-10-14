@@ -247,6 +247,21 @@ set completeopt=longest,menu,preview
 " Ruby {{{
   Bundle 'vim-ruby/vim-ruby'
   Bundle 'tpope/vim-endwise'
+  " include gems in path (for navigation etc.)
+  Bundle 'tpope/vim-bundler'
+
+  autocmd FileType ruby nmap <leader>g :grep -ir <c-r><c-w> app<cr>
+
+  Bundle 't9md/vim-ruby-xmpfilter'
+
+  let g:xmpfilter_cmd = "seeing_is_believing"
+  nmap <buffer> <C-c> <Plug>(seeing_is_believing-run)
+  xmap <buffer> <C-c> <Plug>(seeing_is_believing-run)
+  imap <buffer> <C-c> <Plug>(seeing_is_believing-run)
+
+  nmap <buffer> <C-x> <Plug>(seeing_is_believing-clean)
+  xmap <buffer> <C-x> <Plug>(seeing_is_believing-clean)
+  imap <buffer> <C-x> <Plug>(seeing_is_believing-clean)
 " }}}
 " Rails {{{
   Bundle 'tpope/vim-rails'
@@ -276,8 +291,14 @@ set completeopt=longest,menu,preview
   Bundle 'stephpy/vim-yaml'
   Bundle 'saltstack/salt-vim'
 " }}}
+" Vagrant {{{
+au BufRead,BufNewFile Vagrantfile set filetype=ruby
+" }}}
 " More precise motion {{{
 Bundle 'justinmk/vim-sneak'
+let g:sneak#streak = 1
+
+Bundle 'unblevable/quick-scope'
 " 
 " }}}
 " Find matching pair characters {{{
@@ -384,85 +405,86 @@ augroup END
     \ }
 " }}}
 " drag visuals {{{
-  Bundle 'gavinbeatty/dragvisuals.vim'
-  vmap  <expr>  <LEFT>   DVB_Drag('left')
-  vmap  <expr>  <RIGHT>  DVB_Drag('right')
-  vmap  <expr>  <DOWN>   DVB_Drag('down')
-  vmap  <expr>  <UP>     DVB_Drag('up')
-  vmap  <expr>  D        DVB_Duplicate()
+Bundle 'gavinbeatty/dragvisuals.vim'
+vmap  <expr>  <LEFT>   DVB_Drag('left')
+vmap  <expr>  <RIGHT>  DVB_Drag('right')
+vmap  <expr>  <DOWN>   DVB_Drag('down')
+vmap  <expr>  <UP>     DVB_Drag('up')
+vmap  <expr>  D        DVB_Duplicate()
 " }}}
 " rspec {{{
-  runtime plugin/rspec
-  Bundle 'kremso/vim-spectator'
+runtime plugin/rspec
+Bundle 'kremso/vim-spectator'
 
-  map <leader>t :RspecRunFile<cr>
-  map <leader>T :RspecRunFocused<cr>
+map <leader>t :RspecRunFile<cr>
+map <leader>T :RspecRunFocused<cr>
 " }}}
 " Snippets {{{
-  Bundle 'SirVer/ultisnips'
+Bundle 'SirVer/ultisnips'
 
-  let g:UltiSnipsExpandTrigger="<c-j>"
-  let g:UltiSnipsJumpForwardTrigger  = "<c-j>"
-  let g:UltiSnipsJumpBackwardTrigger = "<c-k>"
+let g:UltiSnipsExpandTrigger="<c-j>"
+let g:UltiSnipsJumpForwardTrigger  = "<c-j>"
+let g:UltiSnipsJumpBackwardTrigger = "<c-k>"
 " }}}
 " Unite {{{
-  Bundle 'Shougo/unite.vim'
-  Bundle 'Shougo/unite-outline'
-  Bundle 'Shougo/neomru.vim'
-  Bundle 'Shougo/vimproc.vim'
+Bundle 'Shougo/unite.vim'
+Bundle 'Shougo/unite-outline'
+Bundle 'Shougo/neomru.vim'
+Bundle 'Shougo/vimproc.vim'
 
-  function! s:unite_settings()
-    nmap <buffer> <esc> <plug>(unite_exit)
-    imap <buffer> <esc> <plug>(unite_exit)
-    imap <buffer>  <Tab>     <Plug>(unite_complete)
-  endfunction
-  autocmd FileType unite call s:unite_settings()
-  call unite#filters#matcher_default#use(['matcher_fuzzy'])
-  call unite#filters#sorter_default#use(['sorter_rank'])
+function! s:unite_settings()
+  nmap <buffer> <esc> <plug>(unite_exit)
+  imap <buffer> <esc> <plug>(unite_exit)
+  imap <buffer>  <Tab>     <Plug>(unite_complete)
+endfunction
+autocmd FileType unite call s:unite_settings()
+call unite#filters#matcher_default#use(['matcher_fuzzy'])
+call unite#filters#sorter_default#use(['sorter_rank'])
 
-  let default_context = {
-    \ 'vertical' : 0,
-    \ 'short_source_names' : 1,
-    \ }
-  let default_context.prompt = '» '
-  call unite#custom#profile('default', 'context', default_context)
+let default_context = {
+  \ 'vertical' : 0,
+  \ 'short_source_names' : 1,
+  \ }
+let default_context.prompt = '» '
+call unite#custom#profile('default', 'context', default_context)
 
-  map <leader>uf :Unite -no-split -auto-preview -start-insert file_rec/async<cr>
-  map <leader>ub :Unite -no-split -auto-preview -start-insert file_mru<cr>
-  map <leader>g :Unite -no-split -auto-preview -start-insert grep:.<cr>
-  map <leader>o :Unite -no-split -auto-preview outline<cr>
+map <leader>uf :Unite -no-split -auto-preview -start-insert file_rec/async<cr>
+map <leader>ub :Unite -no-split -auto-preview -start-insert file_mru<cr>
+map <leader>g :Unite -no-split -auto-preview -start-insert grep:.<cr>
+map <leader>o :Unite -no-split -auto-preview outline<cr>
 " }}}
 " Manipulate pair characters {{{
-  Bundle 'tpope/vim-surround'
+Bundle 'tpope/vim-surround'
 " }}}
 " Autoclose HTML elements {{{
-  Bundle 'tpope/vim-ragtag'
+Bundle 'tpope/vim-ragtag'
+Bundle 'mattn/emmet-vim'
 " }}}
 " Comment/uncomment {{{
-  Bundle 'tpope/vim-commentary'
+Bundle 'tpope/vim-commentary'
 " }}}
 " Tmux {{{
 " for tmux to automatically set paste and nopaste mode at the time pasting (as
 " happens in VIM UI)
 
 function! WrapForTmux(s)
-  if !exists('$TMUX')
-    return a:s
-  endif
+if !exists('$TMUX')
+  return a:s
+endif
 
-  let tmux_start = "\<Esc>Ptmux;"
-  let tmux_end = "\<Esc>\\"
+let tmux_start = "\<Esc>Ptmux;"
+let tmux_end = "\<Esc>\\"
 
-  return tmux_start . substitute(a:s, "\<Esc>", "\<Esc>\<Esc>", 'g') . tmux_end
+return tmux_start . substitute(a:s, "\<Esc>", "\<Esc>\<Esc>", 'g') . tmux_end
 endfunction
 
 let &t_SI .= WrapForTmux("\<Esc>[?2004h")
 let &t_EI .= WrapForTmux("\<Esc>[?2004l")
 
 function! XTermPasteBegin()
-  set pastetoggle=<Esc>[201~
-  set paste
-  return ""
+set pastetoggle=<Esc>[201~
+set paste
+return ""
 endfunction
 
 inoremap <special> <expr> <Esc>[200~ XTermPasteBegin()
@@ -478,22 +500,53 @@ let &t_8b="\e[48;2;%ld;%ld;%ldm"
 set guicolors
 
 augroup Colors
-  au!
-  " Always match terminal background
-  au ColorScheme * hi Normal guibg=#002b36
-  au ColorScheme * hi NonText guibg=#002b36
-  " Never underline cursorline
-  au ColorScheme * hi CursorLine cterm=NONE ctermbg=darkred ctermfg=white
+au!
+" Always match terminal background
+au ColorScheme * hi Normal guibg=#002b36
+au ColorScheme * hi NonText guibg=#002b36
+" Never underline cursorline
+au ColorScheme * hi CursorLine cterm=NONE ctermbg=darkred ctermfg=white
 augroup END
 
 set background=dark
 set t_Co=256
 if &term =~ '256color'
-  " Disable Background Color Erase (BCE) so that color schemes
-  " work properly when Vim is used inside tmux and GNU screen.
-  " See also http://snk.tuxfamily.org/log/vim-256color-bce.html
-  set t_ut=
+" Disable Background Color Erase (BCE) so that color schemes
+" work properly when Vim is used inside tmux and GNU screen.
+" See also http://snk.tuxfamily.org/log/vim-256color-bce.html
+set t_ut=
 endif
 
 colorscheme tir_black
 " }}}
+" Grepping files {{{
+nmap [q :cprevious<cr>
+nmap ]q :cnext<cr>
+" }}}
+" Change cursor shape {{{
+" this will workg with gnome-terminal > 3.16
+
+function! InsertEnter()
+  if v:insertmode == "i"
+    silent execute "!echo -en \"\x1b[5 q\""
+  else
+    " "r" or "v"
+    silent execute "!echo -en \"\x1b[3 q\""
+  endif
+endfunction
+
+autocmd VimEnter * silent execute "!echo -en \"\x1b[1 q\""
+autocmd InsertEnter * call InsertEnter()
+autocmd InsertLeave * silent execute "!echo -en \"\x1b[1 q\""
+autocmd VimLeave * silent execute "!echo -en \"\x1b[0 q\""
+" }}}
+" Focus reporting {{{
+Bundle 'tmux-plugins/vim-tmux-focus-events'
+" }}}
+" Autosave on FocusLost {{{
+autocmd FocusLost * silent! wa
+" }}}
+
+map <F10> :echo "hi<" . synIDattr(synID(line("."),col("."),1),"name") . '> trans<'
+\ . synIDattr(synID(line("."),col("."),0),"name") . "> lo<"
+\ . synIDattr(synIDtrans(synID(line("."),col("."),1)),"name") . ">"<CR>
