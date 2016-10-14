@@ -1,3 +1,4 @@
+require 'rspec/legacy_formatters'
 require 'rspec/core/formatters/base_text_formatter'
 
 module RSpec
