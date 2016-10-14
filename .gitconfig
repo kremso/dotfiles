@@ -1,5 +1,5 @@
 [user]
-  name = Tomas Kramar
+  name = Tomáš Kramár
   email = kramar.tomas@gmail.com
 [color]
   diff = auto
@@ -54,6 +54,6 @@
   ds = diff --stat=160,120
   dh1 = diff HEAD~1
 [push]
-	default = simple
+	default = current
 [github]
 	user = kremso
