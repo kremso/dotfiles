@@ -6,11 +6,12 @@ set -g -x fish_term24bit 1
 set BROWSER open
 
 set -g -x fish_greeting ''
-set -g -x EDITOR vim
+set -g -x EDITOR nvim
 
 alias gst="git status"
 alias gc="git commit -v"
 alias gp="git push"
+alias vim="nvim"
 
 set -gx PATH "$HOME/.rbenv/bin" $PATH
 . (rbenv init -|psub)
