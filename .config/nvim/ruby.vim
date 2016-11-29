@@ -5,6 +5,14 @@ call dein#add('tpope/vim-bundler')
 
 autocmd FileType ruby nmap <leader>g :grep -ir <c-r><c-w> app<cr>
 
+call dein#add('tpope/vim-dispatch')
+call dein#add('thoughtbot/vim-rspec')
+map <Leader>t :call RunCurrentSpecFile()<CR>
+map <Leader>s :call RunNearestSpec()<CR>
+map <Leader>l :call RunLastSpec()<CR>
+map <Leader>a :call RunAllSpecs()<CR>
+let g:rspec_command = "Dispatch rspec {spec}"
+
 call dein#add('t9md/vim-ruby-xmpfilter')
 
 let g:xmpfilter_cmd = "seeing_is_believing"
