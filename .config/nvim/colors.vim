@@ -8,6 +8,7 @@ au!
 " Always match terminal background
 au ColorScheme * hi Normal guibg=#002b36
 au ColorScheme * hi NonText guibg=#002b36
+au ColorScheme * hi MatchParen guifg=#FD971F guibg=#000000 gui=underline
 " Never underline cursorline
 au ColorScheme * hi CursorLine cterm=NONE ctermbg=darkred ctermfg=white
 augroup END
