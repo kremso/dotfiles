@@ -48,7 +48,13 @@ end
 
 # Show prompt w/ privilege cue
 function show_prompt -d "Shows prompt with cue for current priv"
+  set -l jobs (jobs | wc -l | tr -d '[:space:]')
   set -l uid (id -u $USER)
+
+  if [ $jobs -gt 0 ]
+    prompt_segment normal blue '⚙'
+  end
+
   if [ $uid -eq 0 ]
     prompt_segment red white " ! "
     set_color normal
