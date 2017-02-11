@@ -57,3 +57,5 @@
 	default = current
 [github]
 	user = kremso
+[commit]
+	gpgsign = true
