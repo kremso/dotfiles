@@ -22,3 +22,5 @@ return ""
 endfunction
 
 inoremap <special> <expr> <Esc>[200~ XTermPasteBegin()
+
+call dein#add('christoomey/vim-tmux-navigator')

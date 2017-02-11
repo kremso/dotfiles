@@ -32,8 +32,7 @@ syntax enable
     set exrc " read local .vimrc files
     set secure " do not allow autocmds and shell commands from local .vimrcs
     set backspace=indent,eol,start " make backspace a more flexible
-    set backup " make backup files
-    set backupdir=~/.config/nvim/temp/backup " where to put backup files
+    set nobackup " don't make backup files
     set directory=~/.config/nvim/temp/swap " directory to place swap files in
     set undodir=~/.config/nvim/temp/undo " directory to place undo files in
     set clipboard=unnamedplus " share clipboard with X
@@ -259,6 +258,18 @@ call dein#add('mattn/emmet-vim')
 call dein#add('tpope/vim-commentary')
 " }}}
 
+call dein#add('mhinz/vim-startify')
+call dein#add('Shougo/vimproc.vim', {'build' : 'make'})
+call dein#add('bogado/file-line')
+call dein#add('itchyny/vim-cursorword')
+call dein#add('rafi/vim-tinyline')
+call dein#add('Shougo/deoplete.nvim')
+let g:deoplete#enable_at_startup = 1
+" Let <Tab> also do completion
+inoremap <silent><expr> <Tab>
+\ pumvisible() ? "\<C-n>" :
+\ deoplete#mappings#manual_complete()
+
 source ~/.config/nvim/colors.vim
 source ~/.config/nvim/autosave.vim
 source ~/.config/nvim/colors.vim
@@ -266,7 +277,6 @@ source ~/.config/nvim/css.vim
 source ~/.config/nvim/directories.vim
 source ~/.config/nvim/drag_visuals.vim
 source ~/.config/nvim/file_explorer.vim
-source ~/.config/nvim/fuzzy_finder.vim
 source ~/.config/nvim/git.vim
 source ~/.config/nvim/quickfix.vim
 source ~/.config/nvim/rails.vim
@@ -274,6 +284,8 @@ source ~/.config/nvim/ruby.vim
 source ~/.config/nvim/swapfiles.vim
 source ~/.config/nvim/tmux.vim
 source ~/.config/nvim/vagrant.vim
+source ~/.config/nvim/terraform.vim
+source ~/.config/nvim/unite.vim
 
 " Required:
 call dein#end()
