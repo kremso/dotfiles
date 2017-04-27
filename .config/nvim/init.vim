@@ -264,11 +264,16 @@ call dein#add('bogado/file-line')
 call dein#add('itchyny/vim-cursorword')
 call dein#add('rafi/vim-tinyline')
 call dein#add('Shougo/deoplete.nvim')
+
+call dein#add('kern/vim-es7')
+
 let g:deoplete#enable_at_startup = 1
 " Let <Tab> also do completion
 inoremap <silent><expr> <Tab>
 \ pumvisible() ? "\<C-n>" :
 \ deoplete#mappings#manual_complete()
+
+call dein#add('neomake/neomake') " syntax checker
 
 source ~/.config/nvim/colors.vim
 source ~/.config/nvim/autosave.vim
@@ -294,3 +299,24 @@ call dein#end()
 if dein#check_install()
   call dein#install()
 endif
+
+" Escape/unescape & < > HTML entities in range (default current line).
+function! HtmlEntities(line1, line2, action)
+  let search = @/
+  let range = 'silent ' . a:line1 . ',' . a:line2
+  if a:action == 0  " must convert &amp; last
+    execute range . 'sno/&lt;/</e'
+    execute range . 'sno/&gt;/>/e'
+    execute range . 'sno/&amp;/&/e'
+  else              " must convert & first
+    execute range . 'sno/&/&amp;/e'
+    execute range . 'sno/</&lt;/e'
+    execute range . 'sno/>/&gt;/e'
+    execute range . 'sno/”/"/e'
+  endif
+  nohl
+  let @/ = search
+endfunction
+command! -range -nargs=1 Entities call HtmlEntities(<line1>, <line2>, <args>)
+noremap <silent> \h :Entities 0<CR>
+noremap <silent> \H :Entities 1<CR>
