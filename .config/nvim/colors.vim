@@ -11,6 +11,8 @@ au ColorScheme * hi NonText guibg=#002b36
 au ColorScheme * hi MatchParen guifg=#FD971F guibg=#000000 gui=underline
 " Never underline cursorline
 au ColorScheme * hi CursorLine cterm=NONE ctermbg=darkred ctermfg=white
+au ColorScheme * hi Search guifg=NONE guibg=NONE gui=underline
+au ColorScheme * hi IncSearch guifg=NONE guibg=NONE gui=underline
 augroup END
 
 if &term =~ '256color'
