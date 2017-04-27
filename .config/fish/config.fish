@@ -8,6 +8,7 @@ set -g -x GOPATH "$HOME/Projects/go"
 
 set -U fish_user_paths $HOME/Projects/go/bin/ $fish_user_paths
 
+alias g=git
 alias gst="git status"
 alias gc="git commit -S -v"
 alias gp="git push"
