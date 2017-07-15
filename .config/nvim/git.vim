@@ -1,5 +1,3 @@
-call dein#add('tpope/vim-fugitive')
-call dein#add('airblade/vim-gitgutter')
 
 set updatetime=250
 

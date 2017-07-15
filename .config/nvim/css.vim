@@ -10,5 +10,4 @@ augroup FTCss
   " correctly positioned inside of them AND the following code doesn't get unfolded.
   au FileType css,scss inoremap <buffer> {<cr> {<cr>}<esc>O
 
-  call dein#add('wavded/vim-stylus.git')
 augroup END

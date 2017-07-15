@@ -1,7 +1,3 @@
-call dein#add('tpope/vim-rails')
-call dein#add('kchmck/vim-coffee-script')
-call dein#add('groenewege/vim-less')
-
 map <leader>gr :topleft :split config/routes.rb<cr>
 map <leader>gg :topleft 100 :split Gemfile<cr>
 

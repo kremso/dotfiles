@@ -4,25 +4,73 @@ if &compatible
 endif
 
 " Required:
-set runtimepath+=/home/tomas/.config/nvim/repos/github.com/Shougo/dein.vim
+set runtimepath+=/home/tomas/.local/share/dein/repos/github.com/Shougo/dein.vim
 
 " Required:
-call dein#begin('/home/tomas/.config/nvim/')
+if dein#load_state('/home/tomas/.local/share/dein')
+  call dein#begin('/home/tomas/.local/share/dein')
 
-" Let dein manage dein
-" Required:
-call dein#add('Shougo/dein.vim')
+  call dein#add('mhinz/vim-startify')
+  call dein#add('Shougo/vimproc.vim', {'build' : 'make'})
+  call dein#add('bogado/file-line')
+  call dein#add('itchyny/vim-cursorword')
+  "call dein#add('vim-airline/vim-airline')
+  call dein#add('Shougo/deoplete.nvim')
 
-" Add or remove your plugins here:
-" call dein#add('Shougo/neosnippet.vim')
-" call dein#add('Shougo/neosnippet-snippets')
+  call dein#add('kern/vim-es7')
+  call dein#add('othree/html5.vim')
+  call dein#add('hail2u/vim-css3-syntax')
+
+  call dein#add('tpope/vim-surround')
+  call dein#add('tpope/vim-ragtag')
+  call dein#add('mattn/emmet-vim')
+  call dein#add('tpope/vim-commentary')
+  call dein#add('tmux-plugins/vim-tmux-focus-events')
+  call dein#add('mbbill/undotree')
+
+  call dein#add('tomasr/molokai')
+  call dein#add('goatslacker/mango.vim')
+  call dein#add('trevordmiller/nova-vim')
+
+  call dein#add('wavded/vim-stylus.git')
+  call dein#add('gavinbeatty/dragvisuals.vim')
+  call dein#add('tpope/vim-fugitive')
+  call dein#add('airblade/vim-gitgutter')
+  call dein#add('tpope/vim-rails')
+  call dein#add('kchmck/vim-coffee-script')
+  call dein#add('groenewege/vim-less')
+  call dein#add('vim-ruby/vim-ruby')
+  call dein#add('tpope/vim-endwise')
+  " include gems in path (for navigation etc.)
+  call dein#add('tpope/vim-bundler')
+  call dein#add('tpope/vim-dispatch')
+  call dein#add('thoughtbot/vim-rspec')
+  call dein#add('t9md/vim-ruby-xmpfilter')
+  call dein#add('hashivim/vim-terraform')
+  call dein#add('christoomey/vim-tmux-navigator')
+  call dein#add('nixprime/cpsm')
+  call dein#add('Shougo/denite.nvim')
+  call dein#add('Shougo/neomru.vim')
+  call dein#add('tpope/vim-vinegar')
+
+  call dein#add('shime/vim-livedown')
+
+  " Required:
+  call dein#end()
+  call dein#save_state()
+endif
 
 " Required:
 filetype plugin indent on
 syntax enable
 
-"End dein Scripts-------------------------
+" If you want to install not installed plugins on startup.
+if dein#check_install()
+  call dein#install()
+endif
 
+"End dein Scripts-------------------------
+"
 " Basics {{{
     set nocompatible
     set shell=/bin/bash\ --login
@@ -248,24 +296,12 @@ f(yi(
   augroup END
 " }}}
 " Manipulate pair characters {{{
-call dein#add('tpope/vim-surround')
 " }}}
 " Autoclose HTML elements {{{
-call dein#add('tpope/vim-ragtag')
-call dein#add('mattn/emmet-vim')
 " }}}
 " Comment/uncomment {{{
-call dein#add('tpope/vim-commentary')
 " }}}
 
-call dein#add('mhinz/vim-startify')
-call dein#add('Shougo/vimproc.vim', {'build' : 'make'})
-call dein#add('bogado/file-line')
-call dein#add('itchyny/vim-cursorword')
-call dein#add('rafi/vim-tinyline')
-call dein#add('Shougo/deoplete.nvim')
-
-call dein#add('kern/vim-es7')
 
 let g:deoplete#enable_at_startup = 1
 " Let <Tab> also do completion
@@ -273,7 +309,6 @@ inoremap <silent><expr> <Tab>
 \ pumvisible() ? "\<C-n>" :
 \ deoplete#mappings#manual_complete()
 
-call dein#add('neomake/neomake') " syntax checker
 
 source ~/.config/nvim/colors.vim
 source ~/.config/nvim/autosave.vim
@@ -291,14 +326,6 @@ source ~/.config/nvim/tmux.vim
 source ~/.config/nvim/vagrant.vim
 source ~/.config/nvim/terraform.vim
 source ~/.config/nvim/unite.vim
-
-" Required:
-call dein#end()
-
-" If you want to install not installed plugins on startup.
-if dein#check_install()
-  call dein#install()
-endif
 
 " Escape/unescape & < > HTML entities in range (default current line).
 function! HtmlEntities(line1, line2, action)
@@ -320,3 +347,10 @@ endfunction
 command! -range -nargs=1 Entities call HtmlEntities(<line1>, <line2>, <args>)
 noremap <silent> \h :Entities 0<CR>
 noremap <silent> \H :Entities 1<CR>
+
+function! SynGroup()
+  let l:s = synID(line('.'), col('.'), 1)
+  echo synIDattr(l:s, 'name') . ' -> ' . synIDattr(synIDtrans(l:s), 'name')
+endfun
+
+noremap <F12> :call SynGroup()<cr>
