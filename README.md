@@ -1,3 +1,8 @@
+Monospace Font: Fira Mono
+GTK Theme: Adapta http://www.omgubuntu.co.uk/2016/10/install-adapta-gtk-theme-on-ubuntu
+Other: Client-side decorations http://www.omgubuntu.co.uk/2017/02/how-to-enable-nautilus-csd-header-bar-ubuntu
+
+
 ````
 apt install git
 git clone $this ~/.dotfiles
