@@ -4,9 +4,6 @@ set BROWSER open
 
 set -g -x fish_greeting ''
 set -g -x EDITOR nvim
-set -g -x GOPATH "$HOME/Projects/go"
-
-set -U fish_user_paths $HOME/Projects/go/bin/ $fish_user_paths
 
 alias g=git
 alias gst="git status"
@@ -15,9 +12,20 @@ alias gp="git push"
 alias vim="nvim"
 alias mux="tmuxinator"
 
+if test -d "$HOME/Projects/go"
+  set -g -x GOPATH "$HOME/Projects/go"
+  set -U fish_user_paths $HOME/Projects/go/bin/ $fish_user_paths
+end
+
 if test -d "$HOME/.rbenv"
   set -gx PATH "$HOME/.rbenv/bin" $PATH
   . (rbenv init -|psub)
+end
+
+if test -d "/usr/local/share/chruby"
+  source /usr/local/share/chruby/chruby.fish
+  source /usr/local/share/chruby/auto.fish
+  chruby 2.3.1
 end
 
 set -gx Z_SCRIPT_PATH ~/.config/fish/tools/z.sh
