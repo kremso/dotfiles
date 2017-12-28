@@ -1,7 +1,16 @@
-Monospace Font: Fira Mono
-GTK Theme: Adapta http://www.omgubuntu.co.uk/2016/10/install-adapta-gtk-theme-on-ubuntu
-Other: Client-side decorations http://www.omgubuntu.co.uk/2017/02/how-to-enable-nautilus-csd-header-bar-ubuntu
+OS: Ubuntu 17.10<br>
+Monospace Font: [Fira Mono](https://github.com/mozilla/Fira)<br>
+GTK Theme: [Adapta](http://www.omgubuntu.co.uk/2016/10/install-adapta-gtk-theme-on-ubuntu)<br>
+Shell: fish<br>
+Browser: Firefox<br>
+Email: Mailspring<br>
+Editor: nvim<br>
+Other tools: tmux, Slack, Postman<b>
 
+
+- Firefox >57 supports U2F, go to `about:config` and set `security.webauth.u2f=true`
+- Get rid of window titles - install [Pixel Saver](https://extensions.gnome.org/extension/723/pixel-saver/)
+- Install `gnome-tweak-tool`, Typing > Caps Lock as Ctrl
 
 ````
 apt install git
@@ -9,13 +18,6 @@ git clone $this ~/.dotfiles
 cd .dotfiles
 ./setup.sh
 ````
-
-sanity
-````
-apt install gnome-tweak-tool
-````
-Typing > Caps Lock as Ctrl
-Download "Fira Mono" -> set as default monospace font
 
 vim
 
