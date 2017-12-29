@@ -10,7 +10,7 @@ Other tools: tmux, Slack, Postman<br>
 
 - Firefox >57 supports U2F, go to `about:config` and set `security.webauth.u2f=true`
 - Get rid of window titles - install [No Title Bar](https://extensions.gnome.org/extension/1267/no-title-bar/)
-- Caps Lock as Ctrl - `dconf write /org/gnome/desktop/input-sources/xkb-options "['ctrl:swapcaps']"`
+- Caps Lock as Ctrl - `dconf write /org/gnome/desktop/input-sources/xkb-options "['ctrl:nocaps']"`
 
 ````
 apt install git
