@@ -37,3 +37,45 @@ chsh -s $(which fish)
 Terminal > Profile > Command: `tmux new-session -A -s main`
 Terminal > Profile > Color scheme: Solarized Dark
 
+yubikey
+
+    sudo apt install -y gnupg2 gnupg-agent pinentry-curses scdaemon pcscd yubikey-personalization libusb-1.0-0-dev
+
+```
+$ cat << EOF > ~/.gnupg/gpg.conf
+auto-key-locate keyserver
+keyserver hkps://hkps.pool.sks-keyservers.net
+keyserver-options no-honor-keyserver-url
+keyserver-options ca-cert-file=/etc/sks-keyservers.netCA.pem
+keyserver-options no-honor-keyserver-url
+keyserver-options debug
+keyserver-options verbose
+personal-cipher-preferences AES256 AES192 AES CAST5
+personal-digest-preferences SHA512 SHA384 SHA256 SHA224
+default-preference-list SHA512 SHA384 SHA256 SHA224 AES256 AES192 AES CAST5 ZLIB BZIP2 ZIP Uncompressed
+cert-digest-algo SHA512
+s2k-cipher-algo AES256
+s2k-digest-algo SHA512
+charset utf-8
+fixed-list-mode
+no-comments
+no-emit-version
+keyid-format 0xlong
+list-options show-uid-validity
+verify-options show-uid-validity
+with-fingerprint
+use-agent
+require-cross-certification
+EOF
+```
+
+```
+$ cat << EOF > ~/.gnupg/gpg-agent.conf
+enable-ssh-support
+pinentry-program /usr/bin/pinentry-curses
+default-cache-ttl 60
+max-cache-ttl 120
+write-env-file
+use-standard-socket
+EOF
+```
