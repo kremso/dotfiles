@@ -1,6 +1,7 @@
 [user]
   name = Tomáš Kramár
   email = kramar.tomas@gmail.com
+  signingkey = BED99816BC066E8A
 [color]
   diff = auto
   ui = auto
