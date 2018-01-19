@@ -12,6 +12,13 @@ alias gp="git push"
 alias vim="nvim"
 alias mux="tmuxinator"
 
+# Point the SSH_AUTH_SOCK to the one handled by gpg-agent
+if test -e (gpgconf --list-dirs agent-ssh-socket)
+  set -g -x SSH_AUTH_SOCK (gpgconf --list-dirs agent-ssh-socket)
+else
+  echo (gpgconf --list-dirs agent-ssh-socket) "doesn't exist. Is gpg-agent running?"
+end
+
 if test -d "$HOME/Projects/go"
   set -g -x GOPATH "$HOME/Projects/go"
   set -U fish_user_paths $HOME/Projects/go/bin/ $fish_user_paths
