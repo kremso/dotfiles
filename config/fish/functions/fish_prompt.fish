@@ -16,6 +16,11 @@ function prompt_segment -d "Function to show a segment"
   end
 end
 
+function show_time -d "Function to show prompt time"
+  prompt_segment normal 777 '⏲ '
+  prompt_segment normal 777 (date +%H:%m)
+end
+
 ## Function to show current status
 function show_status -d "Function to show the current status"
   if [ -n "$SSH_CLIENT" ]
@@ -72,6 +77,7 @@ end
 ## SHOW PROMPT
 function fish_prompt
   set -g RETVAL $status
+  show_time
   show_status
   show_pwd
   show_prompt
