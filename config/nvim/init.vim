@@ -16,6 +16,7 @@ if dein#load_state('/home/tomas/.local/share/dein')
   call dein#add('itchyny/vim-cursorword')
   "call dein#add('vim-airline/vim-airline')
   call dein#add('Shougo/deoplete.nvim')
+  call dein#add('janko-m/vim-test')
 
   call dein#add('kern/vim-es7')
   call dein#add('hail2u/vim-css3-syntax')
@@ -60,6 +61,7 @@ if dein#load_state('/home/tomas/.local/share/dein')
   call dein#add('tpope/vim-vinegar')
 
   call dein#add('shime/vim-livedown')
+  call dein#add('w0rp/ale')
 
   " Required:
   call dein#end()
