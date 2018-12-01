@@ -12,16 +12,24 @@ alias gp="git push"
 alias vim="nvim"
 alias mux="tmuxinator"
 
+if not pgrep -f gpg-agent > /dev/null
+  command gpg-agent --daemon
+end
+
 # Point the SSH_AUTH_SOCK to the one handled by gpg-agent
 if test -e (gpgconf --list-dirs agent-ssh-socket)
+  set -g -x GPG_TTY (tty)
   set -g -x SSH_AUTH_SOCK (gpgconf --list-dirs agent-ssh-socket)
+  echo "UPDATESTARTUPTTY" | gpg-connect-agent > /dev/null 2>&1
 else
   echo (gpgconf --list-dirs agent-ssh-socket) "doesn't exist. Is gpg-agent running?"
 end
 
 if test -d "$HOME/Projects/go"
   set -g -x GOPATH "$HOME/Projects/go"
-  set -U fish_user_paths $HOME/Projects/go/bin/ $fish_user_paths
+  if not contains $HOME/Projects/go/bin/ $fish_user_paths
+    set -U fish_user_paths $HOME/Projects/go/bin/ $fish_user_paths
+  end
 end
 
 if test -d "$HOME/.rbenv"
