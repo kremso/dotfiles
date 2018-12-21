@@ -52,14 +52,15 @@ if dein#load_state('/home/tomas/.local/share/dein')
   call dein#add('t9md/vim-ruby-xmpfilter')
   call dein#add('hashivim/vim-terraform')
   call dein#add('christoomey/vim-tmux-navigator')
-  call dein#add('nixprime/cpsm')
   call dein#add('Shougo/denite.nvim')
   set rtp+=~/.fzf
   call dein#add('junegunn/fzf')
   call dein#add('junegunn/fzf.vim')
   call dein#add('Shougo/neomru.vim')
-  call dein#add('tpope/vim-vinegar')
+  "call dein#add('tpope/vim-vinegar')
+  call dein#add('justinmk/vim-dirvish')
 
+  call dein#add('majutsushi/tagbar')
   call dein#add('shime/vim-livedown')
   call dein#add('w0rp/ale')
 
