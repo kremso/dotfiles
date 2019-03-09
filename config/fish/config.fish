@@ -12,9 +12,7 @@ alias gp="git push"
 alias vim="nvim"
 alias mux="tmuxinator"
 
-if not pgrep -f gpg-agent > /dev/null
-  command gpg-agent --daemon
-end
+set -gx FZF_DEFAULT_COMMAND 'rg --files'
 
 # Point the SSH_AUTH_SOCK to the one handled by gpg-agent
 if test -e (gpgconf --list-dirs agent-ssh-socket)
