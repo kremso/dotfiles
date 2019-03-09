@@ -34,6 +34,7 @@ if dein#load_state('/home/tomas/.local/share/dein')
   call dein#add('goatslacker/mango.vim')
   call dein#add('trevordmiller/nova-vim')
 
+  call dein#add('tpope/vim-projectionist')
   call dein#add('wavded/vim-stylus.git')
   call dein#add('gavinbeatty/dragvisuals.vim')
   call dein#add('tpope/vim-fugitive')
@@ -333,8 +334,7 @@ source ~/.config/nvim/ruby.vim
 source ~/.config/nvim/swapfiles.vim
 source ~/.config/nvim/tmux.vim
 source ~/.config/nvim/vagrant.vim
-source ~/.config/nvim/terraform.vim
-source ~/.config/nvim/unite.vim
+source ~/.config/nvim/fzf.vim
 
 " Escape/unescape & < > HTML entities in range (default current line).
 function! HtmlEntities(line1, line2, action)

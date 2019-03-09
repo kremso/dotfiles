@@ -1,4 +1,3 @@
-
 set updatetime=250
 
 augroup FTGit
