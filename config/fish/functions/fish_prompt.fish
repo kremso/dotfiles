@@ -17,7 +17,7 @@ function prompt_segment -d "Function to show a segment"
 end
 
 function show_time -d "Function to show prompt time"
-  prompt_segment normal 777 '⏲  '
+  prompt_segment normal 777 '◷ '
   prompt_segment normal 777 (date +%H:%M)
 end
 
