@@ -16,9 +16,7 @@ set -gx FZF_DEFAULT_COMMAND 'rg --files'
 
 # Point the SSH_AUTH_SOCK to the one handled by gpg-agent
 if test -e (gpgconf --list-dirs agent-ssh-socket)
-  set -g -x GPG_TTY (tty)
   set -g -x SSH_AUTH_SOCK (gpgconf --list-dirs agent-ssh-socket)
-  echo "UPDATESTARTUPTTY" | gpg-connect-agent > /dev/null 2>&1
 else
   echo (gpgconf --list-dirs agent-ssh-socket) "doesn't exist. Is gpg-agent running?"
 end
