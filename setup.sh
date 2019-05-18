@@ -54,7 +54,7 @@ echo "=== Mapping caps-lock to control"
 dconf write /org/gnome/desktop/input-sources/xkb-options "['ctrl:nocaps']"
 
 echo "=== Installing tools"
-sudo apt install git neovim curl fzf ripgrep fish tmux autocutsel
+sudo apt install git neovim curl fzf ripgrep fish tmux autocutsel universal-ctags
 
 echo "=== Changing default shell to fish"
 chsh -s $(which fish)
