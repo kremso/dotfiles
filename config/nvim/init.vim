@@ -19,14 +19,14 @@ if dein#load_state('/home/tomas/.local/share/dein')
   call dein#add('zxqfl/tabnine-vim')
   call dein#add('janko-m/vim-test')
 
-  call dein#add('kern/vim-es7')
-  call dein#add('hail2u/vim-css3-syntax')
+  "call dein#add('kern/vim-es7')
+  "call dein#add('hail2u/vim-css3-syntax')
   call dein#add('sheerun/vim-polyglot')
-  call dein#add('hashivim/vim-terraform')
-  call dein#add('wavded/vim-stylus.git')
-  call dein#add('kchmck/vim-coffee-script')
-  call dein#add('groenewege/vim-less')
-  call dein#add('vim-ruby/vim-ruby')
+  "call dein#add('hashivim/vim-terraform')
+  "call dein#add('wavded/vim-stylus.git')
+  "call dein#add('kchmck/vim-coffee-script')
+  "call dein#add('groenewege/vim-less')
+  "call dein#add('vim-ruby/vim-ruby')
 
   call dein#add('tpope/vim-repeat')
   call dein#add('tpope/vim-surround')
@@ -38,7 +38,7 @@ if dein#load_state('/home/tomas/.local/share/dein')
 
   call dein#add('tomasr/molokai')
   call dein#add('goatslacker/mango.vim')
-  call dein#add('trevordmiller/nova-vim')
+  "call dein#add('trevordmiller/nova-vim')
 
   "call dein#add('tpope/vim-projectionist')
   "call dein#add('gavinbeatty/dragvisuals.vim')
@@ -50,21 +50,21 @@ if dein#load_state('/home/tomas/.local/share/dein')
   " include gems in path (for navigation etc.)
   call dein#add('tpope/vim-eunuch')
   call dein#add('tpope/vim-bundler')
-  call dein#add('tpope/vim-dispatch')
-  call dein#add('thoughtbot/vim-rspec')
+  "call dein#add('tpope/vim-dispatch')
+  "call dein#add('thoughtbot/vim-rspec')
   "call dein#add('t9md/vim-ruby-xmpfilter')
   "call dein#add('christoomey/vim-tmux-navigator')
   "call dein#add('Shougo/denite.nvim')
   set rtp+=~/.fzf
   call dein#add('junegunn/fzf')
   call dein#add('junegunn/fzf.vim')
-  call dein#add('Shougo/neomru.vim')
+  " call dein#add('Shougo/neomru.vim')
   "call dein#add('tpope/vim-vinegar')
   call dein#add('justinmk/vim-dirvish')
 
   "call dein#add('majutsushi/tagbar')
   "call dein#add('shime/vim-livedown')
-  "call dein#add('w0rp/ale')
+  call dein#add('w0rp/ale')
 
   " Required:
   call dein#end()
@@ -305,12 +305,6 @@ f(yi(
     autocmd!
     au VimResized * exe "normal! \<c-w>="
   augroup END
-" }}}
-" Manipulate pair characters {{{
-" }}}
-" Autoclose HTML elements {{{
-" }}}
-" Comment/uncomment {{{
 " }}}
 
 
