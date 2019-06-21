@@ -5,6 +5,12 @@ set BROWSER open
 set -g -x fish_greeting ''
 set -g -x EDITOR nvim
 
+# Run this:
+# $ secret-tool --label "Sentry API key" sentry auth-token
+# And paste sentry auth token into the prompt. It will be securely stored inside
+# gnome-keyring, which unlocks on user login
+set -g -x SENTRY_AUTH_TOKEN (secret-tool lookup sentry auth-token)
+
 alias g=git
 alias gst="git status"
 alias gc="git commit -S -v"
