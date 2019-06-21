@@ -11,49 +11,50 @@ if dein#load_state('/home/tomas/.local/share/dein')
   call dein#begin('/home/tomas/.local/share/dein')
 
   call dein#add('mhinz/vim-startify')
-  call dein#add('Shougo/vimproc.vim', {'build' : 'make'})
-  call dein#add('bogado/file-line')
-  call dein#add('itchyny/vim-cursorword')
+  "call dein#add('Shougo/vimproc.vim', {'build' : 'make'})
+  "call dein#add('bogado/file-line')
+  "call dein#add('itchyny/vim-cursorword')
   "call dein#add('vim-airline/vim-airline')
-  call dein#add('Shougo/deoplete.nvim')
+  " call dein#add('Shougo/deoplete.nvim')
+  call dein#add('zxqfl/tabnine-vim')
   call dein#add('janko-m/vim-test')
 
   call dein#add('kern/vim-es7')
   call dein#add('hail2u/vim-css3-syntax')
   call dein#add('sheerun/vim-polyglot')
+  call dein#add('hashivim/vim-terraform')
+  call dein#add('wavded/vim-stylus.git')
+  call dein#add('kchmck/vim-coffee-script')
+  call dein#add('groenewege/vim-less')
+  call dein#add('vim-ruby/vim-ruby')
 
   call dein#add('tpope/vim-repeat')
   call dein#add('tpope/vim-surround')
   call dein#add('tpope/vim-ragtag')
-  call dein#add('mattn/emmet-vim')
+  "call dein#add('mattn/emmet-vim')
   call dein#add('tpope/vim-commentary')
-  call dein#add('tmux-plugins/vim-tmux-focus-events')
-  call dein#add('mbbill/undotree')
+  "call dein#add('tmux-plugins/vim-tmux-focus-events')
+  "call dein#add('mbbill/undotree')
 
   call dein#add('tomasr/molokai')
   call dein#add('goatslacker/mango.vim')
   call dein#add('trevordmiller/nova-vim')
 
-  call dein#add('tpope/vim-projectionist')
-  call dein#add('wavded/vim-stylus.git')
-  call dein#add('gavinbeatty/dragvisuals.vim')
+  "call dein#add('tpope/vim-projectionist')
+  "call dein#add('gavinbeatty/dragvisuals.vim')
   call dein#add('tpope/vim-fugitive')
   call dein#add('tpope/vim-rhubarb')
   call dein#add('airblade/vim-gitgutter')
   call dein#add('tpope/vim-rails')
-  call dein#add('kchmck/vim-coffee-script')
-  call dein#add('groenewege/vim-less')
-  call dein#add('vim-ruby/vim-ruby')
   call dein#add('tpope/vim-endwise')
   " include gems in path (for navigation etc.)
   call dein#add('tpope/vim-eunuch')
   call dein#add('tpope/vim-bundler')
   call dein#add('tpope/vim-dispatch')
   call dein#add('thoughtbot/vim-rspec')
-  call dein#add('t9md/vim-ruby-xmpfilter')
-  call dein#add('hashivim/vim-terraform')
-  call dein#add('christoomey/vim-tmux-navigator')
-  call dein#add('Shougo/denite.nvim')
+  "call dein#add('t9md/vim-ruby-xmpfilter')
+  "call dein#add('christoomey/vim-tmux-navigator')
+  "call dein#add('Shougo/denite.nvim')
   set rtp+=~/.fzf
   call dein#add('junegunn/fzf')
   call dein#add('junegunn/fzf.vim')
@@ -61,9 +62,9 @@ if dein#load_state('/home/tomas/.local/share/dein')
   "call dein#add('tpope/vim-vinegar')
   call dein#add('justinmk/vim-dirvish')
 
-  call dein#add('majutsushi/tagbar')
-  call dein#add('shime/vim-livedown')
-  call dein#add('w0rp/ale')
+  "call dein#add('majutsushi/tagbar')
+  "call dein#add('shime/vim-livedown')
+  "call dein#add('w0rp/ale')
 
   " Required:
   call dein#end()
@@ -133,7 +134,7 @@ endif
     set showbreak=↪ " indicate wrapped line
     set expandtab " no real tabs please!
     set wrap "wrap text
-    set textwidth=79 " to 79 characters
+    set textwidth=0 " don't wrap text with newlines
     "set colorcolumn=85 " and warn me if my line gets over 85 characters
     set formatoptions=cqt " see :help fo-table
     set shiftround " round the indent to shiftwidth (when at 3 spaces, and I hit > go to 4, not 5)
@@ -313,11 +314,11 @@ f(yi(
 " }}}
 
 
-let g:deoplete#enable_at_startup = 1
-" Let <Tab> also do completion
-inoremap <silent><expr> <Tab>
-\ pumvisible() ? "\<C-n>" :
-\ deoplete#mappings#manual_complete()
+" let g:deoplete#enable_at_startup = 1
+" " Let <Tab> also do completion
+" inoremap <silent><expr> <Tab>
+" \ pumvisible() ? "\<C-n>" :
+" \ deoplete#mappings#manual_complete()
 
 
 source ~/.config/nvim/colors.vim
