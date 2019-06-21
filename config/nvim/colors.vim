@@ -28,3 +28,4 @@ set t_ut=
 endif
 
 colorscheme molokai
+colorscheme mango
