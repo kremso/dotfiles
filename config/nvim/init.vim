@@ -16,7 +16,8 @@ if dein#load_state('/home/tomas/.local/share/dein')
   "call dein#add('itchyny/vim-cursorword')
   "call dein#add('vim-airline/vim-airline')
   " call dein#add('Shougo/deoplete.nvim')
-  call dein#add('zxqfl/tabnine-vim')
+  "call dein#add('zxqfl/tabnine-vim')
+  call dein#add('neoclide/coc.nvim', {'rev': 'release'})
   call dein#add('janko-m/vim-test')
 
   "call dein#add('kern/vim-es7')
@@ -318,7 +319,6 @@ f(yi(
 
 source ~/.config/nvim/colors.vim
 source ~/.config/nvim/autosave.vim
-source ~/.config/nvim/colors.vim
 source ~/.config/nvim/css.vim
 source ~/.config/nvim/directories.vim
 source ~/.config/nvim/drag_visuals.vim
@@ -331,6 +331,7 @@ source ~/.config/nvim/swapfiles.vim
 source ~/.config/nvim/tmux.vim
 source ~/.config/nvim/vagrant.vim
 source ~/.config/nvim/fzf.vim
+source ~/.config/nvim/completion.vim
 
 " Escape/unescape & < > HTML entities in range (default current line).
 function! HtmlEntities(line1, line2, action)
@@ -359,3 +360,5 @@ function! SynGroup()
 endfun
 
 noremap <F12> :call SynGroup()<cr>
+
+let g:startify_fortune_use_unicode=1
