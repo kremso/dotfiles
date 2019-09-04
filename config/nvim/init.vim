@@ -30,6 +30,7 @@ if dein#load_state('/home/tomas/.local/share/dein')
   "call dein#add('groenewege/vim-less')
   "call dein#add('vim-ruby/vim-ruby')
 
+  call dein#add('tpope/vim-rbenv')
   call dein#add('tpope/vim-repeat')
   call dein#add('tpope/vim-surround')
   call dein#add('tpope/vim-ragtag')
