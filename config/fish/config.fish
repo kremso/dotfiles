@@ -76,7 +76,7 @@ set fish_color_comment 4e4e4e
 set fish_color_cwd green
 set fish_color_cwd_root red
 set fish_color_end 00FF00
-set fish_color_error d75f5f
+set fish_color_error eb7171
 set fish_color_escape cyan
 set fish_color_history_current cyan
 set fish_color_host normal
@@ -84,7 +84,7 @@ set fish_color_match cyan
 set fish_color_normal normal
 set fish_color_operator cyan
 set fish_color_param 00afff
-set fish_color_quote 725000
+set fish_color_quote c6c6c6
 set fish_color_redirection normal
 set fish_color_search_match \x2d\x2dbackground\x3dpurple
 set fish_color_selection \x2d\x2dbackground\x3dpurple
