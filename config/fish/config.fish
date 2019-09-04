@@ -1,3 +1,8 @@
+if status is-interactive
+and not set -q TMUX
+    exec tmux new-session -A -s main
+end
+
 set -g -x fish_term24bit 1
 
 set BROWSER open
