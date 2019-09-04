@@ -9,6 +9,18 @@ set BROWSER open
 
 set -g -x fish_greeting ''
 set -g -x EDITOR nvim
+set -g -x AWS_VAULT_BACKEND secret-service
+
+if not functions -q fisher
+  set -q XDG_CONFIG_HOME; or set XDG_CONFIG_HOME ~/.config
+  curl https://git.io/fisher --create-dirs -sLo $XDG_CONFIG_HOME/fish/functions/fisher.fish
+  fish -c fisher
+end
+
+set SPACEFISH_PROMPT_ORDER time dir exec_time jobs exit_code char
+set SPACEFISH_RPROMPT_ORDER git
+set SPACEFISH_PROMPT_ADD_NEWLINE false
+set SPACEFISH_TIME_SHOW true
 
 # Run this:
 # $ secret-tool --label "Sentry API key" sentry auth-token

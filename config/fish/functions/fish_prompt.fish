@@ -1,84 +1,33 @@
-set -g pad " "
-
-## Function to show a segment
-function prompt_segment -d "Function to show a segment"
-  # Get colors
-  set -l bg $argv[1]
-  set -l fg $argv[2]
-
-  # Set 'em
-  set_color -b $bg
-  set_color $fg
-
-  # Print text
-  if [ -n "$argv[3]" ]
-    echo -n -s $argv[3]
-  end
-end
-
-function show_time -d "Function to show prompt time"
-  prompt_segment normal 777 '◷ '
-  prompt_segment normal 777 (date +%H:%M)
-end
-
-## Function to show current status
-function show_status -d "Function to show the current status"
-  if [ -n "$SSH_CLIENT" ]
-      prompt_segment blue white " SSH: "
-      set pad ""
-    end
-end
-
-## Show user if not default
-function show_user -d "Show user"
-  if [ "$USER" != "$default_user" -o -n "$SSH_CLIENT" ]
-    set -l host (hostname -s)
-    set -l who (whoami)
-    prompt_segment normal yellow " $who"
-
-    # Skip @ bit if hostname == username
-    if [ "$USER" != "$HOST" ]
-      prompt_segment normal white "@"
-      prompt_segment normal green "$host "
-      set pad ""
-    end
-    end
-end
-
-# Show directory
-function show_pwd -d "Show the current directory"
-  set -l pwd (prompt_pwd)
-  prompt_segment normal CFF09E "$pad$pwd "
-end
-
-# Show prompt w/ privilege cue
-function show_prompt -d "Shows prompt with cue for current priv"
-  set -l jobs (jobs | wc -l | tr -d '[:space:]')
-  set -l uid (id -u $USER)
-
-  if [ $jobs -gt 0 ]
-    prompt_segment normal blue '⚙'
-  end
-
-  if [ $uid -eq 0 ]
-    prompt_segment red white " ! "
-    set_color normal
-    echo -n -s " "
-  else
-    if [ $RETVAL -ne 0 ]
-      prompt_segment normal CC333F " \$ "
-    else
-      prompt_segment normal white " \$ "
-    end
-  end
-  set_color normal
-end
-
-## SHOW PROMPT
 function fish_prompt
-  set -g RETVAL $status
-  show_time
-  show_status
-  show_pwd
-  show_prompt
+	# Store the exit code of the last command
+	set -g sf_exit_code $status
+	set -g SPACEFISH_VERSION 2.6.1
+
+	# ------------------------------------------------------------------------------
+	# Configuration
+	# ------------------------------------------------------------------------------
+
+	__sf_util_set_default SPACEFISH_PROMPT_ADD_NEWLINE true
+	__sf_util_set_default SPACEFISH_PROMPT_FIRST_PREFIX_SHOW false
+	__sf_util_set_default SPACEFISH_PROMPT_PREFIXES_SHOW true
+	__sf_util_set_default SPACEFISH_PROMPT_SUFFIXES_SHOW true
+	__sf_util_set_default SPACEFISH_PROMPT_DEFAULT_PREFIX "via "
+	__sf_util_set_default SPACEFISH_PROMPT_DEFAULT_SUFFIX " "
+	__sf_util_set_default SPACEFISH_PROMPT_ORDER time user dir host git package node ruby golang php rust haskell julia elixir docker aws venv conda pyenv dotnet kubecontext exec_time line_sep battery vi_mode jobs exit_code char
+
+	# ------------------------------------------------------------------------------
+	# Sections
+	# ------------------------------------------------------------------------------
+
+	# Keep track of whether the prompt has already been opened
+	set -g sf_prompt_opened $SPACEFISH_PROMPT_FIRST_PREFIX_SHOW
+
+	if test "$SPACEFISH_PROMPT_ADD_NEWLINE" = "true"
+		echo
+	end
+
+	for i in $SPACEFISH_PROMPT_ORDER
+		eval __sf_section_$i
+	end
+	set_color normal
 end
