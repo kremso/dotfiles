@@ -1,7 +1,7 @@
 [user]
   name = Tomáš Kramár
   email = kramar.tomas@gmail.com
-  signingkey = BED99816BC066E8A
+  signingkey = 2024FD7657EFBC61
 [color]
   diff = auto
   ui = auto
@@ -58,5 +58,5 @@
 	default = current
 [github]
 	user = kremso
-[commit]
-	gpgsign = true
+; [commit]
+; 	gpgsign = true

@@ -1,90 +1,48 @@
-"dein Scripts-----------------------------
 if &compatible
   set nocompatible               " Be iMproved
 endif
 
-" Required:
-set runtimepath+=/home/tomas/.local/share/dein/repos/github.com/Shougo/dein.vim
-
-" Required:
-if dein#load_state('/home/tomas/.local/share/dein')
-  call dein#begin('/home/tomas/.local/share/dein')
-
-  call dein#add('mhinz/vim-startify')
-  "call dein#add('Shougo/vimproc.vim', {'build' : 'make'})
-  "call dein#add('bogado/file-line')
-  "call dein#add('itchyny/vim-cursorword')
-  "call dein#add('vim-airline/vim-airline')
-  " call dein#add('Shougo/deoplete.nvim')
-  "call dein#add('zxqfl/tabnine-vim')
-  call dein#add('neoclide/coc.nvim', {'rev': 'release'})
-  call dein#add('janko-m/vim-test')
-
-  "call dein#add('kern/vim-es7')
-  "call dein#add('hail2u/vim-css3-syntax')
-  call dein#add('sheerun/vim-polyglot')
-  call dein#add('ap/vim-css-color')
-  "call dein#add('hashivim/vim-terraform')
-  "call dein#add('wavded/vim-stylus.git')
-  "call dein#add('kchmck/vim-coffee-script')
-  "call dein#add('groenewege/vim-less')
-  "call dein#add('vim-ruby/vim-ruby')
-
-  call dein#add('tpope/vim-rbenv')
-  call dein#add('tpope/vim-repeat')
-  call dein#add('tpope/vim-surround')
-  call dein#add('tpope/vim-ragtag')
-  "call dein#add('mattn/emmet-vim')
-  call dein#add('tpope/vim-commentary')
-  "call dein#add('tmux-plugins/vim-tmux-focus-events')
-  "call dein#add('mbbill/undotree')
-
-  call dein#add('tomasr/molokai')
-  call dein#add('goatslacker/mango.vim')
-  "call dein#add('trevordmiller/nova-vim')
-
-  "call dein#add('tpope/vim-projectionist')
-  "call dein#add('gavinbeatty/dragvisuals.vim')
-  call dein#add('tpope/vim-fugitive')
-  call dein#add('tpope/vim-rhubarb')
-  call dein#add('airblade/vim-gitgutter')
-  call dein#add('tpope/vim-rails')
-  call dein#add('tpope/vim-endwise')
-  " include gems in path (for navigation etc.)
-  call dein#add('tpope/vim-eunuch')
-  call dein#add('tpope/vim-bundler')
-  "call dein#add('tpope/vim-dispatch')
-  "call dein#add('thoughtbot/vim-rspec')
-  "call dein#add('t9md/vim-ruby-xmpfilter')
-  "call dein#add('christoomey/vim-tmux-navigator')
-  "call dein#add('Shougo/denite.nvim')
-  set rtp+=~/.fzf
-  call dein#add('junegunn/fzf')
-  call dein#add('junegunn/fzf.vim')
-  " call dein#add('Shougo/neomru.vim')
-  "call dein#add('tpope/vim-vinegar')
-  call dein#add('justinmk/vim-dirvish')
-
-  "call dein#add('majutsushi/tagbar')
-  "call dein#add('shime/vim-livedown')
-  call dein#add('w0rp/ale')
-
-  " Required:
-  call dein#end()
-  call dein#save_state()
+" Install VimPlug
+let data_dir = has('nvim') ? stdpath('data') . '/site' : '~/.vim'
+if empty(glob(data_dir . '/autoload/plug.vim'))
+  silent execute '!curl -fLo '.data_dir.'/autoload/plug.vim --create-dirs  https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim'
+  autocmd VimEnter * PlugInstall --sync | source $MYVIMRC
 endif
 
-" Required:
+call plug#begin()
+Plug 'mhinz/vim-startify'
+Plug 'neoclide/coc.nvim', {'branch': 'release'}
+Plug 'janko-m/vim-test'
+
+Plug 'sheerun/vim-polyglot'
+Plug 'ap/vim-css-color'
+Plug 'tpope/vim-rbenv'
+Plug 'tpope/vim-repeat'
+Plug 'tpope/vim-surround'
+Plug 'tpope/vim-ragtag'
+Plug 'tpope/vim-commentary'
+Plug 'tomasr/molokai'
+Plug 'goatslacker/mango.vim'
+Plug 'tpope/vim-fugitive'
+Plug 'tpope/vim-rhubarb'
+Plug 'airblade/vim-gitgutter'
+Plug 'tpope/vim-rails'
+Plug 'tpope/vim-endwise'
+Plug 'tpope/vim-eunuch'
+Plug 'tpope/vim-bundler'
+
+Plug 'junegunn/fzf'
+Plug 'junegunn/fzf.vim'
+Plug 'justinmk/vim-dirvish'
+Plug 'w0rp/ale'
+
+Plug 'iamcco/markdown-preview.nvim', { 'do': 'cd app && yarn install' }
+call plug#end()
+
+
 filetype plugin indent on
 syntax enable
 
-" If you want to install not installed plugins on startup.
-if dein#check_install()
-  call dein#install()
-endif
-
-"End dein Scripts-------------------------
-"
 " Basics {{{
     set nocompatible
     set shell=/bin/bash\ --login
