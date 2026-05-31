@@ -10,6 +10,12 @@
 [init]
 	defaultBranch = main
 
+# Always use SSH for GitHub (rewrites https URLs to ssh on fetch/push).
+# Lets the fresh-machine bootstrap clone over https, then everything switches
+# to ssh automatically once gitconfig is applied.
+[url "git@github.com:"]
+	insteadOf = https://github.com/
+
 [core]
 	excludesfile = ~/.gitignore_global
 	pager = delta

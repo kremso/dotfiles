@@ -12,7 +12,10 @@ Personal macOS dev environment, managed with [chezmoi](https://www.chezmoi.io/).
 brew install chezmoi
 
 # 3. Initialise from this repo (clones, prompts, applies, runs install scripts)
-chezmoi init --apply --source=$HOME/.dotfiles git@github.com:kremso/dotfiles.git
+#    NOTE: use HTTPS, not SSH. On a fresh Mac, SSH doesn't work yet because
+#    Yubikey/GPG agent isn't configured. After bootstrap, the gitconfig will
+#    rewrite github.com URLs to use SSH automatically.
+chezmoi init --apply --source=$HOME/.dotfiles https://github.com/kremso/dotfiles.git
 ```
 
 That will:
