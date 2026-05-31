@@ -62,4 +62,3 @@ end
 
 # --- Third-party integrations (loaded if present) ---
 test -f ~/.orbstack/shell/init2.fish; and source ~/.orbstack/shell/init2.fish
-test -d ~/.codeium/windsurf/bin; and fish_add_path ~/.codeium/windsurf/bin

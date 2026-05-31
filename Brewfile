@@ -1,6 +1,3 @@
-# Taps
-tap "homebrew/bundle"
-
 # === Core CLI ===
 brew "git"
 brew "gh"                  # GitHub CLI
@@ -33,7 +30,7 @@ brew "uv"                  # fast Python project/dep manager
 brew "gnupg"
 brew "pinentry-mac"
 brew "ykman"               # Yubikey Manager CLI
-cask "yubico-yubikey-manager"
+cask "yubico-authenticator" # replaces discontinued yubico-yubikey-manager
 
 # === Casks ===
 cask "ghostty"
