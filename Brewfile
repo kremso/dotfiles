@@ -14,10 +14,8 @@ brew "atuin"               # shell history with search
 brew "direnv"
 brew "jq"
 brew "yq"
-brew "tree"
 brew "htop"
 brew "wget"
-brew "tldr"
 
 # === Editor ===
 brew "neovim"
@@ -40,6 +38,12 @@ cask "1password-cli"
 cask "orbstack"            # Docker/container runtime, lighter than Docker Desktop
 cask "rectangle"           # window management
 cask "raycast"             # spotlight replacement
+cask "google-chrome"
+cask "slack"
+cask "microsoft-teams"
+cask "claude"              # Claude Desktop
+cask "tableplus"           # database GUI
+cask "tailscale-app"       # mesh VPN (renamed from "tailscale")
 
 # === Fonts ===
 cask "font-fira-code-nerd-font"

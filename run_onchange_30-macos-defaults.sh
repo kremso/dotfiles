@@ -33,7 +33,7 @@ defaults write com.apple.screencapture location -string "$HOME/Screenshots"
 defaults write com.apple.screencapture type -string "png"
 
 # --- Trackpad ---
-defaults write NSGlobalDomain com.apple.trackpad.scaling -float 2.5
+defaults write NSGlobalDomain com.apple.trackpad.scaling -float 1
 defaults write -g com.apple.mouse.tapBehavior -int 1   # tap to click
 
 # Restart affected apps
