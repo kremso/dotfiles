@@ -1,6 +1,6 @@
 # Add your trusted signers here, format:
 #   <email> <ssh pubkey>
 # Example:
-{{- if .signing_pubkey }}
-{{ .email }} {{ .signing_pubkey }}
+{{- if .ssh_signing_pubkey }}
+{{ .email }} {{ .ssh_signing_pubkey }}
 {{- end }}

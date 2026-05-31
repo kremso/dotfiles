@@ -1,8 +1,10 @@
 [user]
 	name = {{ .name }}
 	email = {{ .email }}
-{{- if .signing_pubkey }}
-	signingkey = key::{{ .signing_pubkey }}
+{{- if .ssh_signing_pubkey }}
+	signingkey = key::{{ .ssh_signing_pubkey }}
+{{- else if .gpg_signingkey }}
+	signingkey = {{ .gpg_signingkey }}
 {{- end }}
 
 [init]
@@ -56,13 +58,20 @@
 [help]
 	autocorrect = prompt
 
-{{- if .signing_pubkey }}
+{{- if .ssh_signing_pubkey }}
 
 [gpg]
 	format = ssh
 
 [gpg "ssh"]
 	allowedSignersFile = ~/.config/git/allowed_signers
+
+[commit]
+	gpgsign = true
+
+[tag]
+	gpgsign = true
+{{- else if .gpg_signingkey }}
 
 [commit]
 	gpgsign = true

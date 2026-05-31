@@ -1,13 +1,26 @@
-# Use the macOS keychain for known_hosts/host keys where appropriate,
-# and route signing/auth through gpg-agent (Yubikey) by default.
+# OrbStack integration (only loaded if OrbStack is installed; harmless otherwise)
+Include ~/.orbstack/ssh/config
 
 Host *
     AddKeysToAgent yes
     UseKeychain no
     IdentitiesOnly no
+    ForwardAgent yes
     ServerAliveInterval 60
     ServerAliveCountMax 3
+    Port 22
 
 Host github.com
     HostName github.com
     User git
+
+# --- Luigi's Box ---
+Host b.luigisbox.xyz
+    HostName b.luigisbox.xyz
+    User ubuntu
+    IdentityFile ~/.ssh/aws_shared
+
+Host 10.*
+    ProxyCommand ssh -W %h:%p ubuntu@b.luigisbox.xyz
+    User ubuntu
+    IdentityFile ~/.ssh/aws_shared
