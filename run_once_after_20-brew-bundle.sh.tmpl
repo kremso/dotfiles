@@ -1,0 +1,16 @@
+#!/bin/bash
+set -euo pipefail
+
+echo "==> Running brew bundle"
+eval "$(/opt/homebrew/bin/brew shellenv)"
+brew bundle --file="{{ .chezmoi.sourceDir }}/Brewfile"
+
+# Make fish the default shell if it isn't already
+FISH_PATH="/opt/homebrew/bin/fish"
+if [ "$SHELL" != "$FISH_PATH" ]; then
+  echo "==> Setting fish as default shell"
+  if ! grep -qx "$FISH_PATH" /etc/shells; then
+    echo "$FISH_PATH" | sudo tee -a /etc/shells >/dev/null
+  fi
+  chsh -s "$FISH_PATH"
+fi

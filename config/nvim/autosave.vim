@@ -1,1 +1,0 @@
-autocmd FocusLost * silent! wa

@@ -1,0 +1,95 @@
+[user]
+	name = {{ .name }}
+	email = {{ .email }}
+{{- if .signing_pubkey }}
+	signingkey = key::{{ .signing_pubkey }}
+{{- end }}
+
+[init]
+	defaultBranch = main
+
+[core]
+	excludesfile = ~/.gitignore_global
+	pager = delta
+
+[interactive]
+	diffFilter = delta --color-only
+
+[delta]
+	navigate = true
+	line-numbers = true
+	syntax-theme = Monokai Extended
+
+[merge]
+	conflictstyle = zdiff3
+
+[diff]
+	algorithm = histogram
+	colorMoved = default
+
+[pull]
+	rebase = true
+
+[push]
+	default = current
+	autoSetupRemote = true
+	followTags = true
+
+[fetch]
+	prune = true
+	pruneTags = true
+
+[rebase]
+	autoStash = true
+	autoSquash = true
+	updateRefs = true
+
+[rerere]
+	enabled = true
+
+[branch]
+	sort = -committerdate
+
+[column]
+	ui = auto
+
+[help]
+	autocorrect = prompt
+
+{{- if .signing_pubkey }}
+
+[gpg]
+	format = ssh
+
+[gpg "ssh"]
+	allowedSignersFile = ~/.config/git/allowed_signers
+
+[commit]
+	gpgsign = true
+
+[tag]
+	gpgsign = true
+{{- end }}
+
+[github]
+	user = {{ .github_user }}
+
+[alias]
+	st = status
+	ci = commit
+	co = checkout
+	br = branch
+	di = diff
+	dc = diff --cached
+	amend = commit --amend
+	aa = add --all
+	ff = merge --ff-only
+	noff = merge --no-ff
+	fa = fetch --all
+	l = log --graph --pretty=format:'%C(yellow)%h%Creset %C(cyan)%an%Creset %s %C(green)(%cr)%Creset%C(auto)%d%Creset' --abbrev-commit
+	la = log --graph --all --pretty=format:'%C(yellow)%h%Creset %C(cyan)%an%Creset %s %C(green)(%cr)%Creset%C(auto)%d%Creset' --abbrev-commit
+	head = !git l -1
+	r = !git l -20
+	ra = !git la -20
+	undo = reset --soft HEAD~1
+	wip = !git add -A && git commit -m 'wip'

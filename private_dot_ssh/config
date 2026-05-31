@@ -1,0 +1,13 @@
+# Use the macOS keychain for known_hosts/host keys where appropriate,
+# and route signing/auth through gpg-agent (Yubikey) by default.
+
+Host *
+    AddKeysToAgent yes
+    UseKeychain no
+    IdentitiesOnly no
+    ServerAliveInterval 60
+    ServerAliveCountMax 3
+
+Host github.com
+    HostName github.com
+    User git

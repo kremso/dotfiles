@@ -1,3 +1,0 @@
-#!/bin/sh
-rm -f .git/tags
-rg --files | ctags --tag-relative=never -Rf.git/tags --exclude=.git --languages=-javascript,sql --links=no -L -

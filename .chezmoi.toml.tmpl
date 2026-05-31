@@ -1,0 +1,10 @@
+{{- $name := promptStringOnce . "name" "Full name" "Tomáš Kramár" -}}
+{{- $email := promptStringOnce . "email" "Git email" "kramar.tomas@gmail.com" -}}
+{{- $signingKey := promptStringOnce . "signing_pubkey" "SSH public key for git signing (paste full 'ssh-ed25519 AAAA...' line, or leave blank to fill in later)" "" -}}
+{{- $githubUser := promptStringOnce . "github_user" "GitHub username" "kremso" -}}
+
+[data]
+    name = {{ $name | quote }}
+    email = {{ $email | quote }}
+    signing_pubkey = {{ $signingKey | quote }}
+    github_user = {{ $githubUser | quote }}
