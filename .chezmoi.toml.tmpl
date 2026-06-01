@@ -1,12 +1,11 @@
 {{- $name := promptStringOnce . "name" "Full name" "Tomáš Kramár" -}}
 {{- $email := promptStringOnce . "email" "Git email" "kramar.tomas@gmail.com" -}}
 {{- $githubUser := promptStringOnce . "github_user" "GitHub username" "kremso" -}}
-{{- $gpgSigningKey := promptStringOnce . "gpg_signingkey" "GPG signing key ID (long form, blank to skip)" "" -}}
-{{- $sshSigningPubkey := promptStringOnce . "ssh_signing_pubkey" "SSH public key for git signing (full 'ssh-ed25519 AAAA...' line, blank to skip)" "" -}}
+{{- $gpgSigningKey := promptStringOnce . "gpg_signingkey" "GPG signing key ID (long form, blank to skip)" "2024FD7657EFBC61" -}}
 
 [data]
     name = {{ $name | quote }}
     email = {{ $email | quote }}
     github_user = {{ $githubUser | quote }}
     gpg_signingkey = {{ $gpgSigningKey | quote }}
-    ssh_signing_pubkey = {{ $sshSigningPubkey | quote }}
+    ssh_signing_pubkey = ""
